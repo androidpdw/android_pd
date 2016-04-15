@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="wx_icon" format="reference" />
+    <attr name="wx_color" format="color" />
+    <attr name="text" format="string" />
+    <attr name="text_size" format="dimension" />
+
+    <declare-styleable name="ChangeColorIconView">
+        <attr name="wx_icon" />
+        <attr name="wx_color" />
+        <attr name="text" />
+        <attr name="text_size" />
+    </declare-styleable>
+
+</resources>
