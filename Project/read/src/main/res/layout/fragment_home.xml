@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="cpz.com.read.fragment.HomeFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <cpz.com.read.view.ImageCycleView
+                android:id="@+id/icv_top"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <include
+                layout="@layout/item_home_location"
+                />
+
+            <include
+
+                android:id="@+id/ihiv_first"
+                layout="@layout/item_hom_image"
+                />
+
+            <include
+                android:id="@+id/ihiv_second"
+                layout="@layout/item_hom_image"
+                />
+
+            <include
+                android:id="@+id/ihiv_third"
+                layout="@layout/item_hom_image"
+                />
+
+            <include
+                android:id="@+id/ihiv_four"
+                layout="@layout/item_hom_image"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
