@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/hotel_comment_rect_radius" />
+            <stroke android:width="@dimen/hotel_comment_purpose_label_stroke_width" android:color="@color/orange_theme_color" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/hotel_comment_rect_radius" />
+            <stroke android:width="@dimen/hotel_comment_purpose_label_stroke_width" android:color="@color/grey_e0" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</selector>
