@@ -4,18 +4,39 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
-        android:padding="5dp"
-        android:textColor="#ffff"
-        android:background="@color/colorTitle"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textSize="20sp"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name"
+            android:textColor="#fff"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip">
+
+            <ImageView
+                android:id="@id/iv_user"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/user"/>
+        </LinearLayout>
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_container"
+        android:id="@id/vp_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
@@ -32,7 +53,7 @@
         android:orientation="horizontal">
 
         <cpz.com.read.view.ChangeColorIconWithTextView
-            android:id="@+id/ctv_home"
+            android:id="@id/ctv_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -42,7 +63,7 @@
             cpz:wx_icon="@mipmap/ic_menu_weixin"/>
 
         <cpz.com.read.view.ChangeColorIconWithTextView
-            android:id="@+id/ctv_contact"
+            android:id="@id/ctv_contact"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -52,7 +73,7 @@
             cpz:wx_icon="@mipmap/ic_menu_contact"/>
 
         <cpz.com.read.view.ChangeColorIconWithTextView
-            android:id="@+id/ctv_find"
+            android:id="@id/ctv_find"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -63,7 +84,7 @@
 
 
         <cpz.com.read.view.ChangeColorIconWithTextView
-            android:id="@+id/ctv_me"
+            android:id="@id/ctv_me"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

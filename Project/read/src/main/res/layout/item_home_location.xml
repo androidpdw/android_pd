@@ -46,13 +46,15 @@
         android:background="#dfdfdf"/>
 
     <Button
-       android:layout_marginTop="20dp"
-       android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="#ea5e18"
-        android:text="Button"/>
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Button"
+        android:textColor="#fff"
+        android:textSize="18sp"/>
 
 </LinearLayout>
