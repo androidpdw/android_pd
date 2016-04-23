@@ -1,1 +1,1 @@
-include ':MobileSafe', ':youkumenu', ':read', ':Weather'
+include ':read'

@@ -9,19 +9,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/MobileSafe" />
-            <option value="$PROJECT_DIR$/Weather" />
             <option value="$PROJECT_DIR$/read" />
-            <option value="$PROJECT_DIR$/youkumenu" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/MobileSafe" />
-            <option value="$PROJECT_DIR$/Weather" />
             <option value="$PROJECT_DIR$/read" />
-            <option value="$PROJECT_DIR$/youkumenu" />
           </set>
         </option>
       </GradleProjectSettings>
