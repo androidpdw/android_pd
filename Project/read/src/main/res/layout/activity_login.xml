@@ -139,9 +139,8 @@
             android:layout_marginRight="30.0dip"
             android:layout_marginTop="30.0dip"
             android:background="@drawable/btn_login_selector"
-            android:inputType="textPassword"
-            android:onClick="signUp"
             android:text="注 册"
+            android:onClick="signUp"
             android:textColor="#fff"
             android:textSize="@dimen/textsize_18sp"/>
 

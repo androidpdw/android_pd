@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--主页顶部用户图标-->
+    <item type="id" name="iv_user" />
+    <!--主页Fragment-->
+    <item type="id" name="vp_container" />
+    <!--主页底部按钮1-->
+    <item type="id" name="ctv_home" />
+    <!--主页底部按钮2-->
+    <item type="id" name="ctv_contact" />
+    <!--主页底部按钮3-->
+    <item type="id" name="ctv_find" />
+    <!--主页底部按钮4-->
+    <item type="id" name="ctv_me" />
+    <!--用户名-->
+    <item type="id" name="et_user_name" />
+    <!--密码-->
+    <item type="id" name="et_password" />
+    <!--登录按钮-->
+    <item type="id" name="btn_login" />
+    <item type="id" name="iv_back_top" />
+    <!--性别  -->
+    <item type="id" name="mssb_sex" />
+    <!--生日  -->
+    <item type="id" name="tv_birth_date" />
+    <!--地址  -->
+    <item type="id" name="tv_address" />
+    <!-- 街道/乡镇 -->
+    <item type="id" name="ll_country" />
+    <item type="id" name="tv_country" />
+    <item type="id" name="lv_countries" />
+	
+</resources>
