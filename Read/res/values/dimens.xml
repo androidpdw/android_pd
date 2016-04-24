@@ -67,7 +67,30 @@
     <dimen name="home_row_outside_min_height">60.0dip</dimen>
     <dimen name="home_stayday_count_width">75.0dip</dimen>
     <dimen name="home_swtich_search_category_height">50.0dip</dimen>
+<<<<<<< HEAD
   
+=======
+    <dimen name="hotel_comment_list_item_margin">13.0dip</dimen>
+    <dimen name="hotel_comment_purpose_label_height">43.0dip</dimen>
+    <dimen name="hotel_comment_purpose_label_stroke_width">1.0dip</dimen>
+    <dimen name="hotel_comment_purpose_label_width">85.0dip</dimen>
+    <dimen name="hotel_comment_rating_text_width">60.0dip</dimen>
+    <dimen name="hotel_comment_rect_radius">4.0dip</dimen>
+    <dimen name="hotel_comment_tab_default_padding">8.0dip</dimen>
+    <dimen name="hotel_comment_tab_height">35.0dip</dimen>
+    <dimen name="hotel_detail_paddings">12.0dip</dimen>
+    <dimen name="hotel_list_activity_label_height">20.0dip</dimen>
+    <dimen name="hotel_list_filter_label_height">30.0dip</dimen>
+    <dimen name="hotel_list_filter_label_width">70.0dip</dimen>
+    <dimen name="hotel_list_filter_price_section_label_height">27.0dip</dimen>
+    <dimen name="hotel_list_item_height">108.0dip</dimen>
+    <dimen name="hotel_list_item_recommand_width">30.0dip</dimen>
+    <dimen name="hotel_purpose_default_margin">12.0dip</dimen>
+    <dimen name="hotel_record_item_padding">15.0dip</dimen>
+    <dimen name="hotel_tab_label_padding_left">-2.0dip</dimen>
+    <dimen name="hotel_tab_label_radius">4.0dip</dimen>
+    <dimen name="hotel_tab_label_stroke_width">1.0dip</dimen>
+>>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
     <dimen name="item_privilege_btn_height">28.0dip</dimen>
     <dimen name="item_privilege_btn_width">55.0dip</dimen>
     <dimen name="item_privilege_intro_ETA_height">13.0dip</dimen>
@@ -125,6 +148,7 @@
     <dimen name="textsize_main_15sp">15.0sp</dimen>
     <dimen name="umeng_socialize_pad_window_height">350.0dip</dimen>
     <dimen name="umeng_socialize_pad_window_width">580.0dip</dimen>
+<<<<<<< HEAD
      <dimen name="default_padding_top">8dp</dimen>
   <dimen name="default_padding_bottom">8dp</dimen>
   <dimen name="inner_padding_left">0dp</dimen>
@@ -132,4 +156,6 @@
   <dimen name="floating_label_text_size">12dp</dimen>
   <dimen name="inner_components_spacing">8dp</dimen>
   <dimen name="bottom_ellipsis_height">4dp</dimen>
+=======
+>>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 </resources>

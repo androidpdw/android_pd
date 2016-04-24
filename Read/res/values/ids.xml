@@ -19,6 +19,7 @@
     <!--登录按钮-->
     <item type="id" name="btn_login" />
     <item type="id" name="iv_back_top" />
+<<<<<<< HEAD
     <!--性别  -->
     <item type="id" name="mssb_sex" />
     <!--生日  -->
@@ -30,4 +31,7 @@
     <item type="id" name="tv_country" />
     <item type="id" name="lv_countries" />
 	
+=======
+    <item type="id" name="mssb_sex" />
+>>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 </resources>

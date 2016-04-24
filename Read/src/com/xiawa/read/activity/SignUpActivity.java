@@ -1,5 +1,6 @@
 package com.xiawa.read.activity;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.text.DateFormat.Field;
 import java.util.ArrayList;
@@ -306,4 +307,36 @@ public class SignUpActivity extends Activity implements OnClickListener
 			return textView;
 		}
 	}
+=======
+import android.app.Activity;
+import android.os.Bundle;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.xiawa.read.R;
+import com.xiawa.read.view.MySpringSwitchButton;
+
+
+public class SignUpActivity extends Activity
+{
+    @ViewInject(R.id.mssb_sex)
+    private MySpringSwitchButton mssbSex;
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
+        ViewUtils.inject(this);
+        mssbSex.animate();
+        mssbSex.setOnToggleListener(new MySpringSwitchButton.OnToggleListener()
+        {
+            @Override
+            public void onToggle(boolean left)
+            {
+
+            }
+        });
+    }
+>>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 }
