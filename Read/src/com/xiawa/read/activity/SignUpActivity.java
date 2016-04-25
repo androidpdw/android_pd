@@ -106,7 +106,14 @@ public class SignUpActivity extends Activity implements OnClickListener
 		ViewUtils.inject(this);
 		initUI();
 	}
-
+	/**
+	 * 注册
+	 * @param view
+	 */
+	public void signUp(View view)
+	{
+		
+	}
 	/**
 	 * 初始化UI
 	 */
@@ -120,7 +127,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		{
 			@Override
 			public void onToggle(boolean left)
-			{
+			{//性别选择
 
 			}
 		});
@@ -129,13 +136,12 @@ public class SignUpActivity extends Activity implements OnClickListener
 		tvBirthDate.setOnClickListener(this);
 		tvAddress.setOnClickListener(this);
 		tvCountry.setOnClickListener(this);
-		/*tvEducation.setOnClickListener(this);
-		metLoginName.setError("");
-		metNickName.setError("");
-		metPassword.setError("");
-		metPasswordConfirm.setError("");
-		metPwdAnswer.setError("");
-		metPwdQuestion.setError("");*/
+		tvEducation.setOnClickListener(this);
+		/*
+		 * metLoginName.setError(""); metNickName.setError("");
+		 * metPassword.setError(""); metPasswordConfirm.setError("");
+		 * metPwdAnswer.setError(""); metPwdQuestion.setError("");
+		 */
 		mCountryAdapter = new CountryAdapter();
 	}
 
@@ -160,6 +166,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		}
 
 	}
+
 	/**
 	 * 文化程度选择
 	 */
@@ -261,7 +268,6 @@ public class SignUpActivity extends Activity implements OnClickListener
 				tvCountry.setText("查询乡镇/街道中...");
 				tvCountry.setClickable(false);
 				getTown(areaId);
-
 				tvAddress.setText(province + city + county);
 				llCountry.setVisibility(View.VISIBLE);
 				viewDivide.setVisibility(View.VISIBLE);

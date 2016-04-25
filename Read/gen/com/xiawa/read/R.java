@@ -539,18 +539,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int wv=0x7f07001b;
     }
     public static final class layout {
-        public static final int activity_login=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_sign_up=0x7f030002;
-        public static final int activity_web=0x7f030003;
-        public static final int dialog_list_view=0x7f030004;
-        public static final int fragment_contact=0x7f030005;
-        public static final int fragment_find=0x7f030006;
-        public static final int fragment_home=0x7f030007;
-        public static final int fragment_me=0x7f030008;
-        public static final int item_hom_image=0x7f030009;
-        public static final int item_home_location=0x7f03000a;
-        public static final int view_image_cycle=0x7f03000b;
+        public static final int activity_forget_password=0x7f030000;
+        public static final int activity_login=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_sign_up=0x7f030003;
+        public static final int activity_web=0x7f030004;
+        public static final int dialog_list_view=0x7f030005;
+        public static final int fragment_contact=0x7f030006;
+        public static final int fragment_find=0x7f030007;
+        public static final int fragment_home=0x7f030008;
+        public static final int fragment_me=0x7f030009;
+        public static final int item_hom_image=0x7f03000a;
+        public static final int item_home_location=0x7f03000b;
+        public static final int view_image_cycle=0x7f03000c;
     }
     public static final class string {
         public static final int app_name=0x7f080000;
