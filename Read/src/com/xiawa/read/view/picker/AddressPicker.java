@@ -1,5 +1,6 @@
 package com.xiawa.read.view.picker;
 
+import android.R.integer;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
@@ -262,12 +263,12 @@ public class AddressPicker extends WheelPicker
 			{
 				onAddressPickListener.onAddressPicked(selectedProvince,
 						selectedCity, null, selectedProvinceIndex,
-						selectedCityIndex);
+						selectedCityIndex,selectedCountyIndex);
 			} else
 			{
 				onAddressPickListener.onAddressPicked(selectedProvince,
 						selectedCity, selectedCounty, selectedProvinceIndex,
-						selectedCityIndex);
+						selectedCityIndex,selectedCountyIndex);
 			}
 		}
 	}
@@ -292,7 +293,7 @@ public class AddressPicker extends WheelPicker
 		 * @param selectedProvinceIndex
 		 */
 		void onAddressPicked(String province, String city, String county,
-				int selectedProvinceIndex, int selectedCityIndex);
+				int selectedProvinceIndex, int selectedCityIndex,int selectedCountyIndex);
 
 	}
 

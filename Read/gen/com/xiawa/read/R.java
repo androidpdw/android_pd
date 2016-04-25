@@ -30,7 +30,7 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int backRectColor=0x7f01000a;
-        /**  the base color of the line and the texts. default is black. 
+        /**  Highlight color of floating label text and underline. 
          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -39,8 +39,8 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int baseColor=0x7f01000b;
-        /**  the color for when something is wrong.(e.g. exceeding max characters) 
+        public static final int backgroundColor=0x7f01000d;
+        /**  EditText https://github.com/Pombo/material-edit-text 
          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -49,20 +49,16 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int errorColor=0x7f01000e;
-        /**  how the floating label should be shown. default is none 
-         <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>none</code></td><td>0</td><td></td></tr>
-<tr><td><code>normal</code></td><td>1</td><td></td></tr>
-<tr><td><code>highlight</code></td><td>2</td><td></td></tr>
-</table>
+        public static final int errorColor=0x7f01000b;
+        /**  Enable floating label text. 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
          */
-        public static final int floatingLabel=0x7f01000d;
+        public static final int floatingLabel=0x7f01000e;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -71,25 +67,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int leftText=0x7f010004;
-        /**  characters count limit. 0 means no limit. 
-         <p>Must be an integer value, such as "<code>100</code>".
+        /** <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int maxCharacters=0x7f01000f;
-        /**  the highlight color of the line, and the floating label if the highlightFloatingLabel is true. 
-         <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int primaryColor=0x7f01000c;
+        public static final int maxCharacters=0x7f01000c;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -98,15 +83,6 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int rightText=0x7f010005;
-        /**  whether to show the bottom ellipsis in singleLine mode 
-         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int singleLineEllipsis=0x7f010010;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -163,6 +139,11 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int text_size=0x7f010003;
+        /**  Icon (ImageView) associated to this EditText. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int withIcon=0x7f01000f;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -172,121 +153,132 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int wx_color=0x7f010001;
-        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** 低栏属性  
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int wx_icon=0x7f010000;
     }
     public static final class color {
-        public static final int base_font_color_gray=0x7f050004;
-        public static final int bg_btn_nav_right_press=0x7f050005;
-        public static final int bg_color=0x7f050006;
-        public static final int bg_color2=0x7f050007;
-        public static final int bg_color3=0x7f050008;
-        public static final int bg_color_f4=0x7f050009;
-        public static final int bg_grey=0x7f05000a;
-        public static final int big_block_background=0x7f05000b;
-        public static final int black=0x7f05000c;
-        public static final int blue=0x7f05000d;
-        public static final int blue_card=0x7f05000e;
-        public static final int blue_line_1=0x7f05000f;
-        public static final int blue_theme_color=0x7f050010;
-        public static final int btn_gray=0x7f050011;
-        public static final int burlywood=0x7f050012;
-        public static final int calendar_color_black=0x7f050013;
-        public static final int calendar_color_gray=0x7f050014;
-        public static final int calendar_color_green=0x7f050015;
-        public static final int calendar_color_month_title=0x7f050016;
-        public static final int calendar_color_orange=0x7f050017;
-        public static final int calendar_color_white=0x7f050018;
-        public static final int circle_image_view_default_boarder_color=0x7f050019;
-        public static final int circle_image_view_default_white_boarder_color=0x7f05001a;
-        public static final int colorAccent=0x7f050003;
+        public static final int app_focused_label=0x7f05006b;
+        /**  Black 
+         */
+        public static final int app_grey=0x7f05006a;
+        public static final int app_unfocused_label=0x7f05006c;
+        public static final int back_default=0x7f050069;
+        public static final int base_font_color_gray=0x7f050002;
+        public static final int bg_btn_nav_right_press=0x7f050003;
+        public static final int bg_color=0x7f050004;
+        public static final int bg_color2=0x7f050005;
+        public static final int bg_color3=0x7f050006;
+        public static final int bg_color_f4=0x7f050007;
+        public static final int bg_grey=0x7f050008;
+        public static final int big_block_background=0x7f050009;
+        public static final int black=0x7f05000a;
+        public static final int blue=0x7f05000b;
+        public static final int blue_card=0x7f05000c;
+        public static final int blue_line_1=0x7f05000d;
+        public static final int blue_theme_color=0x7f05000e;
+        public static final int btn_gray=0x7f05000f;
+        public static final int burlywood=0x7f050010;
+        public static final int circle_image_view_default_boarder_color=0x7f050011;
+        public static final int circle_image_view_default_white_boarder_color=0x7f050012;
+        public static final int colorAccent=0x7f050001;
         public static final int colorPrimary=0x7f050000;
-        public static final int colorPrimaryDark=0x7f050002;
-        public static final int colorTitle=0x7f050001;
-        public static final int coupons_cash_back_bg=0x7f05001b;
-        public static final int coupons_cash_card_bg=0x7f05001c;
-        public static final int dialog_blue=0x7f05001d;
-        public static final int dialog_gray=0x7f05001e;
-        public static final int find_background=0x7f05001f;
-        public static final int find_scan_text=0x7f050020;
-        public static final int find_separate_line=0x7f050021;
-        public static final int find_sign_in=0x7f050022;
-        public static final int find_snapshot=0x7f050023;
-        public static final int gray=0x7f050024;
-        public static final int gray2=0x7f050025;
-        public static final int gray_line_2=0x7f050026;
-        public static final int gray_line_3=0x7f050027;
-        public static final int gray_line_4=0x7f050028;
-        public static final int green=0x7f050029;
-        public static final int green_card=0x7f05002a;
-        public static final int green_theme_color=0x7f05002b;
-        public static final int grey=0x7f05002c;
-        public static final int grey_30=0x7f05002d;
-        public static final int grey_5c=0x7f05002e;
-        public static final int grey_63=0x7f05002f;
-        public static final int grey_66=0x7f050030;
-        public static final int grey_7d=0x7f050031;
-        public static final int grey_99=0x7f050032;
-        public static final int grey_aa=0x7f050033;
-        public static final int grey_cc=0x7f050034;
-        public static final int grey_d9=0x7f050035;
-        public static final int grey_da=0x7f050036;
-        public static final int grey_e0=0x7f050037;
-        public static final int grey_e5=0x7f050038;
-        public static final int grey_e6=0x7f050039;
-        public static final int grey_f3=0x7f05003a;
-        public static final int grey_f8=0x7f05003b;
-        public static final int grey_f9=0x7f05003c;
-        public static final int hint_text_color=0x7f05003d;
-        public static final int hotel_list_image_mask=0x7f05003e;
-        public static final int jacinth=0x7f05003f;
-        public static final int light_blue=0x7f050040;
-        public static final int lightgreen=0x7f050041;
-        public static final int lightyellow=0x7f050042;
-        public static final int login_input_tx_color=0x7f050043;
-        public static final int member_assets_negative_color=0x7f050044;
-        public static final int member_assets_positive_color=0x7f050045;
-        public static final int member_point_negative_color=0x7f050046;
-        public static final int member_point_positive_color=0x7f050047;
-        public static final int message_manager_reply_bg=0x7f050048;
-        public static final int nav_bar_background=0x7f050049;
-        public static final int normal_text_color=0x7f05004a;
-        public static final int o=0x7f05004b;
-        public static final int o1=0x7f05004c;
-        public static final int orange_card=0x7f05004d;
-        public static final int orange_theme_color=0x7f05004e;
-        public static final int orange_theme_color_pressed=0x7f05004f;
-        public static final int possible_result_points=0x7f050050;
-        public static final int red=0x7f050051;
-        public static final int red_card=0x7f050052;
-        public static final int result_view=0x7f050053;
-        public static final int separate_line_color=0x7f050054;
-        public static final int skyblue=0x7f050055;
-        public static final int slateblue=0x7f050056;
-        public static final int text_blue=0x7f050057;
-        public static final int tips_loading_error=0x7f050058;
-        public static final int transparent=0x7f050059;
-        public static final int umeng_socialize_color_group=0x7f05005a;
-        public static final int umeng_socialize_comments_bg=0x7f05005b;
-        public static final int umeng_socialize_divider=0x7f05005c;
-        public static final int umeng_socialize_edit_bg=0x7f05005d;
-        public static final int umeng_socialize_grid_divider_line=0x7f05005e;
-        public static final int umeng_socialize_list_item_bgcolor=0x7f05005f;
-        public static final int umeng_socialize_list_item_textcolor=0x7f050060;
-        public static final int umeng_socialize_text_friends_list=0x7f050061;
-        public static final int umeng_socialize_text_share_content=0x7f050062;
-        public static final int umeng_socialize_text_time=0x7f050063;
-        public static final int umeng_socialize_text_title=0x7f050064;
-        public static final int umeng_socialize_text_ucenter=0x7f050065;
-        public static final int umeng_socialize_ucenter_bg=0x7f050066;
-        public static final int viewfinder_mask=0x7f050067;
-        public static final int waterblue=0x7f050068;
-        public static final int wechat_credit_activity_text=0x7f050069;
-        public static final int white=0x7f05006a;
-        public static final int yellow=0x7f05006b;
-        public static final int yellow_light=0x7f05006c;
+        public static final int coupons_cash_back_bg=0x7f050013;
+        public static final int coupons_cash_card_bg=0x7f050014;
+        public static final int dialog_blue=0x7f050015;
+        public static final int dialog_gray=0x7f050016;
+        /**  EditText text field line color 
+         */
+        public static final int edittext_line=0x7f050067;
+        /**  EditText focused text field line color 
+         */
+        public static final int edittext_line_focused=0x7f050068;
+        public static final int find_background=0x7f050017;
+        public static final int find_scan_text=0x7f050018;
+        public static final int find_separate_line=0x7f050019;
+        public static final int find_sign_in=0x7f05001a;
+        public static final int find_snapshot=0x7f05001b;
+        public static final int gray=0x7f05001c;
+        public static final int gray2=0x7f05001d;
+        public static final int gray_line_2=0x7f05001e;
+        public static final int gray_line_3=0x7f05001f;
+        public static final int gray_line_4=0x7f050020;
+        public static final int green=0x7f050021;
+        public static final int green_card=0x7f050022;
+        public static final int green_theme_color=0x7f050023;
+        public static final int grey=0x7f050024;
+        public static final int grey_30=0x7f050025;
+        public static final int grey_5c=0x7f050026;
+        public static final int grey_63=0x7f050027;
+        public static final int grey_66=0x7f050028;
+        public static final int grey_7d=0x7f050029;
+        public static final int grey_99=0x7f05002a;
+        public static final int grey_aa=0x7f05002b;
+        public static final int grey_cc=0x7f05002c;
+        public static final int grey_d9=0x7f05002d;
+        public static final int grey_da=0x7f05002e;
+        public static final int grey_e0=0x7f05002f;
+        public static final int grey_e5=0x7f050030;
+        public static final int grey_e6=0x7f050031;
+        public static final int grey_f3=0x7f050032;
+        public static final int grey_f8=0x7f050033;
+        public static final int grey_f9=0x7f050034;
+        public static final int hint_text_color=0x7f050035;
+        public static final int hotel_list_image_mask=0x7f050036;
+        public static final int jacinth=0x7f050037;
+        public static final int label_color=0x7f050065;
+        public static final int label_color_notfocus=0x7f050066;
+        public static final int light_blue=0x7f050038;
+        public static final int lightgreen=0x7f050039;
+        public static final int lightyellow=0x7f05003a;
+        public static final int login_input_tx_color=0x7f05003b;
+        /**  EditText https://github.com/Pombo/material-edit-text 
+         */
+        public static final int material_red=0x7f05006d;
+        public static final int material_red_500=0x7f05006e;
+        public static final int member_assets_negative_color=0x7f05003c;
+        public static final int member_assets_positive_color=0x7f05003d;
+        public static final int member_point_negative_color=0x7f05003e;
+        public static final int member_point_positive_color=0x7f05003f;
+        public static final int message_manager_reply_bg=0x7f050040;
+        public static final int nav_bar_background=0x7f050041;
+        public static final int normal_text_color=0x7f050042;
+        public static final int o=0x7f050043;
+        public static final int o1=0x7f050044;
+        public static final int orange_card=0x7f050045;
+        public static final int orange_theme_color=0x7f050046;
+        public static final int orange_theme_color_pressed=0x7f050047;
+        public static final int possible_result_points=0x7f050048;
+        public static final int red=0x7f050049;
+        public static final int red_card=0x7f05004a;
+        public static final int result_view=0x7f05004b;
+        public static final int separate_line_color=0x7f05004c;
+        public static final int skyblue=0x7f05004d;
+        public static final int slateblue=0x7f05004e;
+        public static final int text_blue=0x7f05004f;
+        public static final int tips_loading_error=0x7f050050;
+        public static final int transparent=0x7f050051;
+        public static final int umeng_socialize_color_group=0x7f050052;
+        public static final int umeng_socialize_comments_bg=0x7f050053;
+        public static final int umeng_socialize_divider=0x7f050054;
+        public static final int umeng_socialize_edit_bg=0x7f050055;
+        public static final int umeng_socialize_grid_divider_line=0x7f050056;
+        public static final int umeng_socialize_list_item_bgcolor=0x7f050057;
+        public static final int umeng_socialize_list_item_textcolor=0x7f050058;
+        public static final int umeng_socialize_text_friends_list=0x7f050059;
+        public static final int umeng_socialize_text_share_content=0x7f05005a;
+        public static final int umeng_socialize_text_time=0x7f05005b;
+        public static final int umeng_socialize_text_title=0x7f05005c;
+        public static final int umeng_socialize_text_ucenter=0x7f05005d;
+        public static final int umeng_socialize_ucenter_bg=0x7f05005e;
+        public static final int viewfinder_mask=0x7f05005f;
+        public static final int waterblue=0x7f050060;
+        public static final int wechat_credit_activity_text=0x7f050061;
+        public static final int white=0x7f050062;
+        public static final int yellow=0x7f050063;
+        public static final int yellow_light=0x7f050064;
     }
     public static final class dimen {
         public static final int ActionBarTextSize=0x7f060002;
@@ -339,6 +331,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int base_stroke_dp=0x7f06002a;
         public static final int bigtitleText=0x7f06002b;
         public static final int bottom_ellipsis_height=0x7f060082;
+        public static final int bottom_text_size=0x7f060083;
         public static final int city_block_margin=0x7f06002c;
         public static final int city_block_margin_right=0x7f06002d;
         public static final int city_label_height=0x7f06002e;
@@ -431,23 +424,30 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int btn_login_selector=0x7f020001;
         public static final int dot_blur=0x7f020002;
         public static final int dot_focus=0x7f020003;
-        public static final int home_page_local_icon=0x7f020004;
-        public static final int home_page_search_icon=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int ic_login_back=0x7f020007;
-        public static final int ic_menu_contact=0x7f020008;
-        public static final int ic_menu_find=0x7f020009;
-        public static final int ic_menu_me=0x7f02000a;
-        public static final int ic_menu_weixin=0x7f02000b;
-        public static final int ic_person=0x7f02000c;
-        public static final int ic_yzm=0x7f02000d;
-        public static final int icon_logo=0x7f02000e;
-        public static final int loading=0x7f02000f;
-        public static final int login_inform_bg=0x7f020010;
-        public static final int logo=0x7f020011;
-        public static final int more=0x7f020012;
-        public static final int point=0x7f020013;
-        public static final int user=0x7f020014;
+        public static final int error_line=0x7f020004;
+        public static final int error_line_black=0x7f020005;
+        public static final int focused_line=0x7f020006;
+        public static final int focused_line_black=0x7f020007;
+        public static final int home_page_local_icon=0x7f020008;
+        public static final int home_page_search_icon=0x7f020009;
+        public static final int ic_alert_text=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int ic_login_back=0x7f02000c;
+        public static final int ic_menu_contact=0x7f02000d;
+        public static final int ic_menu_find=0x7f02000e;
+        public static final int ic_menu_me=0x7f02000f;
+        public static final int ic_menu_weixin=0x7f020010;
+        public static final int ic_person=0x7f020011;
+        public static final int ic_yzm=0x7f020012;
+        public static final int icon_logo=0x7f020013;
+        public static final int loading=0x7f020014;
+        public static final int login_inform_bg=0x7f020015;
+        public static final int logo=0x7f020016;
+        public static final int more=0x7f020017;
+        public static final int normal_line=0x7f020018;
+        public static final int normal_line_black=0x7f020019;
+        public static final int point=0x7f02001a;
+        public static final int user=0x7f02001b;
     }
     public static final class id {
         /** 登录按钮
@@ -471,28 +471,45 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 用户名
          */
         public static final int et_user_name=0x7f070006;
-        public static final int fl_image_cycle=0x7f07001d;
-        public static final int highlight=0x7f070010;
-        public static final int icv_top=0x7f070015;
-        public static final int ihiv_first=0x7f070016;
-        public static final int ihiv_four=0x7f070019;
-        public static final int ihiv_second=0x7f070017;
-        public static final int ihiv_third=0x7f070018;
+        public static final int fl_image_cycle=0x7f070024;
+        public static final int icv_top=0x7f07001c;
+        public static final int ihiv_first=0x7f07001d;
+        public static final int ihiv_four=0x7f070020;
+        public static final int ihiv_second=0x7f07001e;
+        public static final int ihiv_third=0x7f07001f;
         public static final int iv_back_top=0x7f070009;
-        public static final int iv_item_background=0x7f07001a;
+        public static final int iv_item_background=0x7f070021;
         /** 主页顶部用户图标
          */
         public static final int iv_user=0x7f070000;
         /**  街道/乡镇 
          */
         public static final int ll_country=0x7f07000d;
-        public static final int ll_indication_group=0x7f07001e;
-        public static final int lv_countries=0x7f07000f;
+        public static final int ll_indication_group=0x7f070025;
+        /** 对话框内容  
+         */
+        public static final int lv_dialog_content=0x7f070011;
+        /** 登录名  
+         */
+        public static final int met_login_name=0x7f070012;
+        /** 昵称 
+         */
+        public static final int met_nick_name=0x7f070013;
+        /** 密码  
+         */
+        public static final int met_password=0x7f070014;
+        /** 确认密码  
+         */
+        public static final int met_password_confirm=0x7f070015;
+        /** 密码问题答案  
+         */
+        public static final int met_pwd_answer=0x7f070017;
+        /** 密码问题  
+         */
+        public static final int met_pwd_question=0x7f070016;
         /** 性别  
          */
         public static final int mssb_sex=0x7f07000a;
-        public static final int none=0x7f070011;
-        public static final int normal=0x7f070012;
         /** 地址  
          */
         public static final int tv_address=0x7f07000c;
@@ -500,14 +517,26 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int tv_birth_date=0x7f07000b;
         public static final int tv_country=0x7f07000e;
-        public static final int tv_item_desc=0x7f07001c;
-        public static final int tv_item_title=0x7f07001b;
-        public static final int tv_text=0x7f07001f;
-        public static final int view_divide=0x7f070013;
+        /**  对话框标题 
+         */
+        public static final int tv_dialog_title=0x7f070010;
+        /**  文化程度 
+         */
+        public static final int tv_education=0x7f07000f;
+        /** 忘记密码 
+         */
+        public static final int tv_forget_pwd=0x7f070018;
+        public static final int tv_item_desc=0x7f070023;
+        public static final int tv_item_title=0x7f070022;
+        /** 注册 
+         */
+        public static final int tv_sign_up=0x7f070019;
+        public static final int tv_text=0x7f070026;
+        public static final int view_divide=0x7f07001a;
         /** 主页Fragment
          */
         public static final int vp_container=0x7f070001;
-        public static final int wv=0x7f070014;
+        public static final int wv=0x7f07001b;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
@@ -563,7 +592,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <tr><td><code>{@link #ChangeColorIconView_text com.xiawa.read:text}</code></td><td></td></tr>
            <tr><td><code>{@link #ChangeColorIconView_text_size com.xiawa.read:text_size}</code></td><td></td></tr>
            <tr><td><code>{@link #ChangeColorIconView_wx_color com.xiawa.read:wx_color}</code></td><td></td></tr>
-           <tr><td><code>{@link #ChangeColorIconView_wx_icon com.xiawa.read:wx_icon}</code></td><td></td></tr>
+           <tr><td><code>{@link #ChangeColorIconView_wx_icon com.xiawa.read:wx_icon}</code></td><td>低栏属性  </td></tr>
            </table>
            @see #ChangeColorIconView_text
            @see #ChangeColorIconView_text_size
@@ -619,142 +648,17 @@ containing a value of this type.
         */
         public static final int ChangeColorIconView_wx_color = 1;
         /**
-          <p>This symbol is the offset where the {@link com.xiawa.read.R.attr#wx_icon}
-          attribute's value can be found in the {@link #ChangeColorIconView} array.
+          <p>
+          @attr description
+          低栏属性  
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
           @attr name com.xiawa.read:wx_icon
         */
         public static final int ChangeColorIconView_wx_icon = 0;
-        /** Attributes that can be used with a MaterialEditText.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #MaterialEditText_baseColor com.xiawa.read:baseColor}</code></td><td> the base color of the line and the texts.</td></tr>
-           <tr><td><code>{@link #MaterialEditText_errorColor com.xiawa.read:errorColor}</code></td><td> the color for when something is wrong.</td></tr>
-           <tr><td><code>{@link #MaterialEditText_floatingLabel com.xiawa.read:floatingLabel}</code></td><td> how the floating label should be shown.</td></tr>
-           <tr><td><code>{@link #MaterialEditText_maxCharacters com.xiawa.read:maxCharacters}</code></td><td> characters count limit.</td></tr>
-           <tr><td><code>{@link #MaterialEditText_primaryColor com.xiawa.read:primaryColor}</code></td><td> the highlight color of the line, and the floating label if the highlightFloatingLabel is true.</td></tr>
-           <tr><td><code>{@link #MaterialEditText_singleLineEllipsis com.xiawa.read:singleLineEllipsis}</code></td><td> whether to show the bottom ellipsis in singleLine mode </td></tr>
-           </table>
-           @see #MaterialEditText_baseColor
-           @see #MaterialEditText_errorColor
-           @see #MaterialEditText_floatingLabel
-           @see #MaterialEditText_maxCharacters
-           @see #MaterialEditText_primaryColor
-           @see #MaterialEditText_singleLineEllipsis
-         */
-        public static final int[] MaterialEditText = {
-            0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e,
-            0x7f01000f, 0x7f010010
-        };
-        /**
-          <p>
-          @attr description
-           the base color of the line and the texts. default is black. 
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name com.xiawa.read:baseColor
-        */
-        public static final int MaterialEditText_baseColor = 0;
-        /**
-          <p>
-          @attr description
-           the color for when something is wrong.(e.g. exceeding max characters) 
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name com.xiawa.read:errorColor
-        */
-        public static final int MaterialEditText_errorColor = 3;
-        /**
-          <p>
-          @attr description
-           how the floating label should be shown. default is none 
-
-
-          <p>Must be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>none</code></td><td>0</td><td></td></tr>
-<tr><td><code>normal</code></td><td>1</td><td></td></tr>
-<tr><td><code>highlight</code></td><td>2</td><td></td></tr>
-</table>
-          <p>This is a private symbol.
-          @attr name com.xiawa.read:floatingLabel
-        */
-        public static final int MaterialEditText_floatingLabel = 2;
-        /**
-          <p>
-          @attr description
-           characters count limit. 0 means no limit. 
-
-
-          <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name com.xiawa.read:maxCharacters
-        */
-        public static final int MaterialEditText_maxCharacters = 4;
-        /**
-          <p>
-          @attr description
-           the highlight color of the line, and the floating label if the highlightFloatingLabel is true. 
-
-
-          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name com.xiawa.read:primaryColor
-        */
-        public static final int MaterialEditText_primaryColor = 1;
-        /**
-          <p>
-          @attr description
-           whether to show the bottom ellipsis in singleLine mode 
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name com.xiawa.read:singleLineEllipsis
-        */
-        public static final int MaterialEditText_singleLineEllipsis = 5;
         /** Attributes that can be used with a MySwitchButton.
            <p>Includes the following attributes:</p>
            <table>
@@ -886,5 +790,153 @@ containing a value of this type.
           @attr name com.xiawa.read:textUnCheckedColor
         */
         public static final int MySwitchButton_textUnCheckedColor = 5;
+        /** Attributes that can be used with a fullwidthEditText.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #fullwidthEditText_errorColor com.xiawa.read:errorColor}</code></td><td> Error color of under line text and underline.</td></tr>
+           <tr><td><code>{@link #fullwidthEditText_maxCharacters com.xiawa.read:maxCharacters}</code></td><td> Max characters count limit.</td></tr>
+           </table>
+           @see #fullwidthEditText_errorColor
+           @see #fullwidthEditText_maxCharacters
+         */
+        public static final int[] fullwidthEditText = {
+            0x7f01000b, 0x7f01000c
+        };
+        /**
+          <p>
+          @attr description
+           Error color of under line text and underline. 
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:errorColor
+        */
+        public static final int fullwidthEditText_errorColor = 0;
+        /**
+          <p>
+          @attr description
+           Max characters count limit. 0 means no max. 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:maxCharacters
+        */
+        public static final int fullwidthEditText_maxCharacters = 1;
+        /** Attributes that can be used with a materialEditText.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #materialEditText_backgroundColor com.xiawa.read:backgroundColor}</code></td><td> Highlight color of floating label text and underline.</td></tr>
+           <tr><td><code>{@link #materialEditText_errorColor com.xiawa.read:errorColor}</code></td><td> Error color of under line text and underline.</td></tr>
+           <tr><td><code>{@link #materialEditText_floatingLabel com.xiawa.read:floatingLabel}</code></td><td> Enable floating label text.</td></tr>
+           <tr><td><code>{@link #materialEditText_maxCharacters com.xiawa.read:maxCharacters}</code></td><td> Max characters count limit.</td></tr>
+           <tr><td><code>{@link #materialEditText_withIcon com.xiawa.read:withIcon}</code></td><td> Icon (ImageView) associated to this EditText.</td></tr>
+           </table>
+           @see #materialEditText_backgroundColor
+           @see #materialEditText_errorColor
+           @see #materialEditText_floatingLabel
+           @see #materialEditText_maxCharacters
+           @see #materialEditText_withIcon
+         */
+        public static final int[] materialEditText = {
+            0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e,
+            0x7f01000f
+        };
+        /**
+          <p>
+          @attr description
+           Highlight color of floating label text and underline. 
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:backgroundColor
+        */
+        public static final int materialEditText_backgroundColor = 2;
+        /**
+          <p>
+          @attr description
+           Error color of under line text and underline. 
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:errorColor
+        */
+        public static final int materialEditText_errorColor = 0;
+        /**
+          <p>
+          @attr description
+           Enable floating label text. 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:floatingLabel
+        */
+        public static final int materialEditText_floatingLabel = 3;
+        /**
+          <p>
+          @attr description
+           Max characters count limit. 0 means no max. 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:maxCharacters
+        */
+        public static final int materialEditText_maxCharacters = 1;
+        /**
+          <p>
+          @attr description
+           Icon (ImageView) associated to this EditText. 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name com.xiawa.read:withIcon
+        */
+        public static final int materialEditText_withIcon = 4;
     };
 }

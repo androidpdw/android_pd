@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-=======
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
     android:gravity="center_horizontal"
-<<<<<<< HEAD
     android:orientation="vertical" >
-=======
-    android:orientation="vertical"
-    tools:context="com.xiawa.read.activity.SignUpActivity">
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical"
-<<<<<<< HEAD
         android:orientation="horizontal" >
-=======
-        android:orientation="horizontal">
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 
         <ImageView
             android:layout_width="wrap_content"
@@ -35,41 +22,25 @@
             android:paddingLeft="15.0dip"
             android:paddingRight="15dp"
             android:src="@drawable/ic_login_back"
-<<<<<<< HEAD
             android:visibility="visible" />
-=======
-            android:visibility="visible"/>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册"
             android:textColor="@color/white"
-<<<<<<< HEAD
             android:textSize="20sp" />
-=======
-            android:textSize="20sp"/>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
     </LinearLayout>
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:paddingTop="10dp"
-<<<<<<< HEAD
         android:src="@drawable/logo" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-=======
-        android:src="@drawable/logo"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,72 +49,52 @@
             android:orientation="vertical"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
-<<<<<<< HEAD
             android:paddingTop="40dp" >
 
             <com.xiawa.read.view.MaterialEditText
-=======
-            android:paddingTop="40dp">
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                android:id="@id/met_login_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="请输入登录名"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" />
+            <!-- app:baseColor="@color/colorPrimary" /> -->
 
             <com.xiawa.read.view.MaterialEditText
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                app:met_floatingLabelText="必填"
-                app:met_primaryColor="@color/colorPrimary"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                android:id="@id/met_nick_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="请输入昵称"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" />
 
-            <com.xiawa.read.view.MaterialEditText
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                app:met_floatingLabelText="必填"
-                app:met_primaryColor="@color/colorPrimary"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+          <!--   <com.xiawa.read.view.MaterialEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="真实姓名"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" /> -->
 
             <com.xiawa.read.view.MaterialEditText
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                android:id="@id/met_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
@@ -151,20 +102,14 @@
                 android:inputType="textPassword"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" />
 
             <com.xiawa.read.view.MaterialEditText
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                app:met_floatingLabelText="必填"
-                app:met_primaryColor="@color/colorPrimary"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                android:id="@id/met_password_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
@@ -172,56 +117,39 @@
                 android:inputType="textPassword"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" />
 
             <com.xiawa.read.view.MaterialEditText
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                app:met_floatingLabelText="必填"
-                app:met_primaryColor="@color/colorPrimary"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                android:id="@id/met_pwd_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="密码问题"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" />
 
             <com.xiawa.read.view.MaterialEditText
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                app:met_floatingLabelText="找回密码时需要"
-                app:met_primaryColor="@color/colorPrimary"/>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                android:id="@id/met_pwd_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
-                android:hint="密码问题"
+                android:hint="密码问题答案"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-<<<<<<< HEAD
-                app:baseColor="@color/colorPrimary" />
-=======
-                app:met_baseColor="@color/colorPrimary"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                app:met_floatingLabelText="找回密码时需要"
-                app:met_primaryColor="@color/colorPrimary"/>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+                app:backgroundColor="@color/colorPrimary"
+                app:errorColor="@color/colorPrimary"
+                app:floatingLabel="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -229,22 +157,14 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-<<<<<<< HEAD
                 android:paddingRight="5dp" >
-=======
-                android:paddingRight="5dp">
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="性别:"
                     android:textColor="@color/colorPrimary"
-<<<<<<< HEAD
                     android:textSize="20sp" />
-=======
-                    android:textSize="20sp"/>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 
                 <com.xiawa.read.view.MySpringSwitchButton
                     android:id="@id/mssb_sex"
@@ -258,7 +178,6 @@
                     app:rightText="女生"
                     app:textCheckedColor="#FFFFFF"
                     app:textSize="18sp"
-<<<<<<< HEAD
                     app:textUnCheckedColor="@color/colorPrimary" />
             </LinearLayout>
 
@@ -327,25 +246,16 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:singleLine="true"
                     android:text="福建省漳州市芗城区"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
-=======
-                    app:textUnCheckedColor="@color/colorPrimary"
-                    />
-
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="5dp"
-<<<<<<< HEAD
                 android:background="#6B78C5" />
 
             <!-- 街道/乡镇 -->
@@ -373,11 +283,8 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:singleLine="true"
-                    android:text="乡镇/街道"
+                    android:text="请选择乡镇/街道"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -389,9 +296,42 @@
                 android:layout_marginTop="5dp"
                 android:background="#6B78C5" />
 
-=======
-                android:background="#6B78C5"/>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
+            <!-- 文化程度 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="5dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="文化程度:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@id/tv_education"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="5dp"
+                    android:clickable="true"
+                    android:singleLine="true"
+                    android:text="请选择文化程度"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#6B78C5" />
+
             <Button
                 android:id="@id/btn_login"
                 android:layout_width="fill_parent"
@@ -404,17 +344,8 @@
                 android:onClick="signUp"
                 android:text="注 册"
                 android:textColor="#fff"
-<<<<<<< HEAD
                 android:textSize="@dimen/textsize_18sp" />
         </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
-=======
-                android:textSize="@dimen/textsize_18sp"/>
-        </LinearLayout>
-
-
-    </ScrollView>
-</LinearLayout>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11

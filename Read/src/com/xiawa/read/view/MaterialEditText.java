@@ -1,455 +1,519 @@
 package com.xiawa.read.view;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.text.method.TransformationMethod;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.EditText;
-
-import com.nineoldandroids.animation.ArgbEvaluator;
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.xiawa.read.R;
 
-/**
- * EditText in Material Design
- * <p/>
- * author:rengwuxian
- * <p/>
- */
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.*;
+import android.os.Build;
+import android.text.TextPaint;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.MotionEvent;
+import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.EditText;
+import android.widget.ImageView;
+
 public class MaterialEditText extends EditText {
-	public static final int FLOATING_LABEL_NONE = 0;
-	public static final int FLOATING_LABEL_NORMAL = 1;
-	public static final int FLOATING_LABEL_HIGHLIGHT = 2;
 
-	/**
-	 * the spacing between the main text and the inner top padding.
-	 */
-	private int extraPaddingTop;
+    private final float DIMEN_1_DP  = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+    private final float DIMEN_2_DP  = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
+    private final float DIMEN_8_DP  = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+    private final float DIMEN_16_DP = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
+    private final float DIMEN_12_SP = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
+    private final long DURATION_SHORT = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-	/**
-	 * the spacing between the main text and the inner bottom padding.
-	 */
-	private int extraPaddingBottom;
+    private final int COLOR_MATERIAL_RED_500 = 0xfff44336;
+    private final int COLOR_HINT;
 
-	/**
-	 * the floating label's text size.
-	 */
-	private final int floatingLabelTextSize;
+    // Paddings
+    private float basePaddingLeft;
+    private float basePaddingTop;
+    private float basePaddingRight;
+    private float basePaddingBottom;
+    private float paddingLeft;
+    private float paddingTop;
+    private float paddingRight;
+    private float paddingBottom;
 
-	/**
-	 * the spacing between the main text and the inner components (floating label, bottom ellipsis, characters counter).
-	 */
-	private final int innerComponentsSpacing;
+    // Unselected line
+    private Paint unselectedLinePaint;
+    private Path unselectedLine;
+    private int unselectedColor;
 
-	/**
-	 * whether the floating label should be shown. default is false.
-	 */
-	private boolean floatingLabelEnabled;
+    // Highlighted line
+    private Paint highlightedLinePaint;
+    private Path highlightedLine;
+    private float highlightedLineThickness;
+    private int highlightedColor;
 
-	/**
-	 * whether to highlight the floating label's text color when focused (with the main color). default is true.
-	 */
-	private boolean highlightFloatingLabel;
+    // Common line fields
+    private PathEffect lineEffect;
+    private DashPathEffect dashLineEffect;
+    private float lineHeight;
+    private AnimatorSet lineAnimation;
+    private float lineLeftX, lineRightX;
 
-	/**
-	 * the base color of the line and the texts. default is black.
-	 */
-	private int baseColor;
+    private int backgroundColor;
 
-	/**
-	 * inner top padding
-	 */
-	private int innerPaddingTop;
+    // Error text
+    private int errorColor;
+    private CharSequence errorText;
+    private TextPaint errorTextPaint;
 
-	/**
-	 * inner bottom padding
-	 */
-	private int innerPaddingBottom;
+    // Floating label
+    private boolean floatingLabel;
+    private TextPaint labelTextPaint;
+    private float labelTextSize;
+    private int labelTextColor;
+    private AnimatorSet labelAnimation;
+    private long labelAnimationElapsedDuration;
+    private float labelX, labelY;
 
-	/**
-	 * the underline's highlight color, and the highlight color of the floating label if app:highlightFloatingLabel is set true in the xml. default is black(when app:darkTheme is false) or white(when app:darkTheme is true)
-	 */
-	private int primaryColor;
+    // Character counter
+    private int maxCharacters;
+    private int charCount;
+    private TextPaint charCountTextPaint;
+    private int charCountTextColor;
 
-	/**
-	 * the color for when something is wrong.(e.g. exceeding max characters)
-	 */
-	private int errorColor;
+    // Icon
+    private int iconResId;
+    private ImageView imgIcon;
 
-	/**
-	 * characters count limit. 0 means no limit. default is 0. NOTE: the character counter will increase the View's height.
-	 */
-	private int maxCharacters;
+    public MaterialEditText(Context context) {
+        this(context, null);
+    }
 
-	/**
-	 * whether to show the bottom ellipsis in singleLine mode. default is false. NOTE: the bottom ellipsis will increase the View's height.
-	 */
-	private boolean singleLineEllipsis;
+    public MaterialEditText(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        COLOR_HINT = getCurrentHintTextColor();
+        init(context, attrs);
+    }
 
-	/**
-	 * bottom ellipsis's height
-	 */
-	private final int bottomEllipsisSize;
+    public MaterialEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        COLOR_HINT = getCurrentHintTextColor();
+        init(context, attrs);
+    }
 
-	/**
-	 * animation fraction of the floating label (0 as totally hidden).
-	 */
-	private float floatingLabelFraction;
+    @SuppressLint("NewApi")
+    public MaterialEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        COLOR_HINT = getCurrentHintTextColor();
+        init(context, attrs);
+    }
 
-	/**
-	 * whether the floating label is being shown.
-	 */
-	private boolean floatingLabelShown;
+    private void init(Context context, AttributeSet attrs) {
+        // Override API padding
+        basePaddingLeft = 0;
+        basePaddingTop = DIMEN_16_DP;
+        basePaddingRight = 0;
+        basePaddingBottom = DIMEN_16_DP;
 
-	/**
-	 * the floating label's focusFraction
-	 */
-	private float focusFraction;
+        // Remove text top/bottom padding)
+        setIncludeFontPadding(false);
 
-	private ArgbEvaluator focusEvaluator = new ArgbEvaluator();
-	Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-	ObjectAnimator labelAnimator;
-	ObjectAnimator labelFocusAnimator;
-	OnFocusChangeListener interFocusChangeListener;
-	OnFocusChangeListener outerFocusChangeListener;
+        // Remove API background
+        setBackgroundDrawable(null);
 
-	public MaterialEditText(Context context) {
-		this(context, null);
-	}
+        // Initialize the unselected line
+        unselectedLinePaint = new Paint();
+        unselectedLinePaint.setStyle(Paint.Style.STROKE);
+        unselectedLine = new Path();
 
-	public MaterialEditText(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
+        // Initialize the highlighted line
+        highlightedLinePaint = new Paint();
+        highlightedLinePaint.setStyle(Paint.Style.STROKE);
+        highlightedLine = new Path();
 
-	@SuppressLint("NewApi")
-	public MaterialEditText(Context context, AttributeSet attrs, int style) {
-		super(context, attrs, style);
+        dashLineEffect = new DashPathEffect(new float[]{ Math.round(DIMEN_1_DP), Math.round(DIMEN_2_DP) }, 0);
 
-		setFocusable(true);
-		setFocusableInTouchMode(true);
-		setClickable(true);
+        // 0btain XML attributes
+        if (attrs != null) {
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.materialEditText, 0, 0);
+            backgroundColor = ta.getColor(R.styleable.materialEditText_backgroundColor, obtainColorAccent());
+            errorColor = ta.getColor(R.styleable.materialEditText_errorColor, COLOR_MATERIAL_RED_500);
+            floatingLabel = ta.getBoolean(R.styleable.materialEditText_floatingLabel, false) && !TextUtils.isEmpty(getHint());
+            maxCharacters = ta.getInteger(R.styleable.materialEditText_maxCharacters, 0);
+            iconResId = ta.getResourceId(R.styleable.materialEditText_withIcon, 0);
+            ta.recycle();
+        }
 
-		floatingLabelTextSize = getResources().getDimensionPixelSize(R.dimen.floating_label_text_size);
-		innerComponentsSpacing = getResources().getDimensionPixelSize(R.dimen.inner_components_spacing);
-		bottomEllipsisSize = getResources().getDimensionPixelSize(R.dimen.bottom_ellipsis_height);
+        errorTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        errorTextPaint.setTextSize(DIMEN_12_SP);
 
-		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialEditText);
-		baseColor = typedArray.getColor(R.styleable.MaterialEditText_baseColor, Color.BLACK);
-		ColorStateList colorStateList = new ColorStateList(new int[][] {new int[] {android.R.attr.state_enabled}, EMPTY_STATE_SET}, new int[] {baseColor & 0x00ffffff | 0xdf000000, baseColor & 0x00ffffff | 0x44000000});
-		setTextColor(colorStateList);
+        labelTextSize = DIMEN_12_SP;
+        labelTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        if (floatingLabel) {
+            basePaddingTop += DIMEN_8_DP + DIMEN_12_SP;
+            labelX = 0;
+            labelY = DIMEN_16_DP + DIMEN_12_SP;
+        }
 
-		primaryColor = typedArray.getColor(R.styleable.MaterialEditText_primaryColor, baseColor);
-		setFloatingLabelInternal(typedArray.getInt(R.styleable.MaterialEditText_floatingLabel, 0));
-		errorColor = typedArray.getColor(R.styleable.MaterialEditText_errorColor, Color.parseColor("#e7492E"));
-		maxCharacters = typedArray.getInt(R.styleable.MaterialEditText_maxCharacters, 0);
-		singleLineEllipsis = typedArray.getBoolean(R.styleable.MaterialEditText_singleLineEllipsis, false);
-		typedArray.recycle();
-			setBackgroundDrawable(null);
-		if (singleLineEllipsis) {
-			TransformationMethod transformationMethod = getTransformationMethod();
-			setSingleLine();
-			setTransformationMethod(transformationMethod);
-		}
-		initPadding();
-		initText();
-		initFloatingLabel();
-	}
+        charCountTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        charCountTextPaint.setTextSize(DIMEN_12_SP);
+        charCountTextPaint.setTextAlign(Paint.Align.RIGHT);
+        if (maxCharacters > 0) {
+            basePaddingBottom += DIMEN_8_DP + DIMEN_12_SP;
+        }
 
-	private void initText() {
-		if (!TextUtils.isEmpty(getText())) {
-			CharSequence text = getText();
-			setText(null);
-			setHintTextColor(baseColor & 0x00ffffff | 0x44000000);
-			setText(text);
-			floatingLabelFraction = 1;
-			floatingLabelShown = true;
-		} else {
-			setHintTextColor(baseColor & 0x00ffffff | 0x44000000);
-		}
-	}
+        updatePadding();
 
-	private float getFloatingLabelFraction() {
-		return floatingLabelFraction;
-	}
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+                lineLeftX = 0;
+                lineRightX = getWidth();
+            }
+        });
+    }
 
-	private void setFloatingLabelFraction(float floatingLabelFraction) {
-		this.floatingLabelFraction = floatingLabelFraction;
-		invalidate();
-	}
+    private int obtainColorAccent() {
+        Context context = getContext();
+        TypedValue typedValue = new TypedValue();
+        if (context.getTheme().resolveAttribute(android.R.attr.colorAccent, typedValue, true)) {
+            int color = typedValue.data;
+            return color;
+        }
 
-	private float getFocusFraction() {
-		return focusFraction;
-	}
+        int colorAccentId = getResources().getIdentifier("colorAccent", "attr", context.getPackageName());
+        if (colorAccentId > 0) {
+            TypedArray a = context.getTheme().obtainStyledAttributes(typedValue.data, new int[]{colorAccentId});
+            int color = a.getColor(0, 0);
+            a.recycle();
+            return color;
+        }
+        return Color.BLACK;
+    }
 
-	private void setFocusFraction(float focusFraction) {
-		this.focusFraction = focusFraction;
-		invalidate();
-	}
+    private void updatePadding() {
+        super.setPadding((int) (basePaddingLeft + paddingLeft), (int) (basePaddingTop + paddingTop), (int) (basePaddingRight + paddingRight), (int) (basePaddingBottom + paddingBottom));
+    }
 
-	private int getPixel(int dp) {
-		return Density.dp2px(getContext(), dp);
-	}
+    private void updatePadding(int left, int top, int right, int bottom) {
+        super.setPadding((int) (basePaddingLeft + paddingLeft) + left, (int) (basePaddingTop + paddingTop) + top, (int) (basePaddingRight + paddingRight) + right, (int) (basePaddingBottom + paddingBottom) + bottom);
+    }
 
-	private void initPadding() {
-		extraPaddingTop = floatingLabelEnabled ? floatingLabelTextSize + innerComponentsSpacing : innerComponentsSpacing;
-		extraPaddingBottom = maxCharacters > 0 ? floatingLabelTextSize : singleLineEllipsis ? innerComponentsSpacing + bottomEllipsisSize : 0;
-		extraPaddingBottom += innerComponentsSpacing * 2;
-		setPaddings(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
-	}
+    public void setBasePadding(int left, int top, int right, int bottom) {
+        basePaddingLeft = left;
+        basePaddingTop = top;
+        basePaddingRight = right;
+        basePaddingBottom = bottom;
+        super.setPadding((int) paddingLeft + left, (int) paddingTop + top, (int) paddingRight + right, (int) paddingBottom + bottom);
+    }
 
-	/**
-	 * use {@link #setPaddings(int, int, int, int)} instead, or the paddingTop and the paddingBottom may be set incorrectly.
-	 */
-	@Deprecated
-	@Override
-	public final void setPadding(int left, int top, int right, int bottom) {
-		super.setPadding(left, top, right, bottom);
-	}
+    public float getBasePaddingLeft() {
+        return basePaddingLeft;
+    }
 
-	/**
-	 * Use this method instead of {@link #setPadding(int, int, int, int)} to automatically set the paddingTop and the paddingBottom correctly.
-	 */
-	public void setPaddings(int left, int top, int right, int bottom) {
-		innerPaddingTop = top;
-		innerPaddingBottom = bottom;
-		super.setPadding(left, top + extraPaddingTop, right, bottom + extraPaddingBottom);
-	}
+    public float getBasePaddingTop() {
+        return basePaddingTop;
+    }
 
-	/**
-	 * get inner top padding, not the real paddingTop
-	 */
-	public int getInnerPaddingTop() {
-		return innerPaddingTop;
-	}
+    public float getBasePaddingRight() {
+        return basePaddingRight;
+    }
 
-	/**
-	 * get inner bottom padding, not the real paddingBottom
-	 */
-	public int getInnerPaddingBottom() {
-		return innerPaddingBottom;
-	}
+    public float getBasePaddingBottom() {
+        return basePaddingBottom;
+    }
 
-	private void initFloatingLabel() {
-		if (floatingLabelEnabled) {
-			// observe the text changing
-			addTextChangedListener(new TextWatcher() {
-				@Override
-				public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				}
+    @Override
+    public void setPadding(int left, int top, int right, int bottom) {
+        paddingLeft = left;
+        paddingTop = top;
+        paddingRight = right;
+        paddingBottom = bottom;
+        super.setPadding((int) basePaddingLeft + left, (int) basePaddingTop + top, (int) basePaddingRight + right, (int) basePaddingBottom + bottom);
+    }
 
-				@Override
-				public void onTextChanged(CharSequence s, int start, int before, int count) {
-				}
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-				@Override
-				public void afterTextChanged(Editable s) {
-					if (s.length() == 0) {
-						if (floatingLabelShown) {
-							floatingLabelShown = false;
-							getLabelAnimator().reverse();
-						}
-					} else if (!floatingLabelShown) {
-						floatingLabelShown = true;
-						if (getLabelAnimator().isStarted()) {
-							getLabelAnimator().reverse();
-						} else {
-							getLabelAnimator().start();
-						}
-					}
-				}
-			});
-			if (highlightFloatingLabel) {
-				// observe the focus state to animate the floating label's text color appropriately
-				interFocusChangeListener = new OnFocusChangeListener() {
-					@Override
-					public void onFocusChange(View v, boolean hasFocus) {
-						if (hasFocus) {
-							if (getLabelFocusAnimator().isStarted()) {
-								getLabelFocusAnimator().reverse();
-							} else {
-								getLabelFocusAnimator().start();
-							}
-						} else {
-							getLabelFocusAnimator().reverse();
-						}
-						if (outerFocusChangeListener != null) {
-							outerFocusChangeListener.onFocusChange(v, hasFocus);
-						}
-					}
-				};
-				super.setOnFocusChangeListener(interFocusChangeListener);
-			}
-		}
+        lineHeight = getHeight() - DIMEN_8_DP;
+        charCountTextColor = COLOR_HINT;
 
-	}
+        if (isFocused()) {
+            highlightedLineThickness = DIMEN_2_DP;
+            highlightedColor = backgroundColor;
+            labelTextColor = backgroundColor;
+            if (imgIcon != null) {
+                imgIcon.setColorFilter(highlightedColor);
+            }
+        } else {
+            highlightedLineThickness = DIMEN_1_DP;
+            highlightedColor = Color.TRANSPARENT;
+            labelTextColor = COLOR_HINT;
+            if (imgIcon != null) {
+                imgIcon.clearColorFilter();
+            }
+        }
+        if (isEnabled()) {
+            lineEffect = null;
+            unselectedColor = COLOR_HINT;
+        } else {
+            lineEffect = dashLineEffect;
+            unselectedColor = getTextColors().getColorForState(new int[]{ -android.R.attr.state_enabled }, 0);
+            labelTextColor = getTextColors().getColorForState(new int[]{ -android.R.attr.state_enabled }, 0);
+        }
 
-	public void setBaseColor(int color) {
-		baseColor = color;
-		postInvalidate();
-	}
+        if (!TextUtils.isEmpty(getError())) {
+            lineHeight = getHeight() - (2 * DIMEN_8_DP + DIMEN_12_SP);
+            errorTextPaint.setColor(errorColor);
+            canvas.drawText(getError(), 0, getError().length(), getScrollX(), getHeight() - DIMEN_8_DP, errorTextPaint);
 
-	public void setPrimaryColor(int color) {
-		primaryColor = color;
-		postInvalidate();
-	}
+            unselectedColor = errorColor;
+            highlightedColor = errorColor;
+            labelTextColor = errorColor;
+            charCountTextColor = errorColor;
+        } else if (maxCharacters > 0) {
+            lineHeight = getHeight() - (2 * DIMEN_8_DP + DIMEN_12_SP);
 
-	private void setFloatingLabelInternal(int mode) {
-		switch (mode) {
-			case FLOATING_LABEL_NORMAL:
-				floatingLabelEnabled = true;
-				highlightFloatingLabel = false;
-				break;
-			case FLOATING_LABEL_HIGHLIGHT:
-				floatingLabelEnabled = true;
-				highlightFloatingLabel = true;
-				break;
-			default:
-				floatingLabelEnabled = false;
-				highlightFloatingLabel = false;
-				break;
-		}
-	}
+            if (charCount > maxCharacters) {
+                unselectedColor = errorColor;
+                highlightedColor = errorColor;
+                labelTextColor = errorColor;
+                charCountTextColor = errorColor;
+            }
 
-	public void setFloatingLabel(int mode) {
-		setFloatingLabelInternal(mode);
-		postInvalidate();
-	}
+            if (charCount > maxCharacters || isFocused()) {
+                charCountTextPaint.setColor(charCountTextColor);
+                String text = charCount + " / " + maxCharacters;
+                canvas.drawText(text, 0, text.length(), getScrollX() + getWidth(), getHeight() - DIMEN_8_DP, charCountTextPaint);
+            }
+        }
 
-	public void setSingleLineEllipsis() {
-		setSingleLineEllipsis(true);
-	}
+        // Draw the unselected line
+        unselectedLinePaint.setColor(unselectedColor);
+        unselectedLinePaint.setStrokeWidth(DIMEN_1_DP);
+        unselectedLinePaint.setPathEffect(lineEffect);
+        unselectedLine.reset();
+        unselectedLine.moveTo(getScrollX(), lineHeight);
+        unselectedLine.lineTo(getScrollX() + getWidth(), lineHeight);
+        canvas.drawPath(unselectedLine, unselectedLinePaint);
 
-	public void setSingleLineEllipsis(boolean enabled) {
-		singleLineEllipsis = enabled;
-		postInvalidate();
-	}
+        // Draw the highlighted line
+        highlightedLinePaint.setColor(highlightedColor);
+        highlightedLinePaint.setStrokeWidth(highlightedLineThickness);
+        highlightedLinePaint.setPathEffect(lineEffect);
+        highlightedLine.reset();
+        highlightedLine.moveTo(getScrollX() + lineLeftX, lineHeight);
+        highlightedLine.lineTo(getScrollX() + (lineAnimation != null && lineAnimation.isRunning() ? lineRightX : getWidth()), lineHeight);
+        canvas.drawPath(highlightedLine, highlightedLinePaint);
 
-	public int getMaxCharacters() {
-		return maxCharacters;
-	}
+        if (floatingLabel && (isFocused() || getText().length() > 0 || labelAnimation != null)) {
+            labelTextPaint.setColor(labelTextColor);
+            labelTextPaint.setTextSize(labelTextSize);
+            canvas.drawText(getHint(), 0, getHint().length(), getScrollX() + labelX, labelY, labelTextPaint);
+        }
+    }
 
-	public void setMaxCharacters(int max) {
-		maxCharacters = max;
-		postInvalidate();
-	}
+    @Override
+    public void setBackgroundColor(int color) {
+        this.backgroundColor = color;
+    }
 
-	public void setErrorColor(int color) {
-		errorColor = color;
-		postInvalidate();
-	}
+    @Override
+    public void setError(CharSequence error) {
+        errorText = error;
+        if (!TextUtils.isEmpty(getError()) || maxCharacters > 0) {
+            updatePadding(0, 0, 0, (int) (DIMEN_8_DP + DIMEN_12_SP));
+        } else {
+            setError(null, null);
+            updatePadding();
+        }
+    }
 
-	@Override
-	public void setOnFocusChangeListener(OnFocusChangeListener listener) {
-		if (interFocusChangeListener == null) {
-			super.setOnFocusChangeListener(listener);
-		} else {
-			outerFocusChangeListener = listener;
-		}
-	}
+    @Override
+    public CharSequence getError() {
+        return errorText;
+    }
 
-	private ObjectAnimator getLabelAnimator() {
-		if (labelAnimator == null) {
-			labelAnimator = ObjectAnimator.ofFloat(this, "floatingLabelFraction", 0f, 1f);
-		}
-		return labelAnimator;
-	}
+    @Override
+    public CharSequence getHint() {
+        // Hides the hint on view focused
+        if (floatingLabel && isFocused()) {
+            setHintTextColor(Color.TRANSPARENT);
+        }
+        return super.getHint();
+    }
 
-	private ObjectAnimator getLabelFocusAnimator() {
-		if (labelFocusAnimator == null) {
-			labelFocusAnimator = ObjectAnimator.ofFloat(this, "focusFraction", 0f, 1f);
-		}
-		return labelFocusAnimator;
-	}
+    public int getCharCount() {
+        return charCount;
+    }
 
-	@Override
-	protected void onDraw(@NonNull Canvas canvas) {
-		// set the textSize
-		paint.setTextSize(floatingLabelTextSize);
+    public void setMaxCharacters(int maxCharacters) {
+        this.maxCharacters = maxCharacters;
+        if (!TextUtils.isEmpty(getError()) || maxCharacters > 0) {
+            updatePadding(0, 0, 0, (int) (DIMEN_8_DP + DIMEN_12_SP));
+        } else {
+            updatePadding();
+        }
+    }
 
-		// draw the background
-		float lineStartY = getScrollY() + getHeight() - getPaddingBottom() + innerComponentsSpacing;
-		if (!isEnabled()) { // disabled
-			paint.setColor(baseColor & 0x00ffffff | 0x44000000);
-			float interval = getPixel(1);
-			for (float startX = 0; startX < getWidth(); startX += interval * 3) {
-				canvas.drawRect(getScrollX() + startX, lineStartY, getScrollX() + startX + interval, lineStartY + getPixel(1), paint);
-			}
-		} else if (hasFocus()) { // focused
-			if (isExceedingMaxCharacters()) {
-				paint.setColor(errorColor);
-			} else {
-				paint.setColor(primaryColor);
-			}
-			canvas.drawRect(getScrollX(), lineStartY, getWidth() + getScrollX(), lineStartY + getPixel(2), paint);
+    public int getMaxCharCount() {
+        return maxCharacters;
+    }
 
-			// draw the characters counter
-			if (maxCharacters > 0) {
-				if (!isExceedingMaxCharacters()) {
-					paint.setColor(getCurrentHintTextColor());
-				}
-				Paint.FontMetrics fontMetrics = paint.getFontMetrics();
-				float relativeHeight = -fontMetrics.ascent - fontMetrics.descent;
-				String text = getText().length() + " / " + maxCharacters;
-				canvas.drawText(text, getWidth() + getScrollX() - paint.measureText(text), lineStartY + innerComponentsSpacing + relativeHeight, paint);
-			}
-		} else { // normal
-			paint.setColor(baseColor);
-			canvas.drawRect(getScrollX(), lineStartY, getWidth() + getScrollX(), lineStartY + getPixel(1), paint);
-		}
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (isEnabled()) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (!isFocused()) {
+                        float x = event.getX();
+                        lineAnimation = createLineAnimation(x, x, 0, getWidth());
+                        lineAnimation.start();
+                    }
+                    break;
+            }
+        }
+        return super.onTouchEvent(event);
+    }
 
-		// draw the floating label
-		if (floatingLabelEnabled && !TextUtils.isEmpty(getHint())) {
-			// calculate the text color
-			paint.setColor((Integer) focusEvaluator.evaluate(focusFraction, getCurrentHintTextColor(), primaryColor));
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        if (focused) {
+            if (floatingLabel && getText().length() == 0) {
+                labelAnimation = createLabelAnimation(getScrollX(), getBaseline(), getScrollX(), DIMEN_16_DP + DIMEN_12_SP, getTextSize(), DIMEN_12_SP, COLOR_HINT, highlightedColor, 0);
+                labelAnimation.start();
+            }
+        } else {
+            if (floatingLabel && getText().length() == 0) {
+                if (labelAnimation != null) {
+                    labelAnimation.cancel();
+                    labelAnimation = createLabelAnimation(labelX, labelY, getScrollX(), getBaseline(), labelTextSize, getTextSize(), labelTextColor, COLOR_HINT, labelAnimationElapsedDuration);
+                    labelAnimation.start();
+                } else {
+                    labelAnimation = createLabelAnimation(getScrollX(), DIMEN_16_DP + DIMEN_12_SP, getScrollX(), getBaseline(), DIMEN_12_SP, getTextSize(), backgroundColor, COLOR_HINT, 0);
+                    labelAnimation.start();
+                }
+            }
+        }
+        if (imgIcon == null) {
+            imgIcon = (ImageView) getRootView().findViewById(iconResId);
+        }
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
 
-			// calculate the vertical position
-			int start = innerPaddingTop + floatingLabelTextSize + innerComponentsSpacing;
-			int distance = innerComponentsSpacing;
-			int position = (int) (start - distance * floatingLabelFraction);
+    @Override
+    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+        charCount = text.length();
+    }
 
-			// calculate the alpha
-			int alpha = (int) (floatingLabelFraction * 0xff * (0.74f * focusFraction + 0.26f));
-			paint.setAlpha(alpha);
+    private AnimatorSet createLineAnimation(float startA, float startB, float targetA, float targetB) {
+        ValueAnimator leftAnim = ValueAnimator.ofFloat(startA, targetA);
+        leftAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                lineLeftX = (Float) animation.getAnimatedValue();
+            }
+        });
+        ValueAnimator rightAnim = ValueAnimator.ofFloat(startB, targetB);
+        rightAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                lineRightX = (Float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
 
-			// draw the floating label
-			canvas.drawText(getHint().toString(), getPaddingLeft() + getScrollX(), position, paint);
-		}
+        AnimatorSet set = new AnimatorSet();
+        set.setDuration(DURATION_SHORT);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.playTogether(leftAnim, rightAnim);
+        return set;
+    }
 
-		// draw the bottom ellipsis
-		if (hasFocus() && singleLineEllipsis && getScrollX() != 0) {
-			paint.setColor(primaryColor);
-			float startY = lineStartY + innerComponentsSpacing;
-			canvas.drawCircle(bottomEllipsisSize / 2 + getScrollX(), startY + bottomEllipsisSize / 2, bottomEllipsisSize / 2, paint);
-			canvas.drawCircle(bottomEllipsisSize * 5 / 2 + getScrollX(), startY + bottomEllipsisSize / 2, bottomEllipsisSize / 2, paint);
-			canvas.drawCircle(bottomEllipsisSize * 9 / 2 + getScrollX(), startY + bottomEllipsisSize / 2, bottomEllipsisSize / 2, paint);
-		}
+    private AnimatorSet createLabelAnimation(float startX, float startY, float targetX, float targetY, float startTextSize, float targetTextSize, int startColor, int targetColor, long durationOffset) {
+        ValueAnimator xAnim = ValueAnimator.ofFloat(startX, targetX);
+        xAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                labelX = (Float) animation.getAnimatedValue();
+            }
+        });
+        ValueAnimator yAnim = ValueAnimator.ofFloat(startY, targetY);
+        yAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                labelY = (Float) animation.getAnimatedValue();
+            }
+        });
+        ValueAnimator textSizeAnim = ValueAnimator.ofFloat(startTextSize, targetTextSize);
+        textSizeAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                labelTextSize = (Float) animation.getAnimatedValue();
+                labelAnimationElapsedDuration = animation.getCurrentPlayTime();
+            }
+        });
+        ValueAnimator textColorAnim = ValueAnimator.ofInt(startColor, targetColor);
+        textColorAnim.setEvaluator(new ArgbEvaluator());
+        textColorAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                labelTextColor = (Integer) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
 
-		// draw the original things
-		super.onDraw(canvas);
-	}
+        AnimatorSet set = new AnimatorSet();
+        set.setDuration(Math.max(0, DURATION_SHORT - durationOffset)); // Ensure positive duration
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.playTogether(xAnim, yAnim, textSizeAnim, textColorAnim);
+        set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
 
-	public boolean isExceedingMaxCharacters() {
-		return maxCharacters > 0 && getText() != null && maxCharacters < getText().length();
-	}
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                labelAnimationElapsedDuration = 0;
+            }
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		if (singleLineEllipsis && getScrollX() > 0 && event.getAction() == MotionEvent.ACTION_DOWN && event.getX() < getPixel(4 * 5) && event.getY() > getHeight() - extraPaddingBottom - innerPaddingBottom && event.getY() < getHeight() - innerPaddingBottom) {
-			setSelection(0);
-			return false;
-		}
-		return super.onTouchEvent(event);
-	}
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        return set;
+    }
+
+    public void setErrorColor(int color) {
+        this.errorColor = color;
+    }
+
+    public void setFloatingLabel(boolean enabled) {
+        if (!floatingLabel && enabled) {
+            basePaddingTop += DIMEN_8_DP + DIMEN_12_SP;
+            labelX = 0;
+            labelY = DIMEN_16_DP + DIMEN_12_SP;
+        } else if (floatingLabel && !enabled) {
+            basePaddingTop -= DIMEN_8_DP + DIMEN_12_SP;
+        }
+        this.floatingLabel = enabled;
+        if (!TextUtils.isEmpty(getError()) || maxCharacters > 0) {
+            updatePadding(0, 0, 0, (int) (DIMEN_8_DP + DIMEN_12_SP));
+        } else {
+            updatePadding();
+        }
+    }
 }

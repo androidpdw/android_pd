@@ -19,7 +19,6 @@
     <!--登录按钮-->
     <item type="id" name="btn_login" />
     <item type="id" name="iv_back_top" />
-<<<<<<< HEAD
     <!--性别  -->
     <item type="id" name="mssb_sex" />
     <!--生日  -->
@@ -29,9 +28,27 @@
     <!-- 街道/乡镇 -->
     <item type="id" name="ll_country" />
     <item type="id" name="tv_country" />
-    <item type="id" name="lv_countries" />
+    <!-- 文化程度 -->
+    <item type="id" name="tv_education" />
+    <!-- 对话框标题 -->
+    <item type="id" name="tv_dialog_title" />
+    <!--对话框内容  -->
+    <item type="id" name="lv_dialog_content" />
+    <!--登录名  -->
+    <item type="id" name="met_login_name" />
+    <!--昵称 -->
+    <item type="id" name="met_nick_name" />
+    <!--密码  -->
+    <item type="id" name="met_password" />
+    <!--确认密码  -->
+    <item type="id" name="met_password_confirm" />
+    <!--密码问题  -->
+    <item type="id" name="met_pwd_question" />
+    <!--密码问题答案  -->
+    <item type="id" name="met_pwd_answer" />
+    <!--忘记密码 -->
+    <item type="id" name="tv_forget_pwd" />
+    <!--注册 -->
+    <item type="id" name="tv_sign_up" />
 	
-=======
-    <item type="id" name="mssb_sex" />
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 </resources>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorTitle">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="base_font_color_gray">#ff999999</color>
     <color name="bg_btn_nav_right_press">#ff393f4d</color>
@@ -19,12 +18,6 @@
     <color name="blue_theme_color">#ff349cef</color>
     <color name="btn_gray">#ffe0e0e0</color>
     <color name="burlywood">#ffdeb887</color>
-    <color name="calendar_color_black">#ff666666</color>
-    <color name="calendar_color_gray">#ffcccccc</color>
-    <color name="calendar_color_green">#ff60c677</color>
-    <color name="calendar_color_month_title">#ff526276</color>
-    <color name="calendar_color_orange">#fffc6c00</color>
-    <color name="calendar_color_white">#ffffffff</color>
     <color name="circle_image_view_default_boarder_color">#19000000</color>
     <color name="circle_image_view_default_white_boarder_color">#4dffffff</color>
     <color name="coupons_cash_back_bg">#ffff6553</color>
@@ -109,4 +102,19 @@
     <color name="white">#ffffffff</color>
     <color name="yellow">#ffff9c00</color>
     <color name="yellow_light">#ffff7e14</color>
+    <color name="label_color">#ffffff</color>
+    <color name="label_color_notfocus">#80ffffff</color>
+
+    <!-- EditText text field line color -->
+    <color name="edittext_line">#80ffffff</color>
+
+    <!-- EditText focused text field line color -->
+    <color name="edittext_line_focused">#ffffff</color>
+    <color name="back_default">#2095f2</color>
+
+    <!-- Black -->
+    <color name="app_grey">#ff2f2b30</color>
+    <color name="app_focused_label">#ff2f2b30</color>
+    <color name="app_unfocused_label">#ff79787b</color>
+
 </resources>

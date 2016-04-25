@@ -1,11 +1,12 @@
 package com.xiawa.read.activity;
 
-<<<<<<< HEAD
 import java.io.IOException;
 import java.text.DateFormat.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,6 +25,7 @@ import android.content.res.Resources.Theme;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,13 +35,17 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
 import com.xiawa.read.utils.AssetsUtils;
+import com.xiawa.read.utils.UIUtils;
+import com.xiawa.read.view.MaterialEditText;
 import com.xiawa.read.view.MySpringSwitchButton;
 import com.xiawa.read.view.picker.AddressPicker;
 import com.xiawa.read.view.picker.AddressPicker.Country;
@@ -59,11 +65,38 @@ public class SignUpActivity extends Activity implements OnClickListener
 	private TextView tvCountry;
 	@ViewInject(R.id.view_divide)
 	private View viewDivide;
+	@ViewInject(R.id.tv_education)
+	private TextView tvEducation;
+	@ViewInject(R.id.met_login_name)
+	private MaterialEditText metLoginName;
+	@ViewInject(R.id.met_nick_name)
+	private MaterialEditText metNickName;
+	@ViewInject(R.id.met_password)
+	private MaterialEditText metPassword;
+	@ViewInject(R.id.met_password_confirm)
+	private MaterialEditText metPasswordConfirm;
+	@ViewInject(R.id.met_pwd_question)
+	private MaterialEditText metPwdQuestion;
+	@ViewInject(R.id.met_pwd_answer)
+	private MaterialEditText metPwdAnswer;
 
 	private ListView lvCountries;
+	private ListView lvEducation;
 	private List<AddressPicker.Country> mCountries;
-	private CountryAdapter mAdapter;
-	private AlertDialog mDialog;
+	private CountryAdapter mCountryAdapter;
+	private AlertDialog mCountryDialog;
+	private AlertDialog mEducationDialog;
+	// 博士，硕士，本科，大专，中专，技工学校，高中，初中，小学，
+	private String[] mEducation = { "文盲与半文盲", "小学", "初中", "高中", "技工学校", "中专",
+			"大专", "本科", "硕士", "博士" };
+	private Handler mHandler = new Handler()
+	{
+		public void handleMessage(android.os.Message msg)
+		{
+			tvCountry.setText("点击以选择乡镇/街道");
+			tvCountry.setClickable(true);
+		};
+	};
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -96,7 +129,14 @@ public class SignUpActivity extends Activity implements OnClickListener
 		tvBirthDate.setOnClickListener(this);
 		tvAddress.setOnClickListener(this);
 		tvCountry.setOnClickListener(this);
-		mAdapter = new CountryAdapter();
+		/*tvEducation.setOnClickListener(this);
+		metLoginName.setError("");
+		metNickName.setError("");
+		metPassword.setError("");
+		metPasswordConfirm.setError("");
+		metPwdAnswer.setError("");
+		metPwdQuestion.setError("");*/
+		mCountryAdapter = new CountryAdapter();
 	}
 
 	@Override
@@ -114,8 +154,53 @@ public class SignUpActivity extends Activity implements OnClickListener
 		case R.id.tv_country:
 			showCountryPicker();
 			break;
+		case R.id.tv_education:
+			showEducationPicker();
+			break;
 		}
 
+	}
+	/**
+	 * 文化程度选择
+	 */
+	private void showEducationPicker()
+	{
+		// TODO Auto-generated method stub
+		Builder builder = new AlertDialog.Builder(this);
+		View view = View.inflate(this, R.layout.dialog_list_view, null);
+		builder.setView(view);
+		((TextView) view.findViewById(R.id.tv_dialog_title)).setText("选择文化程度:");
+		lvEducation = (ListView) view.findViewById(R.id.lv_dialog_content);
+		lvEducation.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id)
+			{
+				// TODO Auto-generated method stub
+				tvEducation.setText(mEducation[position]);
+				mEducationDialog.dismiss();
+			}
+		});
+		lvEducation.setAdapter(new SimpleAdapter(this, getData(),
+				android.R.layout.simple_list_item_1, new String[] { "title" },
+				new int[] { android.R.id.text1 }));
+		mEducationDialog = builder.create();
+		mEducationDialog.show();
+	}
+
+	private List<HashMap<String, Object>> getData()
+	{
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> map = null;
+		for (int i = 0; i < mEducation.length; i++)
+		{
+			map = new HashMap<String, Object>();
+			map.put("title", mEducation[i]);
+			list.add(map);
+		}
+		return list;
 	}
 
 	/**
@@ -126,7 +211,9 @@ public class SignUpActivity extends Activity implements OnClickListener
 		Builder builder = new AlertDialog.Builder(this);
 		View view = View.inflate(this, R.layout.dialog_list_view, null);
 		builder.setView(view);
-		lvCountries = (ListView) view.findViewById(R.id.lv_countries);
+		((TextView) view.findViewById(R.id.tv_dialog_title))
+				.setText("选择乡镇/街道:");
+		lvCountries = (ListView) view.findViewById(R.id.lv_dialog_content);
 		lvCountries.setOnItemClickListener(new OnItemClickListener()
 		{
 
@@ -136,12 +223,12 @@ public class SignUpActivity extends Activity implements OnClickListener
 			{
 				// TODO Auto-generated method stub
 				tvCountry.setText(mCountries.get(position).getAreaName());
-				mDialog.dismiss();
+				mCountryDialog.dismiss();
 			}
 		});
-		lvCountries.setAdapter(mAdapter);
-		mDialog=builder.create();
-		mDialog.show();
+		lvCountries.setAdapter(mCountryAdapter);
+		mCountryDialog = builder.create();
+		mCountryDialog.show();
 	}
 
 	/**
@@ -161,24 +248,23 @@ public class SignUpActivity extends Activity implements OnClickListener
 			@Override
 			public void onAddressPicked(String province, String city,
 					String county, int selectedProvinceIndex,
-					int selectedCityIndex)
+					int selectedCityIndex, int selectedCountyIndex)
 			{
 				// TODO Auto-generated method stub
 
 				String areaId = data.get(selectedProvinceIndex).getCities()
-						.get(selectedCityIndex).getAreaId();
+						.get(selectedCityIndex).getCounties()
+						.get(selectedCountyIndex).getAreaId();
 				System.out.println("selectedCityIndex=" + selectedCityIndex
 						+ "," + "selectedProvinceIndex="
 						+ selectedProvinceIndex + "," + areaId);
+				tvCountry.setText("查询乡镇/街道中...");
+				tvCountry.setClickable(false);
 				getTown(areaId);
-				mAdapter.notifyDataSetChanged();
+
 				tvAddress.setText(province + city + county);
 				llCountry.setVisibility(View.VISIBLE);
 				viewDivide.setVisibility(View.VISIBLE);
-				if (mCountries != null)
-					if (mCountries.size() != 0)
-						tvCountry.setText(mCountries.get(1).getAreaName());
-
 			}
 		});
 		picker.setAnimationStyle(R.style.Animation_Popup);
@@ -204,7 +290,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 			public void onDatePicked(String year, String month, String day)
 			{
 				tvBirthDate.setText(year + "年" + month + "月" + day + "日");
-				llCountry.setVisibility(View.VISIBLE);
+
 			}
 		});
 		picker.setAnimationStyle(R.style.Animation_Popup);
@@ -222,14 +308,16 @@ public class SignUpActivity extends Activity implements OnClickListener
 		final String url = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2014/"
 				+ areaId.substring(0, 2)
 				+ "/"
-				+ areaId.substring(0, 4)
-				+ ".html";
+				+ areaId.substring(2, 4)
+				+ "/"
+				+ areaId.substring(0, 6) + ".html";
+		System.err.println(url + "  =========test");
 		new Thread()
 		{
 			public void run()
 			{
-				Document connect = connect(url);
-				Elements newsHeadlines = connect.select("tr.countytr");//
+				Document connect = connect(SignUpActivity.this, url);
+				Elements newsHeadlines = connect.select("tr.towntr");//
 				// 获取表格的一行数据
 				mCountries = new ArrayList<AddressPicker.Country>();
 				for (Element element : newsHeadlines)
@@ -245,6 +333,9 @@ public class SignUpActivity extends Activity implements OnClickListener
 				// {
 				// System.err.println("test==" + country.toString());
 				// }
+				mCountryAdapter.notifyDataSetChanged();
+				mHandler.sendEmptyMessage(0);
+
 			};
 		}.start();
 	}
@@ -255,7 +346,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	 * @param url
 	 * @return
 	 */
-	private static Document connect(String url)
+	private static Document connect(Activity context, String url)
 	{
 		if (url == null || url.isEmpty())
 		{
@@ -268,6 +359,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		} catch (IOException e)
 		{
 			e.printStackTrace();
+			UIUtils.showToast(context, "网络错误!");
 			return null;
 		}
 	}
@@ -303,40 +395,8 @@ public class SignUpActivity extends Activity implements OnClickListener
 			TextView textView = new TextView(SignUpActivity.this);
 			textView.setText(mCountries.get(position).getAreaName());
 			textView.setTextSize(20.0f);
-			textView.setPadding(20, 5, 20, 0);
+			textView.setPadding(20, 5, 20, 5);
 			return textView;
 		}
 	}
-=======
-import android.app.Activity;
-import android.os.Bundle;
-
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.xiawa.read.R;
-import com.xiawa.read.view.MySpringSwitchButton;
-
-
-public class SignUpActivity extends Activity
-{
-    @ViewInject(R.id.mssb_sex)
-    private MySpringSwitchButton mssbSex;
-
-    @Override
-    protected void onCreate(final Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        ViewUtils.inject(this);
-        mssbSex.animate();
-        mssbSex.setOnToggleListener(new MySpringSwitchButton.OnToggleListener()
-        {
-            @Override
-            public void onToggle(boolean left)
-            {
-
-            }
-        });
-    }
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 }

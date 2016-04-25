@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<<<<<<< HEAD
+    <!--低栏属性  -->
     <attr name="wx_icon" format="reference" />
     <attr name="wx_color" format="color" />
     <attr name="text" format="string" />
@@ -22,46 +22,30 @@
         <attr name="textUnCheckedColor" format="color" />
         <attr name="backRectColor" format="color" />
     </declare-styleable>
-    <declare-styleable name="MaterialEditText">
+    
+    
+    <!-- EditText https://github.com/Pombo/material-edit-text -->
+    <attr name="errorColor" format="color"/>
+    <attr name="maxCharacters" format="integer"/>
 
-        <!-- the base color of the line and the texts. default is black. -->
-        <attr name="baseColor" format="color" />
-        <!-- the highlight color of the line, and the floating label if the highlightFloatingLabel is true. -->
-        <attr name="primaryColor" format="color" />
-        <!-- how the floating label should be shown. default is none -->
-        <attr name="floatingLabel">
-            <enum name="none" value="0" />
-            <enum name="normal" value="1" />
-            <enum name="highlight" value="2" />
-        </attr>
-        <!-- the color for when something is wrong.(e.g. exceeding max characters) -->
-        <attr name="errorColor" format="color" />
-        <!-- characters count limit. 0 means no limit. -->
-        <attr name="maxCharacters" format="integer" />
-        <!-- whether to show the bottom ellipsis in singleLine mode -->
-        <attr name="singleLineEllipsis" format="boolean" />
+    <declare-styleable name="materialEditText">
+        <!-- Highlight color of floating label text and underline. -->
+        <attr name="backgroundColor" format="color"/>
+        <!-- Error color of under line text and underline. -->
+        <attr name="errorColor"/>
+        <!-- Enable floating label text. -->
+        <attr name="floatingLabel" format="boolean"/>
+        <!-- Max characters count limit. 0 means no max. -->
+        <attr name="maxCharacters"/>
+        <!-- Icon (ImageView) associated to this EditText. -->
+        <attr name="withIcon" format="reference"/>
     </declare-styleable>
 
-=======
-    <attr name="wx_icon" format="reference"/>
-    <attr name="wx_color" format="color"/>
-    <attr name="text" format="string"/>
-    <attr name="text_size" format="dimension"/>
+    <declare-styleable name="fullwidthEditText">
+        <!-- Error color of under line text and underline. -->
+        <attr name="errorColor"/>
+        <!-- Max characters count limit. 0 means no max. -->
+        <attr name="maxCharacters"/>
+    </declare-styleable>
 
-    <declare-styleable name="ChangeColorIconView">
-        <attr name="wx_icon"/>
-        <attr name="wx_color"/>
-        <attr name="text"/>
-        <attr name="text_size"/>
-    </declare-styleable>
-    <declare-styleable name="MySwitchButton">
-        <attr name="leftText" format="string"/>
-        <attr name="rightText" format="string"/>
-        <attr name="textSize" format="dimension"/>
-        <attr name="textPadding" format="dimension"/>
-        <attr name="textCheckedColor" format="color"/>
-        <attr name="textUnCheckedColor" format="color"/>
-        <attr name="backRectColor" format="color"/>
-    </declare-styleable>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 </resources>

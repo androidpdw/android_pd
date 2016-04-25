@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-<<<<<<< HEAD
-=======
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="libs/android-smart-image-view-1.0.0.jar"/>
 	<classpathentry kind="lib" path="libs/rebound-0.3.6.jar"/>
 	<classpathentry kind="lib" path="libs/xUtils-2.6.14.jar"/>
-<<<<<<< HEAD
 	<classpathentry kind="lib" path="libs/nineoldandroids-2.4.0.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-=======
->>>>>>> 943c1dd2c71b78bf397d718af6da1cf5a5707a11
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
