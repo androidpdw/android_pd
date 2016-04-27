@@ -471,21 +471,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 用户名
          */
         public static final int et_user_name=0x7f070006;
-        public static final int fl_image_cycle=0x7f070024;
-        public static final int icv_top=0x7f07001c;
-        public static final int ihiv_first=0x7f07001d;
-        public static final int ihiv_four=0x7f070020;
-        public static final int ihiv_second=0x7f07001e;
-        public static final int ihiv_third=0x7f07001f;
+        public static final int fl_image_cycle=0x7f070025;
+        public static final int hello=0x7f07001b;
+        public static final int icv_top=0x7f07001d;
+        public static final int ihiv_first=0x7f07001e;
+        public static final int ihiv_four=0x7f070021;
+        public static final int ihiv_second=0x7f07001f;
+        public static final int ihiv_third=0x7f070020;
         public static final int iv_back_top=0x7f070009;
-        public static final int iv_item_background=0x7f070021;
+        public static final int iv_item_background=0x7f070022;
         /** 主页顶部用户图标
          */
         public static final int iv_user=0x7f070000;
         /**  街道/乡镇 
          */
         public static final int ll_country=0x7f07000d;
-        public static final int ll_indication_group=0x7f070025;
+        public static final int ll_indication_group=0x7f070026;
         /** 对话框内容  
          */
         public static final int lv_dialog_content=0x7f070011;
@@ -526,38 +527,44 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 忘记密码 
          */
         public static final int tv_forget_pwd=0x7f070018;
-        public static final int tv_item_desc=0x7f070023;
-        public static final int tv_item_title=0x7f070022;
+        public static final int tv_item_desc=0x7f070024;
+        public static final int tv_item_title=0x7f070023;
         /** 注册 
          */
         public static final int tv_sign_up=0x7f070019;
-        public static final int tv_text=0x7f070026;
+        public static final int tv_text=0x7f070027;
         public static final int view_divide=0x7f07001a;
         /** 主页Fragment
          */
         public static final int vp_container=0x7f070001;
-        public static final int wv=0x7f07001b;
+        public static final int wv=0x7f07001c;
     }
     public static final class layout {
         public static final int activity_forget_password=0x7f030000;
         public static final int activity_login=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_sign_up=0x7f030003;
-        public static final int activity_web=0x7f030004;
-        public static final int dialog_list_view=0x7f030005;
-        public static final int fragment_contact=0x7f030006;
-        public static final int fragment_find=0x7f030007;
-        public static final int fragment_home=0x7f030008;
-        public static final int fragment_me=0x7f030009;
-        public static final int item_hom_image=0x7f03000a;
-        public static final int item_home_location=0x7f03000b;
-        public static final int view_image_cycle=0x7f03000c;
+        public static final int activity_user_home=0x7f030004;
+        public static final int activity_web=0x7f030005;
+        public static final int dialog_list_view=0x7f030006;
+        public static final int fragment_contact=0x7f030007;
+        public static final int fragment_find=0x7f030008;
+        public static final int fragment_home=0x7f030009;
+        public static final int fragment_me=0x7f03000a;
+        public static final int item_hom_image=0x7f03000b;
+        public static final int item_home_location=0x7f03000c;
+        public static final int view_image_cycle=0x7f03000d;
     }
     public static final class string {
         public static final int app_name=0x7f080000;
+        /**  @author zhengwei  
+         */
+        public static final int common_progress_dialog_image_loading=0x7f080006;
         /**  TODO: Remove or change this placeholder text 
          */
         public static final int hello_blank_fragment=0x7f080005;
+        public static final int loginName_empty=0x7f080007;
+        public static final int loginPwd_empty=0x7f080008;
         public static final int tab_find=0x7f080003;
         public static final int tab_home=0x7f080001;
         public static final int tab_me=0x7f080004;

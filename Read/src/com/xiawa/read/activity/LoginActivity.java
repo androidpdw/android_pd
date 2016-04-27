@@ -3,32 +3,51 @@ package com.xiawa.read.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.TextView;
 
+import android.widget.EditText;
+
+import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
+import com.xiawa.read.utils.CommonFunction;
+import com.xiawa.read.utils.InitGetImei;
+import com.xiawa.read.utils.URLString;
+import com.xiawa.read.utils.UserInformation;
 
-public class LoginActivity extends Activity
-{
+public class LoginActivity extends Activity {
 	// 输入登录名
 	@ViewInject(R.id.et_user_name)
 	private EditText etUserName;
 	// 输入密码
 	@ViewInject(R.id.et_password)
 	private EditText etPwd;
+
 	/**
 	 * 使用ViewUtils给顶部返回添加事件
 	 *
 	 * @param v
 	 */
 	@OnClick(R.id.iv_back_top)
-	public void backTopOnClick(View v)
-	{
+	public void backTopOnClick(View v) {
 		finish();
 	}
 
@@ -38,23 +57,22 @@ public class LoginActivity extends Activity
 	 * @param v
 	 */
 	@OnClick(R.id.tv_sign_up)
-	public void signUp(View v)
-	{
+	public void signUp(View v) {
 		startActivity(new Intent(this, SignUpActivity.class));
 	}
+
 	/**
 	 * 忘记密码
+	 * 
 	 * @param v
 	 */
 	@OnClick(R.id.tv_forget_pwd)
-	public void forgetPwd(View v)
-	{
+	public void forgetPwd(View v) {
 		startActivity(new Intent(this, ForgetPasswordActivity.class));
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		ViewUtils.inject(this);
@@ -64,10 +82,91 @@ public class LoginActivity extends Activity
 	 * 登录
 	 *
 	 * @param view
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
 	 */
-	public void login(View view)
-	{
+	public void login(View view) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		if (isUsernameAndPwdValid()) {
+			String userName = etUserName.getText().toString().trim();// 去除首尾空格
+			String userPwd = etPwd.getText().toString().trim();
 
+			byte[] userPwdStrBytes = userPwd.getBytes("UTF-8");
+			String userPwdStr = new String(userPwdStrBytes, "UTF-8");
+			userPwd = CommonFunction.getMD5(userPwdStr);
+
+			String URL = URLString.URL_DOMAIN + "/pd_app_login.php";
+			
+			sendPOST(URL, userName, userPwd);
+
+		}
+	}
+
+	/*
+	 * 向服务器提交数据
+	 */
+	public void sendPOST(String url, String userName, String userPwd) {
+
+		
+		InitGetImei initGetImei = new InitGetImei((TelephonyManager) getSystemService(TELEPHONY_SERVICE)); // 获取imei号
+		String mszDevIDShort = initGetImei.getImei();
+		String timestamp = String.valueOf(System.currentTimeMillis()); // 取时间戳
+
+		HttpUtils httpUtils = new HttpUtils();
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("token", URLString.TOKEN);
+		params.addBodyParameter("hui", mszDevIDShort);
+		params.addBodyParameter("timestamp", timestamp);
+		params.addBodyParameter("verifycode",UserInformation.VERIFYCODE);
+		params.addBodyParameter("loginname", userName);
+		params.addBodyParameter("password", userPwd);
+
+		httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				Toast.makeText(getApplicationContext(), "网络连接错误！请重试", 0).show();
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				try {
+					JSONObject obj = new JSONObject(arg0.result);
+					
+					String result = obj.getString("staus");
+					String msg=obj.getString("msg");
+					
+					if (result.equals("0")) {  //登录成功
+						userHomeActivity();
+					} else {
+						
+						Toast.makeText(getApplicationContext(), msg, 0).show();
+					}
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 跳转到个人主页
+	 */
+	public void userHomeActivity() {
+		startActivity(new Intent(this, UserHomeActivity.class));
+	}
+
+	public boolean isUsernameAndPwdValid() { 	//判断登录名和密码是否为空
+		if (TextUtils.isEmpty(etUserName.getText())) {
+
+			Toast.makeText(this, getString(R.string.loginName_empty), Toast.LENGTH_SHORT).show();
+			return false;
+		} else if (TextUtils.isEmpty(etPwd.getText())) {
+
+			Toast.makeText(this, getString(R.string.loginPwd_empty), Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
 	}
 
 }
