@@ -146,6 +146,7 @@ public class LoginActivity extends Activity {
 					Log.i("ZHENGmsg", "result: "+result+" msg:"+msg);
 					if (result.equals("0")) {  //登录成功
 						userHomeActivity();
+						Toast.makeText(getApplicationContext(), "登录成功", 0).show();
 					} else {
 						
 						Toast.makeText(getApplicationContext(), msg, 0).show();
