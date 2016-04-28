@@ -9,16 +9,17 @@ package com.xiawa.read;
 
 public final class R {
     public static final class anim {
-        public static final int dialog_enter=0x7f040000;
-        public static final int dialog_exit=0x7f040001;
-        public static final int popup_in=0x7f040002;
-        public static final int popup_out=0x7f040003;
-        public static final int push_down_out=0x7f040004;
-        public static final int push_left_in=0x7f040005;
-        public static final int push_left_out=0x7f040006;
-        public static final int push_right_in=0x7f040007;
-        public static final int push_right_out=0x7f040008;
-        public static final int push_up_in=0x7f040009;
+        public static final int common_progress_dialog_anim=0x7f040000;
+        public static final int dialog_enter=0x7f040001;
+        public static final int dialog_exit=0x7f040002;
+        public static final int popup_in=0x7f040003;
+        public static final int popup_out=0x7f040004;
+        public static final int push_down_out=0x7f040005;
+        public static final int push_left_in=0x7f040006;
+        public static final int push_left_out=0x7f040007;
+        public static final int push_right_in=0x7f040008;
+        public static final int push_right_out=0x7f040009;
+        public static final int push_up_in=0x7f04000a;
     }
     public static final class attr {
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -447,7 +448,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int normal_line=0x7f020018;
         public static final int normal_line_black=0x7f020019;
         public static final int point=0x7f02001a;
-        public static final int user=0x7f02001b;
+        public static final int sf_progress_1=0x7f02001b;
+        public static final int sf_progress_2=0x7f02001c;
+        public static final int sf_progress_3=0x7f02001d;
+        public static final int sf_progress_4=0x7f02001e;
+        public static final int sf_progress_5=0x7f02001f;
+        public static final int sf_progress_6=0x7f020020;
+        public static final int sf_progress_7=0x7f020021;
+        public static final int sf_progress_8=0x7f020022;
+        public static final int user=0x7f020023;
     }
     public static final class id {
         /** 登录按钮
@@ -471,22 +480,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 用户名
          */
         public static final int et_user_name=0x7f070006;
-        public static final int fl_image_cycle=0x7f070025;
+        public static final int fl_image_cycle=0x7f070026;
         public static final int hello=0x7f07001b;
-        public static final int icv_top=0x7f07001d;
-        public static final int ihiv_first=0x7f07001e;
-        public static final int ihiv_four=0x7f070021;
-        public static final int ihiv_second=0x7f07001f;
-        public static final int ihiv_third=0x7f070020;
+        public static final int icv_top=0x7f07001e;
+        public static final int ihiv_first=0x7f07001f;
+        public static final int ihiv_four=0x7f070022;
+        public static final int ihiv_second=0x7f070020;
+        public static final int ihiv_third=0x7f070021;
         public static final int iv_back_top=0x7f070009;
-        public static final int iv_item_background=0x7f070022;
+        public static final int iv_item_background=0x7f070023;
         /** 主页顶部用户图标
          */
         public static final int iv_user=0x7f070000;
         /**  街道/乡镇 
          */
         public static final int ll_country=0x7f07000d;
-        public static final int ll_indication_group=0x7f070026;
+        public static final int ll_indication_group=0x7f070027;
         /** 对话框内容  
          */
         public static final int lv_dialog_content=0x7f070011;
@@ -511,6 +520,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 性别  
          */
         public static final int mssb_sex=0x7f07000a;
+        public static final int sf_iv_progress_dialog_loading=0x7f07001d;
         /** 地址  
          */
         public static final int tv_address=0x7f07000c;
@@ -527,12 +537,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 忘记密码 
          */
         public static final int tv_forget_pwd=0x7f070018;
-        public static final int tv_item_desc=0x7f070024;
-        public static final int tv_item_title=0x7f070023;
+        public static final int tv_item_desc=0x7f070025;
+        public static final int tv_item_title=0x7f070024;
         /** 注册 
          */
         public static final int tv_sign_up=0x7f070019;
-        public static final int tv_text=0x7f070027;
+        public static final int tv_text=0x7f070028;
         public static final int view_divide=0x7f07001a;
         /** 主页Fragment
          */
@@ -546,25 +556,32 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_sign_up=0x7f030003;
         public static final int activity_user_home=0x7f030004;
         public static final int activity_web=0x7f030005;
-        public static final int dialog_list_view=0x7f030006;
-        public static final int fragment_contact=0x7f030007;
-        public static final int fragment_find=0x7f030008;
-        public static final int fragment_home=0x7f030009;
-        public static final int fragment_me=0x7f03000a;
-        public static final int item_hom_image=0x7f03000b;
-        public static final int item_home_location=0x7f03000c;
-        public static final int view_image_cycle=0x7f03000d;
+        public static final int common_view_custom_progress_dialog=0x7f030006;
+        public static final int dialog_list_view=0x7f030007;
+        public static final int fragment_contact=0x7f030008;
+        public static final int fragment_find=0x7f030009;
+        public static final int fragment_home=0x7f03000a;
+        public static final int fragment_me=0x7f03000b;
+        public static final int item_hom_image=0x7f03000c;
+        public static final int item_home_location=0x7f03000d;
+        public static final int view_image_cycle=0x7f03000e;
     }
     public static final class string {
+        public static final int address_empty=0x7f08000e;
+        public static final int answerPwd_empty=0x7f08000c;
         public static final int app_name=0x7f080000;
         /**  @author zhengwei  
          */
         public static final int common_progress_dialog_image_loading=0x7f080006;
+        public static final int confirmPwd_empty=0x7f08000a;
+        public static final int education_empty=0x7f08000d;
         /**  TODO: Remove or change this placeholder text 
          */
         public static final int hello_blank_fragment=0x7f080005;
         public static final int loginName_empty=0x7f080007;
         public static final int loginPwd_empty=0x7f080008;
+        public static final int nickName_empty=0x7f080009;
+        public static final int questionPwd_empty=0x7f08000b;
         public static final int tab_find=0x7f080003;
         public static final int tab_home=0x7f080001;
         public static final int tab_me=0x7f080004;
@@ -586,8 +603,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090005;
+        public static final int AppBaseTheme=0x7f090007;
         public static final int AppTheme=0x7f090002;
+        /**  @author zhengwei  自定义process dialog 的样式 
+         */
+        public static final int SF_dialogCustom=0x7f090005;
+        public static final int SF_pressDialogCustom=0x7f090006;
         public static final int item_divider=0x7f090003;
     }
     public static final class styleable {

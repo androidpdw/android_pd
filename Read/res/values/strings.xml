@@ -13,5 +13,11 @@
     <string name="common_progress_dialog_image_loading"></string>
     <string name="loginName_empty">登录名为空</string>
     <string name="loginPwd_empty">密码为空</string>
+    <string name="nickName_empty">昵称为空</string>
+    <string name="confirmPwd_empty">请再次输入以确认密码</string>
+    <string name="questionPwd_empty">密码问题为空</string>
+    <string name="answerPwd_empty">密码问题答案为空</string>
+    <string name="education_empty">请选择文化程度</string>
+    <string name="address_empty">请选择居住地址</string>
     
 </resources>
