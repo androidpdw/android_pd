@@ -32,6 +32,8 @@
         
         <!-- 个人主页 -->
         <activity android:name=".activity.UserHomeActivity" > </activity>
+        <!-- 注册成功跳转页 -->
+        <activity android:name=".activity.RegSuccessActivity" > </activity>
         
     </application>
 

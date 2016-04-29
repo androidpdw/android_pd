@@ -146,7 +146,9 @@ public class SignUpActivity extends Activity implements OnClickListener
     	String metPwdConfirm=metPasswordConfirm.getText().toString().trim();
 		metPwd = CommonFunction.getMD5(metPwd);
 		metPwdConfirm = CommonFunction.getMD5(metPwdConfirm);
-    
+		
+		String address = tvAddress.getText().toString()+tvCountry.getText().toString();
+		
 		JSONObject json = new JSONObject();
     	json.put("token", URLString.TOKEN);
 	    json.put("hui", mszDevIDShort);
@@ -160,7 +162,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	    json.put("pwdquestion", metPwdQuestion.getText().toString().trim());
 	    json.put("pwdanswer", metPwdAnswer.getText().toString().trim());
 	    json.put("birthdate", tvBirthDate.getText().toString());
-	    json.put("address", tvAddress.getText().toString());
+	    json.put("address", address);
 	    /* json.put("addressid1", );
 	    json.put("addressid2", );
 	    json.put("addressid3", );
@@ -168,7 +170,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	    json.put("education", ); */
 	    String jsonString = String.valueOf(json);  		
 
-		String URL = URLString.URL_DOMAIN + "/pd_app_register.php";
+		String URL = URLString.URL_DOMAIN + URLString.URL_REGISTER;
 		
 		sendPOST(URL, jsonString);
 		}
@@ -499,10 +501,11 @@ public class SignUpActivity extends Activity implements OnClickListener
 				Log.i("onsuccess", "onsuccess");
 				hideCustomProgressDialog();
 				try {
+					Log.i("ZHENGmsg", "arh0 "+arg0.result);
 					JSONObject obj = new JSONObject(arg0.result);
 					
-					String result = obj.getString("staus");
-					String msg=obj.getString("Msg");
+					String result = new String(obj.getString("staus"));
+					String msg=new String(obj.getString("Msg"));
 					Log.i("ZHENGmsg", "result: "+result+" msg:"+msg);
 					if (result.equals("0")) {  //注册成功
 						
@@ -569,6 +572,10 @@ public class SignUpActivity extends Activity implements OnClickListener
 		}else if (tvEducation.getText().toString().equals("请选择文化程度")) {
 
 			Toast.makeText(this, getString(R.string.education_empty), Toast.LENGTH_SHORT).show();
+			return false;
+		}else if (tvCountry.getText().toString().equals("点击以选择乡镇/街道")) {
+
+			Toast.makeText(this, getString(R.string.address_empty), Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		

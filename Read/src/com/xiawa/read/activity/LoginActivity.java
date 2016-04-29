@@ -86,38 +86,42 @@ public class LoginActivity extends Activity {
 	 * @param view
 	 * @throws UnsupportedEncodingException
 	 * @throws NoSuchAlgorithmException
+	 * @throws JSONException 
 	 */
-	public void login(View view) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	public void login(View view) throws UnsupportedEncodingException, NoSuchAlgorithmException, JSONException {
 		if (isUsernameAndPwdValid()) {
 			String userName = etUserName.getText().toString().trim();// 去除首尾空格
 			String userPwd = etPwd.getText().toString().trim();
-			
 			userPwd = CommonFunction.getMD5(userPwd);
-
-			String URL = URLString.URL_DOMAIN + "/pd_app_login.php";
 			
-			sendPOST(URL, userName, userPwd);
+			InitGetImei initGetImei = new InitGetImei((TelephonyManager) getSystemService(TELEPHONY_SERVICE)); // 获取imei号
+			String mszDevIDShort = initGetImei.getImei();
+			String timestamp = String.valueOf(System.currentTimeMillis()); // 取时间戳
+			
+			JSONObject json = new JSONObject();
+	    	json.put("token", URLString.TOKEN);
+		    json.put("hui", mszDevIDShort);
+		    json.put("timestamp", timestamp);
+		    json.put("verifycode", UserInformation.VERIFYCODE);
+		    json.put("loginname", userName);
+		    json.put("password", userPwd);
+		    String jsonString = String.valueOf(json);  
+		    
+			String URL = URLString.URL_DOMAIN + URLString.URL_LOGIN;
+			
+			sendPOST(URL, jsonString);
 		}
 	}
 
 	/*
 	 * 向服务器提交数据
 	 */
-	public void sendPOST(String url, String userName, String userPwd) {
+	public void sendPOST(String url, String jsonString) {
 		
-		InitGetImei initGetImei = new InitGetImei((TelephonyManager) getSystemService(TELEPHONY_SERVICE)); // 获取imei号
-		String mszDevIDShort = initGetImei.getImei();
-		String timestamp = String.valueOf(System.currentTimeMillis()); // 取时间戳
-
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("token", URLString.TOKEN);
-		params.addBodyParameter("hui", mszDevIDShort);
-		params.addBodyParameter("timestamp", timestamp);
-		params.addBodyParameter("verifycode",UserInformation.VERIFYCODE);
-		params.addBodyParameter("loginname", userName);
-		params.addBodyParameter("password", userPwd);
-
+		params.addBodyParameter("json", jsonString);
+		
 		httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
 			@Override
@@ -135,18 +139,18 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				Log.i("onsuccess", "onsuccess");
-				Log.i("onsuccess", arg0.result);
+				;
 				hideCustomProgressDialog();
 				try {
+					Log.i("ZHENGmsg", "arh0 "+arg0.result);
 					JSONObject obj = new JSONObject(arg0.result);
 					
-					String result = obj.getString("staus");
-					String msg=obj.getString("Msg");
+					String result = new String(obj.getString("staus"));
+					String msg=new String(obj.getString("Msg"));
 					Log.i("ZHENGmsg", "result: "+result+" msg:"+msg);
 					if (result.equals("0")) {  //登录成功
 						userHomeActivity();
-						Toast.makeText(getApplicationContext(), "登录成功", 0).show();
+						//Toast.makeText(getApplicationContext(), "登录成功", 0).show();
 					} else {
 						
 						Toast.makeText(getApplicationContext(), msg, 0).show();

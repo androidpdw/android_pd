@@ -481,7 +481,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int et_user_name=0x7f070006;
         public static final int fl_image_cycle=0x7f070026;
-        public static final int hello=0x7f07001b;
+        public static final int hello=0x7f07001a;
         public static final int icv_top=0x7f07001e;
         public static final int ihiv_first=0x7f07001f;
         public static final int ihiv_four=0x7f070022;
@@ -543,7 +543,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int tv_sign_up=0x7f070019;
         public static final int tv_text=0x7f070028;
-        public static final int view_divide=0x7f07001a;
+        public static final int view_divide=0x7f07001b;
         /** 主页Fragment
          */
         public static final int vp_container=0x7f070001;
@@ -553,18 +553,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_forget_password=0x7f030000;
         public static final int activity_login=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int activity_sign_up=0x7f030003;
-        public static final int activity_user_home=0x7f030004;
-        public static final int activity_web=0x7f030005;
-        public static final int common_view_custom_progress_dialog=0x7f030006;
-        public static final int dialog_list_view=0x7f030007;
-        public static final int fragment_contact=0x7f030008;
-        public static final int fragment_find=0x7f030009;
-        public static final int fragment_home=0x7f03000a;
-        public static final int fragment_me=0x7f03000b;
-        public static final int item_hom_image=0x7f03000c;
-        public static final int item_home_location=0x7f03000d;
-        public static final int view_image_cycle=0x7f03000e;
+        public static final int activity_register_success=0x7f030003;
+        public static final int activity_sign_up=0x7f030004;
+        public static final int activity_user_home=0x7f030005;
+        public static final int activity_web=0x7f030006;
+        public static final int common_view_custom_progress_dialog=0x7f030007;
+        public static final int dialog_list_view=0x7f030008;
+        public static final int fragment_contact=0x7f030009;
+        public static final int fragment_find=0x7f03000a;
+        public static final int fragment_home=0x7f03000b;
+        public static final int fragment_me=0x7f03000c;
+        public static final int item_hom_image=0x7f03000d;
+        public static final int item_home_location=0x7f03000e;
+        public static final int view_image_cycle=0x7f03000f;
     }
     public static final class string {
         public static final int address_empty=0x7f08000e;
