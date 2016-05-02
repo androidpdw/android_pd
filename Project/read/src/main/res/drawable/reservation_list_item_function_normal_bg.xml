@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/white" />
-    <stroke android:width="@dimen/base_stroke_dp" android:color="@color/grey_e0" />
-    <corners android:topLeftRadius="@dimen/public_btn_radius" android:topRightRadius="@dimen/public_btn_radius" android:bottomLeftRadius="@dimen/public_btn_radius" android:bottomRightRadius="@dimen/public_btn_radius" />
-    <padding android:left="7.0dip" android:top="5.0dip" android:right="7.0dip" android:bottom="5.0dip" />
-</shape>

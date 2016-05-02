@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<inset android:insetLeft="@dimen/hotel_comment_list_item_margin" android:insetRight="@dimen/hotel_comment_list_item_margin"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <shape android:shape="line">
-        <stroke android:color="@color/grey_e0" />
-        <size android:height="@dimen/base_dp" />
-    </shape>
-</inset>
