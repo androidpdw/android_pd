@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
 		if (isUsernameAndPwdValid()) {
 			String userName = etUserName.getText().toString().trim();// 去除首尾空格
 			String userPwd = etPwd.getText().toString().trim();
-			userPwd = CommonFunction.getMD5(userPwd);
+			//userPwd = CommonFunction.getMD5(userPwd); //MD5加密
 			
 			InitGetImei initGetImei = new InitGetImei((TelephonyManager) getSystemService(TELEPHONY_SERVICE)); // 获取imei号
 			String mszDevIDShort = initGetImei.getImei();
@@ -153,7 +153,7 @@ public class LoginActivity extends Activity {
 						//Toast.makeText(getApplicationContext(), "登录成功", 0).show();
 					} else {
 						
-						Toast.makeText(getApplicationContext(), "用户名或密码错误", 0).show();
+						Toast.makeText(getApplicationContext(), "用户名或密码错误!", 0).show();
 					}
 
 				} catch (JSONException e) {

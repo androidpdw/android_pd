@@ -94,6 +94,7 @@
                     android:layout_marginRight="10.0dip"
                     android:layout_weight="1"
                     android:singleLine="true"
+                    android:inputType="textPassword"
                     android:textColor="@color/normal_text_color"
                     android:textColorHint="@color/login_input_tx_color"
                     android:textSize="@dimen/textsize_14sp" />

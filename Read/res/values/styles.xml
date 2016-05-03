@@ -47,5 +47,18 @@
         <item name="android:windowBackground">@android:color/transparent</item> 
         <item name="android:windowNoTitle">true</item>
     </style>
+    
+    <style name="user_info_order_num">
+        <item name="android:textColor">@color/orange_theme_color</item>
+        <item name="android:background">@drawable/userinfo_order_num_bg</item>
+        <item name="android:layout_width">@dimen/order_number_tv</item>
+        <item name="android:layout_height">@dimen/order_number_tv</item>
+    </style>
+    
+    <style name="item_divider3">
+        <item name="android:background">@color/grey_e0</item>
+        <item name="android:layout_width">@dimen/base_stroke_dp</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
 
 </resources>

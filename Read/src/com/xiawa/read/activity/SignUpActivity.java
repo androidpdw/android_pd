@@ -145,18 +145,22 @@ public class SignUpActivity extends Activity implements OnClickListener
 		
     	String metPwd=metPassword.getText().toString().trim();
     	String metPwdConfirm=metPasswordConfirm.getText().toString().trim();
-		metPwd = CommonFunction.getMD5(metPwd);
-		metPwdConfirm = CommonFunction.getMD5(metPwdConfirm);
-		
+		//metPwd = CommonFunction.getMD5(metPwd);
+		//metPwdConfirm = CommonFunction.getMD5(metPwdConfirm);
+		String date=tvBirthDate.getText().toString();
+		String year=date.substring(0,4);
+		String month=date.substring(5,7);
+		String day=date.substring(8,10);
+		String birthDate=year+month+day;
 		String address = tvAddress.getText().toString()+tvCountry.getText().toString();
 		
-		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+tvBirthDate.getText()+" "+address+" "+tvEducation.getText().toString());
+		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+birthDate+" "+address+" "+tvEducation.getText().toString());
 		
 		JSONObject json = new JSONObject();
     	json.put("token", URLString.TOKEN);
 	    json.put("hui", mszDevIDShort);
 	    json.put("timestamp", timestamp);
-	    json.put("verify", UserInformation.VERIFYCODE);
+	    json.put("verifycode", UserInformation.VERIFYCODE);
 	    json.put("loginname", metLoginName.getText().toString().trim());
 	    json.put("nickname", metNickName.getText().toString().trim());
 	    json.put("password", metPwd);
@@ -164,7 +168,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	    json.put("sexy", mSex);
 	    json.put("pwdquestion", metPwdQuestion.getText().toString().trim());
 	    json.put("pwdanswer", metPwdAnswer.getText().toString().trim());
-	    json.put("birthdate", tvBirthDate.getText().toString());
+	    json.put("birthdate", birthDate);
 	    json.put("address", address);
 	    json.put("education", tvEducation.getText().toString());
 	    /* json.put("addressid1", );
@@ -595,4 +599,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		return true;
 	}
 	
+	public void back(View view) {
+		onBackPressed();
+	}
 }
