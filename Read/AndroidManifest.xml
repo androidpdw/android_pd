@@ -34,6 +34,8 @@
         <activity android:name=".activity.UserHomeActivity" > </activity>
         <!-- 注册成功跳转页 -->
         <activity android:name=".activity.RegSuccessActivity" > </activity>
+        <!-- 个人信息 -->
+        <activity android:name="com.xiawa.read.activity.UserInfoActivity" > </activity>
         
     </application>
 

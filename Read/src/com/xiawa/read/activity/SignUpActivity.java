@@ -582,4 +582,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		return true;
 	}
 	
+	public void back(View view) {
+		onBackPressed();
+	}
 }

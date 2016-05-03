@@ -30,6 +30,7 @@
     <color name="find_sign_in">#ff78cff9</color>
     <color name="find_snapshot">#ffff7e14</color>
     <color name="gray">#ffaddaed</color>
+    <color name="aliceBlue">#F0F8FF</color>
     <color name="gray2">#ff808080</color>
     <color name="gray_line_2">#ffe5e5e5</color>
     <color name="gray_line_3">#ffbebebe</color>
@@ -116,5 +117,6 @@
     <color name="app_grey">#ff2f2b30</color>
     <color name="app_focused_label">#ff2f2b30</color>
     <color name="app_unfocused_label">#ff79787b</color>
+    
 
 </resources>
