@@ -23,6 +23,7 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
 import android.content.res.Resources.Theme;
 import android.graphics.Color;
@@ -149,6 +150,8 @@ public class SignUpActivity extends Activity implements OnClickListener
 		
 		String address = tvAddress.getText().toString()+tvCountry.getText().toString();
 		
+		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+tvBirthDate.getText()+" "+address+" "+tvEducation.getText().toString());
+		
 		JSONObject json = new JSONObject();
     	json.put("token", URLString.TOKEN);
 	    json.put("hui", mszDevIDShort);
@@ -163,6 +166,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	    json.put("pwdanswer", metPwdAnswer.getText().toString().trim());
 	    json.put("birthdate", tvBirthDate.getText().toString());
 	    json.put("address", address);
+	    json.put("education", tvEducation.getText().toString());
 	    /* json.put("addressid1", );
 	    json.put("addressid2", );
 	    json.put("addressid3", );
@@ -189,11 +193,13 @@ public class SignUpActivity extends Activity implements OnClickListener
 			@Override
 			public void onToggle(boolean left)
 			{//性别选择
-				if(left)
+				if(left){
 					Log.i("zheng", "left");
-				else
+					mSex="man";
+				}else{
 					Log.i("zheng", "right");
-
+					mSex="woman";
+				}
 			}
 		});
 		llCountry.setVisibility(View.GONE);
@@ -504,14 +510,14 @@ public class SignUpActivity extends Activity implements OnClickListener
 					Log.i("ZHENGmsg", "arh0 "+arg0.result);
 					JSONObject obj = new JSONObject(arg0.result);
 					
-					String result = new String(obj.getString("staus"));
+					String result = new String(obj.getString("status"));
 					String msg=new String(obj.getString("Msg"));
 					Log.i("ZHENGmsg", "result: "+result+" msg:"+msg);
 					if (result.equals("0")) {  //注册成功
-						
+						resSuccessActivity();
 					} else {
 						
-						Toast.makeText(getApplicationContext(), msg, 0).show();
+						Toast.makeText(getApplicationContext(), "用户名已存在！", 0).show();
 					}
 
 				} catch (JSONException e) {
@@ -519,6 +525,13 @@ public class SignUpActivity extends Activity implements OnClickListener
 				}
 			}
 		});
+	}
+	
+	/**
+	 * 跳转到注册成功页面
+	 */
+	public void resSuccessActivity() {
+		startActivity(new Intent(this, RegSuccessActivity.class));
 	}
 	
 	final void showCustomProgrssDialog() {

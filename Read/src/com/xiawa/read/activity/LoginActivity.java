@@ -142,18 +142,18 @@ public class LoginActivity extends Activity {
 				;
 				hideCustomProgressDialog();
 				try {
-					Log.i("ZHENGmsg", "arh0 "+arg0.result);
+					Log.i("arg0", "arg0: "+arg0.result);
 					JSONObject obj = new JSONObject(arg0.result);
 					
-					String result = new String(obj.getString("staus"));
-					String msg=new String(obj.getString("Msg"));
-					Log.i("ZHENGmsg", "result: "+result+" msg:"+msg);
+					String result = new String(obj.getString("status"));
+					String msg= new String(obj.getString("Msg"));
+					Log.i("jsonobject", "result: "+result+" msg:"+msg);
 					if (result.equals("0")) {  //登录成功
 						userHomeActivity();
 						//Toast.makeText(getApplicationContext(), "登录成功", 0).show();
 					} else {
 						
-						Toast.makeText(getApplicationContext(), msg, 0).show();
+						Toast.makeText(getApplicationContext(), "用户名或密码错误", 0).show();
 					}
 
 				} catch (JSONException e) {
