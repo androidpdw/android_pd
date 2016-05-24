@@ -4,14 +4,6 @@
     <item type="id" name="iv_user" />
     <!--主页Fragment-->
     <item type="id" name="vp_container" />
-    <!--主页底部按钮1-->
-    <item type="id" name="ctv_home" />
-    <!--主页底部按钮2-->
-    <item type="id" name="ctv_contact" />
-    <!--主页底部按钮3-->
-    <item type="id" name="ctv_find" />
-    <!--主页底部按钮4-->
-    <item type="id" name="ctv_me" />
     <!--用户名-->
     <item type="id" name="et_user_name" />
     <!--密码-->

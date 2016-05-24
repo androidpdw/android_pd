@@ -1,49 +1,176 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="cpz.com.read.fragment.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res/com.xiawa.read"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E4E4E6"
+    tools:context="cpz.com.read.fragment.HomeFragment" >
 
+    <!-- 顶部搜索栏 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#ffffff" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/logo_text" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/search_bar_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:hint="不一样的卡梅拉"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/search" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/header_category" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="44dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
+            <!-- 广告图片轮播 -->
 
             <com.xiawa.read.view.ImageCycleView
                 android:id="@+id/icv_top"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="200dp" />
 
-            <include
-                layout="@layout/item_home_location"
-                />
+            <include layout="@layout/item_home_btns" />
 
-            <include
+            <include layout="@layout/item_home_books1" />
 
-                android:id="@+id/ihiv_first"
-                layout="@layout/item_hom_image"
-                />
+            <include layout="@layout/item_home_books2" />
 
-            <include
-                android:id="@+id/ihiv_second"
-                layout="@layout/item_hom_image"
-                />
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-            <include
-                android:id="@+id/ihiv_third"
-                layout="@layout/item_hom_image"
-                />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="#000" />
 
-            <include
-                android:id="@+id/ihiv_four"
-                layout="@layout/item_hom_image"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="猜你喜欢"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="#000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.xiawa.read.view.BookView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cover="@drawable/book_a"
+                    app:description="买买买"
+                    app:price="$100" />
+
+                <com.xiawa.read.view.BookView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cover="@drawable/book_b"
+                    app:description="买买买"
+                    app:price="$100" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.xiawa.read.view.BookView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cover="@drawable/book_c"
+                    app:description="买买买"
+                    app:price="$100" />
+
+                <com.xiawa.read.view.BookView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cover="@drawable/book_d"
+                    app:description="买买买"
+                    app:price="$100" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.xiawa.read.view.BookView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cover="@drawable/book_e"
+                    app:description="买买买"
+                    app:price="$100" />
+
+                <com.xiawa.read.view.BookView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cover="@drawable/book_f"
+                    app:description="买买买"
+                    app:price="$100" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

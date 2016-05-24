@@ -47,5 +47,12 @@
         <!-- Max characters count limit. 0 means no max. -->
         <attr name="maxCharacters"/>
     </declare-styleable>
+    
+    <!--BookView 属性  -->
+     <declare-styleable name="BookView">
+        <attr name="cover" format="reference"></attr>
+        <attr name="description" format="string"></attr>
+        <attr name="price" format="string"></attr>
+    </declare-styleable>
 
 </resources>

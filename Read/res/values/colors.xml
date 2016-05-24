@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F51B5</color>
+<!--     <color name="colorPrimary">#3F51B5</color> -->
+    <color name="colorPrimary">#F03F3F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="base_font_color_gray">#ff999999</color>
     <color name="bg_btn_nav_right_press">#ff393f4d</color>
@@ -117,6 +118,5 @@
     <color name="app_grey">#ff2f2b30</color>
     <color name="app_focused_label">#ff2f2b30</color>
     <color name="app_unfocused_label">#ff79787b</color>
-    
 
 </resources>

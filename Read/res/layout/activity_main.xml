@@ -1,96 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:cpz="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:cpz="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/app_name"
-            android:textColor="#fff"
-            android:textSize="16sp"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingLeft="10.0dip">
-
-            <ImageView
-                android:id="@id/iv_user"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/user"/>
-        </LinearLayout>
-    </RelativeLayout>
+    
 
     <android.support.v4.view.ViewPager
         android:id="@id/vp_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
-
+        android:layout_weight="1" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#8e8f8e"/>
+        android:background="#8e8f8e" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal">
+    <include layout="@layout/tab_item_main" >
+    </include>
 
-        <com.xiawa.read.view.ChangeColorIconWithTextView
-            android:id="@id/ctv_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            cpz:text="@string/tab_home"
-            cpz:text_size="12sp"
-            cpz:wx_icon="@drawable/ic_menu_weixin"/>
-
-        <com.xiawa.read.view.ChangeColorIconWithTextView
-            android:id="@id/ctv_contact"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            cpz:text="@string/tab_second"
-            cpz:text_size="12sp"
-            cpz:wx_icon="@drawable/ic_menu_contact"/>
-
-        <com.xiawa.read.view.ChangeColorIconWithTextView
-            android:id="@id/ctv_find"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            cpz:text="@string/tab_find"
-            cpz:text_size="12sp"
-            cpz:wx_icon="@drawable/ic_menu_find"/>
-
-
-        <com.xiawa.read.view.ChangeColorIconWithTextView
-            android:id="@id/ctv_me"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            cpz:text="@string/tab_me"
-            cpz:text_size="12sp"
-            cpz:wx_icon="@drawable/ic_menu_me"/>
-    </LinearLayout>
 </LinearLayout>

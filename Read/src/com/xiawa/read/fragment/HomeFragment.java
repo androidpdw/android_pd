@@ -21,10 +21,6 @@ import com.xiawa.read.view.ImageCycleView;
 public class HomeFragment extends Fragment {
 
 	private ImageCycleView mImageCycleView;
-	private RelativeLayout rlFirst;
-	private RelativeLayout rlSecond;
-	private RelativeLayout rlThird;
-	private RelativeLayout rlFour;
 	private String[] mHomeItemImage = {
 			"http://img1.qunarzz.com/travel/poi/201405/22/5bd8451623620821ddb12cfb.jpg_r_720x400x95_d06a7bf4.jpg",
 			"http://img.51766.com/1001/1204250257379.jpg",
@@ -39,28 +35,11 @@ public class HomeFragment extends Fragment {
 		mImageCycleView = (ImageCycleView) view.findViewById(R.id.icv_top);
 		mImageCycleView.setIndicationStyle(
 				ImageCycleView.IndicationStyle.IMAGE, R.drawable.dot_blur,
-				R.drawable.dot_focus, 1f);
-		rlFirst = (RelativeLayout) view.findViewById(R.id.ihiv_first);
-		rlSecond = (RelativeLayout) view.findViewById(R.id.ihiv_second);
-		rlThird = (RelativeLayout) view.findViewById(R.id.ihiv_third);
-		rlFour = (RelativeLayout) view.findViewById(R.id.ihiv_four);
+				R.drawable.dot_focus, 0);
 		initImageCycleView();
-		innitHomItemImage();
 		return view;
 	}
 
-	private void innitHomItemImage() {
-		BitmapUtils bitmapUtils = new BitmapUtils(getActivity());
-
-		bitmapUtils.display(rlFirst.findViewById(R.id.iv_item_background),
-				mHomeItemImage[0].toString());
-		bitmapUtils.display(rlSecond.findViewById(R.id.iv_item_background),
-				mHomeItemImage[1].toString());
-		bitmapUtils.display(rlThird.findViewById(R.id.iv_item_background),
-				mHomeItemImage[2].toString());
-		bitmapUtils.display(rlFour.findViewById(R.id.iv_item_background),
-				mHomeItemImage[3].toString());
-	}
 
 	private void initImageCycleView() {
 		List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();

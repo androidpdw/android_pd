@@ -41,6 +41,18 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int backgroundColor=0x7f01000d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int cover=0x7f010010;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int description=0x7f010011;
         /**  EditText https://github.com/Pombo/material-edit-text 
          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
@@ -76,6 +88,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int maxCharacters=0x7f01000c;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int price=0x7f010012;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -186,6 +206,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int circle_image_view_default_boarder_color=0x7f050011;
         public static final int circle_image_view_default_white_boarder_color=0x7f050012;
         public static final int colorAccent=0x7f050001;
+        /**      <color name="colorPrimary">#3F51B5</color> 
+         */
         public static final int colorPrimary=0x7f050000;
         public static final int coupons_cash_back_bg=0x7f050013;
         public static final int coupons_cash_card_bg=0x7f050014;
@@ -423,193 +445,227 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class drawable {
         public static final int background_item_switch=0x7f020000;
-        public static final int bg_normal=0x7f020001;
-        public static final int btn_login_selector=0x7f020002;
-        public static final int dot_blur=0x7f020003;
-        public static final int dot_focus=0x7f020004;
-        public static final int error_line=0x7f020005;
-        public static final int error_line_black=0x7f020006;
-        public static final int focused_line=0x7f020007;
-        public static final int focused_line_black=0x7f020008;
-        public static final int home_page_local_icon=0x7f020009;
-        public static final int home_page_search_icon=0x7f02000a;
-        public static final int ic_alert_text=0x7f02000b;
-        public static final int ic_comment=0x7f02000c;
-        public static final int ic_hotel=0x7f02000d;
-        public static final int ic_launcher=0x7f02000e;
-        public static final int ic_login_back=0x7f02000f;
-        public static final int ic_menu_contact=0x7f020010;
-        public static final int ic_menu_find=0x7f020011;
-        public static final int ic_menu_me=0x7f020012;
-        public static final int ic_menu_weixin=0x7f020013;
-        public static final int ic_order=0x7f020014;
-        public static final int ic_person=0x7f020015;
-        public static final int ic_wallet=0x7f020016;
-        public static final int ic_yzm=0x7f020017;
-        public static final int icon_head_default=0x7f020018;
-        public static final int icon_logo=0x7f020019;
-        public static final int item_arrow=0x7f02001a;
-        public static final int list_feedback=0x7f02001b;
-        public static final int list_massage=0x7f02001c;
-        public static final int list_set=0x7f02001d;
-        public static final int loading=0x7f02001e;
-        public static final int login_inform_bg=0x7f02001f;
-        public static final int logo=0x7f020020;
-        public static final int member_more=0x7f020021;
-        public static final int more=0x7f020022;
-        public static final int normal_line=0x7f020023;
-        public static final int normal_line_black=0x7f020024;
-        public static final int point=0x7f020025;
-        public static final int sf_progress_1=0x7f020026;
-        public static final int sf_progress_2=0x7f020027;
-        public static final int sf_progress_3=0x7f020028;
-        public static final int sf_progress_4=0x7f020029;
-        public static final int sf_progress_5=0x7f02002a;
-        public static final int sf_progress_6=0x7f02002b;
-        public static final int sf_progress_7=0x7f02002c;
-        public static final int sf_progress_8=0x7f02002d;
-        public static final int user=0x7f02002e;
-        public static final int userinfo_assets_icon=0x7f02002f;
-        public static final int userinfo_order_num_bg=0x7f020030;
-        public static final int v1=0x7f020031;
+        public static final int bg_common_round_red=0x7f020001;
+        public static final int bg_normal=0x7f020002;
+        public static final int book_a=0x7f020003;
+        public static final int book_b=0x7f020004;
+        public static final int book_c=0x7f020005;
+        public static final int book_d=0x7f020006;
+        public static final int book_e=0x7f020007;
+        public static final int book_f=0x7f020008;
+        public static final int book_g=0x7f020009;
+        public static final int book_h=0x7f02000a;
+        public static final int book_i=0x7f02000b;
+        public static final int book_j=0x7f02000c;
+        public static final int book_k=0x7f02000d;
+        public static final int btn_login_selector=0x7f02000e;
+        public static final int dot_blur=0x7f02000f;
+        public static final int dot_focus=0x7f020010;
+        public static final int drop_down_shadow=0x7f020011;
+        public static final int error_line=0x7f020012;
+        public static final int error_line_black=0x7f020013;
+        public static final int focused_line=0x7f020014;
+        public static final int focused_line_black=0x7f020015;
+        public static final int header_category=0x7f020016;
+        public static final int home_page_local_icon=0x7f020017;
+        public static final int home_page_search_icon=0x7f020018;
+        public static final int huiben0509=0x7f020019;
+        public static final int ic_alert_text=0x7f02001a;
+        public static final int ic_comment=0x7f02001b;
+        public static final int ic_cs_category=0x7f02001c;
+        public static final int ic_cs_credits=0x7f02001d;
+        public static final int ic_cs_donate=0x7f02001e;
+        public static final int ic_cs_drift=0x7f02001f;
+        public static final int ic_cs_e_book=0x7f020020;
+        public static final int ic_cs_greatbook=0x7f020021;
+        public static final int ic_cs_my=0x7f020022;
+        public static final int ic_cs_rankbook=0x7f020023;
+        public static final int ic_hotel=0x7f020024;
+        public static final int ic_launcher=0x7f020025;
+        public static final int ic_login_back=0x7f020026;
+        public static final int ic_menu_contact=0x7f020027;
+        public static final int ic_menu_find=0x7f020028;
+        public static final int ic_menu_me=0x7f020029;
+        public static final int ic_menu_weixin=0x7f02002a;
+        public static final int ic_order=0x7f02002b;
+        public static final int ic_person=0x7f02002c;
+        public static final int ic_spinner_down=0x7f02002d;
+        public static final int ic_wallet=0x7f02002e;
+        public static final int ic_yzm=0x7f02002f;
+        public static final int icon_head_default=0x7f020030;
+        public static final int icon_logo=0x7f020031;
+        public static final int item_arrow=0x7f020032;
+        public static final int list_feedback=0x7f020033;
+        public static final int list_massage=0x7f020034;
+        public static final int list_set=0x7f020035;
+        public static final int loading=0x7f020036;
+        public static final int login_inform_bg=0x7f020037;
+        public static final int logo=0x7f020038;
+        public static final int logo_text=0x7f020039;
+        public static final int member_more=0x7f02003a;
+        public static final int more=0x7f02003b;
+        public static final int more_arrow=0x7f02003c;
+        public static final int new0509_02=0x7f02003d;
+        public static final int normal_line=0x7f02003e;
+        public static final int normal_line_black=0x7f02003f;
+        public static final int point=0x7f020040;
+        public static final int search=0x7f020041;
+        public static final int search_bar_bg=0x7f020042;
+        public static final int sf_progress_1=0x7f020043;
+        public static final int sf_progress_2=0x7f020044;
+        public static final int sf_progress_3=0x7f020045;
+        public static final int sf_progress_4=0x7f020046;
+        public static final int sf_progress_5=0x7f020047;
+        public static final int sf_progress_6=0x7f020048;
+        public static final int sf_progress_7=0x7f020049;
+        public static final int sf_progress_8=0x7f02004a;
+        public static final int tab_book_normal=0x7f02004b;
+        public static final int tab_book_push=0x7f02004c;
+        public static final int tab_book_selector=0x7f02004d;
+        public static final int tab_main_normal=0x7f02004e;
+        public static final int tab_main_push=0x7f02004f;
+        public static final int tab_main_selector=0x7f020050;
+        public static final int tab_my_normal=0x7f020051;
+        public static final int tab_my_push=0x7f020052;
+        public static final int tab_my_selector=0x7f020053;
+        public static final int user=0x7f020054;
+        public static final int userinfo_assets_icon=0x7f020055;
+        public static final int userinfo_order_num_bg=0x7f020056;
     }
     public static final class id {
-        public static final int all_order_iv=0x7f070027;
-        public static final int all_order_rl=0x7f070026;
+        public static final int all_order_iv=0x7f070024;
+        public static final int all_order_rl=0x7f070023;
         /** 登录按钮
          */
-        public static final int btn_login=0x7f070008;
-        /** 主页底部按钮2
-         */
-        public static final int ctv_contact=0x7f070003;
-        /** 主页底部按钮3
-         */
-        public static final int ctv_find=0x7f070004;
-        /** 主页底部按钮1
-         */
-        public static final int ctv_home=0x7f070002;
-        /** 主页底部按钮4
-         */
-        public static final int ctv_me=0x7f070005;
+        public static final int btn_login=0x7f070004;
         /** 密码
          */
-        public static final int et_password=0x7f070007;
+        public static final int et_password=0x7f070003;
         /** 用户名
          */
-        public static final int et_user_name=0x7f070006;
-        public static final int feedbackView=0x7f070034;
-        public static final int fl_image_cycle=0x7f070042;
-        public static final int hello=0x7f07001a;
-        public static final int icv_top=0x7f07003a;
-        public static final int ihiv_first=0x7f07003b;
-        public static final int ihiv_four=0x7f07003e;
-        public static final int ihiv_second=0x7f07003c;
-        public static final int ihiv_third=0x7f07003d;
-        public static final int imageView1=0x7f070033;
-        public static final int imageView2=0x7f070035;
-        public static final int imageView3=0x7f070037;
-        public static final int iv=0x7f070032;
-        public static final int iv_back_top=0x7f070009;
-        public static final int iv_item_background=0x7f07003f;
+        public static final int et_user_name=0x7f070002;
+        public static final int feedbackView=0x7f070031;
+        public static final int fl_image_cycle=0x7f070044;
+        public static final int hello=0x7f070017;
+        public static final int icv_top=0x7f070037;
+        public static final int imageView1=0x7f070030;
+        public static final int imageView2=0x7f070032;
+        public static final int imageView3=0x7f070034;
+        public static final int iv=0x7f07002f;
+        public static final int iv_back_top=0x7f070005;
+        public static final int iv_cover=0x7f070041;
         /** 主页顶部用户图标
          */
         public static final int iv_user=0x7f070000;
         /**  街道/乡镇 
          */
-        public static final int ll_country=0x7f07000d;
-        public static final int ll_indication_group=0x7f070043;
+        public static final int ll_country=0x7f070009;
+        public static final int ll_indication_group=0x7f070045;
         /** 对话框内容  
          */
-        public static final int lv_dialog_content=0x7f070011;
-        public static final int member_center=0x7f07001d;
+        public static final int lv_dialog_content=0x7f07000d;
+        public static final int member_center=0x7f07001a;
         /** 登录名  
          */
-        public static final int met_login_name=0x7f070012;
+        public static final int met_login_name=0x7f07000e;
         /** 昵称 
          */
-        public static final int met_nick_name=0x7f070013;
+        public static final int met_nick_name=0x7f07000f;
         /** 密码  
          */
-        public static final int met_password=0x7f070014;
+        public static final int met_password=0x7f070010;
         /** 确认密码  
          */
-        public static final int met_password_confirm=0x7f070015;
+        public static final int met_password_confirm=0x7f070011;
         /** 密码问题答案  
          */
-        public static final int met_pwd_answer=0x7f070017;
+        public static final int met_pwd_answer=0x7f070013;
         /** 密码问题  
          */
-        public static final int met_pwd_question=0x7f070016;
-        public static final int msgView=0x7f070031;
+        public static final int met_pwd_question=0x7f070012;
+        public static final int met_real_name=0x7f070016;
+        public static final int msgView=0x7f07002e;
         /** 性别  
          */
-        public static final int mssb_sex=0x7f07000a;
-        public static final int nickName_tv=0x7f07001e;
-        public static final int no_comment_iv=0x7f07002f;
-        public static final int no_comment_rl=0x7f07002e;
-        public static final int no_comment_tv=0x7f070030;
-        public static final int settingView=0x7f070036;
-        public static final int sf_iv_progress_dialog_loading=0x7f070039;
+        public static final int mssb_sex=0x7f070006;
+        public static final int nickName_tv=0x7f07001b;
+        public static final int no_comment_iv=0x7f07002c;
+        public static final int no_comment_rl=0x7f07002b;
+        public static final int no_comment_tv=0x7f07002d;
+        public static final int red_mark1=0x7f07003a;
+        public static final int red_mark2=0x7f07003d;
+        public static final int red_mark3=0x7f070040;
+        public static final int settingView=0x7f070033;
+        public static final int sf_iv_progress_dialog_loading=0x7f070036;
+        public static final int tab_image_1=0x7f070039;
+        public static final int tab_image_2=0x7f07003c;
+        public static final int tab_image_3=0x7f07003f;
+        public static final int tab_iv_1=0x7f070038;
+        public static final int tab_iv_2=0x7f07003b;
+        public static final int tab_iv_3=0x7f07003e;
         /** 地址  
          */
-        public static final int tv_address=0x7f07000c;
+        public static final int tv_address=0x7f070008;
         /** 生日  
          */
-        public static final int tv_birth_date=0x7f07000b;
-        public static final int tv_country=0x7f07000e;
+        public static final int tv_birth_date=0x7f070007;
+        public static final int tv_country=0x7f07000a;
+        public static final int tv_desc=0x7f070042;
         /**  对话框标题 
          */
-        public static final int tv_dialog_title=0x7f070010;
+        public static final int tv_dialog_title=0x7f07000c;
         /**  文化程度 
          */
-        public static final int tv_education=0x7f07000f;
+        public static final int tv_education=0x7f07000b;
         /** 忘记密码 
          */
-        public static final int tv_forget_pwd=0x7f070018;
-        public static final int tv_item_desc=0x7f070041;
-        public static final int tv_item_title=0x7f070040;
+        public static final int tv_forget_pwd=0x7f070014;
+        public static final int tv_price=0x7f070043;
         /** 注册 
          */
-        public static final int tv_sign_up=0x7f070019;
-        public static final int tv_text=0x7f070044;
-        public static final int userHead_iv=0x7f07001c;
-        public static final int userLevel_iv=0x7f07001f;
-        public static final int user_info_amount_view=0x7f070022;
-        public static final int user_info_assets=0x7f070025;
-        public static final int user_info_coupon=0x7f070020;
-        public static final int user_info_coupon_tv=0x7f070021;
-        public static final int user_info_point_shop=0x7f070024;
-        public static final int user_info_remain=0x7f070023;
-        public static final int view_divide=0x7f07001b;
+        public static final int tv_sign_up=0x7f070015;
+        public static final int tv_text=0x7f070046;
+        public static final int userHead_iv=0x7f070019;
+        public static final int userLevel_iv=0x7f07001c;
+        public static final int user_info_amount_view=0x7f07001f;
+        public static final int user_info_assets=0x7f070022;
+        public static final int user_info_coupon=0x7f07001d;
+        public static final int user_info_coupon_tv=0x7f07001e;
+        public static final int user_info_point_shop=0x7f070021;
+        public static final int user_info_remain=0x7f070020;
+        public static final int view_divide=0x7f070018;
         /** 主页Fragment
          */
         public static final int vp_container=0x7f070001;
-        public static final int wait_check_in_iv=0x7f07002c;
-        public static final int wait_check_in_rl=0x7f07002b;
-        public static final int wait_check_in_tv=0x7f07002d;
-        public static final int wait_pay_order_iv=0x7f070029;
-        public static final int wait_pay_order_rl=0x7f070028;
-        public static final int wait_pay_order_tv=0x7f07002a;
-        public static final int wv=0x7f070038;
+        public static final int wait_check_in_iv=0x7f070029;
+        public static final int wait_check_in_rl=0x7f070028;
+        public static final int wait_check_in_tv=0x7f07002a;
+        public static final int wait_pay_order_iv=0x7f070026;
+        public static final int wait_pay_order_rl=0x7f070025;
+        public static final int wait_pay_order_tv=0x7f070027;
+        public static final int wv=0x7f070035;
     }
     public static final class layout {
-        public static final int activity_forget_password=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_register_success=0x7f030003;
-        public static final int activity_sign_up=0x7f030004;
-        public static final int activity_user_home=0x7f030005;
-        public static final int activity_userinfo=0x7f030006;
-        public static final int activity_web=0x7f030007;
-        public static final int common_view_custom_progress_dialog=0x7f030008;
-        public static final int dialog_list_view=0x7f030009;
-        public static final int fragment_contact=0x7f03000a;
-        public static final int fragment_find=0x7f03000b;
+        public static final int activity_authen=0x7f030000;
+        public static final int activity_forget_password=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_register_success=0x7f030004;
+        public static final int activity_sign_up=0x7f030005;
+        public static final int activity_user_home=0x7f030006;
+        public static final int activity_userinfo=0x7f030007;
+        public static final int activity_web=0x7f030008;
+        public static final int common_view_custom_progress_dialog=0x7f030009;
+        public static final int dialog_list_view=0x7f03000a;
+        public static final int fragment_book=0x7f03000b;
         public static final int fragment_home=0x7f03000c;
-        public static final int fragment_me=0x7f03000d;
-        public static final int item_hom_image=0x7f03000e;
-        public static final int item_home_location=0x7f03000f;
-        public static final int view_image_cycle=0x7f030010;
+        public static final int fragment_my=0x7f03000d;
+        public static final int item_home_books1=0x7f03000e;
+        public static final int item_home_books2=0x7f03000f;
+        public static final int item_home_btns=0x7f030010;
+        public static final int tab_item_main=0x7f030011;
+        public static final int view_book=0x7f030012;
+        public static final int view_image_cycle=0x7f030013;
     }
     public static final class string {
         public static final int address_empty=0x7f08000e;
@@ -662,6 +718,61 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int user_info_order_num=0x7f090007;
     }
     public static final class styleable {
+        /** BookView 属性  
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #BookView_cover com.xiawa.read:cover}</code></td><td></td></tr>
+           <tr><td><code>{@link #BookView_description com.xiawa.read:description}</code></td><td></td></tr>
+           <tr><td><code>{@link #BookView_price com.xiawa.read:price}</code></td><td></td></tr>
+           </table>
+           @see #BookView_cover
+           @see #BookView_description
+           @see #BookView_price
+         */
+        public static final int[] BookView = {
+            0x7f010010, 0x7f010011, 0x7f010012
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.xiawa.read.R.attr#cover}
+          attribute's value can be found in the {@link #BookView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.xiawa.read:cover
+        */
+        public static final int BookView_cover = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.xiawa.read.R.attr#description}
+          attribute's value can be found in the {@link #BookView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.xiawa.read:description
+        */
+        public static final int BookView_description = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.xiawa.read.R.attr#price}
+          attribute's value can be found in the {@link #BookView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.xiawa.read:price
+        */
+        public static final int BookView_price = 2;
         /** Attributes that can be used with a ChangeColorIconView.
            <p>Includes the following attributes:</p>
            <table>
