@@ -598,7 +598,10 @@ public class SignUpActivity extends Activity implements OnClickListener
 		
 		return true;
 	}
-	
+	/**
+	 * 顶部返回按钮
+	 * @param view
+	 */
 	public void back(View view) {
 		onBackPressed();
 	}

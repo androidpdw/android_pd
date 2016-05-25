@@ -3,9 +3,6 @@ package com.xiawa.read.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,10 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
 import com.xiawa.read.fragment.BookFragment;
 import com.xiawa.read.fragment.HomeFragment;
@@ -113,8 +108,8 @@ public class MainActivity extends FragmentActivity implements
 			changeTab(2);
 			break;
 		case R.id.tab_image_3:
-//			changeTab(3);
-			startActivity(new Intent(this,LoginActivity.class));
+			changeTab(3);
+//			startActivity(new Intent(this,LoginActivity.class));
 			break;
 //		case R.id.iv_user:
 //			startActivity(new Intent(this, LoginActivity.class));
