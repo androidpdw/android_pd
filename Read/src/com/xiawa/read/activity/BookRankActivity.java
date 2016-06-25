@@ -30,6 +30,8 @@ public class BookRankActivity extends BaseActivity
 	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
 	protected static final int UPDATA_LIST = 0;
 	private List<BookRankItem> mBookList;
+	private ListView lvBookList;
+
 	private Handler mHandler = new Handler()
 	{
 		public void handleMessage(android.os.Message msg)
@@ -46,7 +48,6 @@ public class BookRankActivity extends BaseActivity
 			}
 		};
 	};
-	private ListView lvBookList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

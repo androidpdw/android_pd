@@ -35,10 +35,10 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
+                android:background="@null"
                 android:hint="不一样的卡梅拉"
                 android:paddingTop="6dp"
                 android:singleLine="true"
-                android:background="@null"
                 android:textSize="18sp" />
 
             <ImageView
@@ -78,9 +78,9 @@
             <include layout="@layout/item_home_books2" />
 
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal" >
 
                 <View
@@ -109,71 +109,14 @@
                     android:background="#000" />
             </LinearLayout>
 
-            <LinearLayout
+            <com.xiawa.read.view.MyGridView
+                android:id="@+id/gv_books"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <com.xiawa.read.view.BookView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cover="@drawable/book_a"
-                    app:description="买买买"
-                    app:price="$100" />
-
-                <com.xiawa.read.view.BookView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cover="@drawable/book_b"
-                    app:description="买买买"
-                    app:price="$100" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <com.xiawa.read.view.BookView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cover="@drawable/book_c"
-                    app:description="买买买"
-                    app:price="$100" />
-
-                <com.xiawa.read.view.BookView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cover="@drawable/book_d"
-                    app:description="买买买"
-                    app:price="$100" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <com.xiawa.read.view.BookView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cover="@drawable/book_e"
-                    app:description="买买买"
-                    app:price="$100" />
-
-                <com.xiawa.read.view.BookView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cover="@drawable/book_f"
-                    app:description="买买买"
-                    app:price="$100" />
-            </LinearLayout>
+                android:horizontalSpacing="10dp"
+                android:numColumns="2"
+                android:verticalSpacing="10dp" >
+            </com.xiawa.read.view.MyGridView>
         </LinearLayout>
     </ScrollView>
 
