@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="186dp"
-    android:layout_marginTop="5dp"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="121dp"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal" >
 
         <FrameLayout
@@ -25,8 +23,8 @@
 
             <TextView
                 android:id="@+id/tv_book_index"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:background="#f00"
                 android:gravity="center"
                 android:text="1"
@@ -44,7 +42,8 @@
                 android:id="@+id/tv_book_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:text="爱的教育"
                 android:textSize="16sp" />
 
@@ -53,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
+                android:textColor="@color/gray2"
                 android:text="作者:[意大利]亚米切丝" />
 
             <TextView
@@ -60,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
+                android:textColor="@color/gray2"
                 android:text="出版社:吉林人民出版社" />
 
             <LinearLayout
@@ -103,6 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/gray2"
                     android:text="99条评论" />
             </LinearLayout>
         </LinearLayout>
@@ -111,10 +113,12 @@
     <TextView
         android:id="@+id/tv_book_desc"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:background="#F5F7F6"
+        android:maxLines="2"
         android:ellipsize="end"
-        android:padding="5dp"
+        android:padding="10dp"
+        android:textColor="@color/gray2"
         android:text="世界经典名著阅读馆：爱的教育（注音版）》采用日记体形式,讲述了意大利小学四年级学生安利柯的成长故事，详细记录了安利柯在一个学年里，在学校、家庭、社会的所见所闻。穿插了他的父母、姐姐写给他的话。以及老师让学生抄写的每月故事，字里行间都洋溢着“爱”：对老师的爱、对同学的爱、对父母的爱、对祖国的爱" />
 
 </LinearLayout>
