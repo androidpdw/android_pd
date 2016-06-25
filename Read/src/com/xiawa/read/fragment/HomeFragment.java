@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.BookDetailActivity;
 import com.xiawa.read.activity.BookRankActivity;
 import com.xiawa.read.activity.FeedbackActivity;
+import com.xiawa.read.activity.MainActivity;
 import com.xiawa.read.view.ImageCycleView;
 
 public class HomeFragment extends Fragment implements OnClickListener {
@@ -70,7 +72,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 
 			break;
 		case R.id.ll_my:// 我的
-
+			((MainActivity)getActivity()).changeTab(3);
 			break;
 		case R.id.ll_book_rank:// 漂读榜
 			startActivity(new Intent(getContext(), BookRankActivity.class));
@@ -79,10 +81,10 @@ public class HomeFragment extends Fragment implements OnClickListener {
 			startActivity(new Intent(getContext(), FeedbackActivity.class));
 			break;
 		case R.id.ll_collect:// 收藏室
-
+			
 			break;
 		case R.id.ll_points:// 积分
-
+			startActivity(new Intent(getContext(),BookDetailActivity.class));
 			break;
 
 		}

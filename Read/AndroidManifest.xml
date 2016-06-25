@@ -43,6 +43,10 @@
         <activity android:name="com.xiawa.read.activity.BookRankActivity" > </activity>
         <!-- 图书详情 -->
         <activity android:name="com.xiawa.read.activity.BookDetailActivity" > </activity>
+        <!-- 图书简介-->
+        <activity android:name="com.xiawa.read.activity.BookIntroductActivity" > </activity>
+        <!-- 观后感-->
+        <activity android:name="com.xiawa.read.activity.BookCommentActivity" > </activity>
         
     </application>
 

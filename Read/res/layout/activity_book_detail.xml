@@ -73,6 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_book_name"
+                    android:textColor="@color/gray2"
                     android:text="作者:[意大利]亚米" >
                 </TextView>
 
@@ -99,7 +100,7 @@
                     android:id="@+id/ll_read"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@id/ll_fav"
                     android:orientation="vertical" >
 
@@ -133,6 +134,7 @@
                 android:background="#dddddd" />
 
             <RelativeLayout
+                android:id="@+id/rl_book_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white" >
@@ -219,6 +221,7 @@
                 android:background="#dddddd" />
 
             <RelativeLayout
+                android:id="@+id/rl_book_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white" >
@@ -228,7 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="查看书籍位置" />
+                    android:text="观后感" />
 
                 <TextView
                     android:layout_width="wrap_content"

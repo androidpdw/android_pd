@@ -116,7 +116,7 @@ public class MainActivity extends FragmentActivity implements
 //			break;
 		}
 	}
-	private void changeTab(int tab)
+	public void changeTab(int tab)
 	{
 		vpContainer.setCurrentItem(tab-1, false);
 		switch (tab)

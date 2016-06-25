@@ -1,6 +1,6 @@
 package com.xiawa.read.bean;
 
-public class BookRankItem
+public class BookItem
 {
 	public String bookname;
 	public String author;
