@@ -8,14 +8,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.xiawa.read.R;
-import com.xiawa.read.activity.WebActivity;
+import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.view.ImageCycleView;
 
 public class HomeFragment extends Fragment {
@@ -37,6 +37,13 @@ public class HomeFragment extends Fragment {
 				ImageCycleView.IndicationStyle.IMAGE, R.drawable.dot_blur,
 				R.drawable.dot_focus, 0);
 		initImageCycleView();
+		view.findViewById(R.id.ll_feedback).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getContext(), FeedbackActivity.class));
+			}
+		});
 		return view;
 	}
 
@@ -69,10 +76,10 @@ public class HomeFragment extends Fragment {
 						Toast.makeText(getActivity(),
 								"你点击了" + imageInfo.value.toString(),
 								Toast.LENGTH_SHORT).show();
-						Intent intent = new Intent(getActivity(),
-								WebActivity.class);
-						intent.putExtra("url", imageInfo.value.toString());
-						startActivity(intent);
+//						Intent intent = new Intent(getActivity(),
+//								WebActivity.class);
+//						intent.putExtra("url", imageInfo.value.toString());
+//						startActivity(intent);
 					}
 				});
 

@@ -13,9 +13,9 @@ import android.widget.ImageButton;
 
 import com.lidroid.xutils.ViewUtils;
 import com.xiawa.read.R;
-import com.xiawa.read.fragment.BookFragment;
+import com.xiawa.read.fragment.FindFragment;
 import com.xiawa.read.fragment.HomeFragment;
-import com.xiawa.read.fragment.MyFragment;
+import com.xiawa.read.fragment.MeFragment;
 
 public class MainActivity extends FragmentActivity implements
 		ViewPager.OnPageChangeListener, View.OnClickListener
@@ -43,8 +43,8 @@ public class MainActivity extends FragmentActivity implements
 	private void initData()
 	{
 		mTabs.add(new HomeFragment());
-		mTabs.add(new BookFragment());
-		mTabs.add(new MyFragment());
+		mTabs.add(new FindFragment());
+		mTabs.add(new MeFragment());
 		mAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
 		{
 			@Override

@@ -22,5 +22,7 @@
     <string name="userInfo_assets_shop">积分商城</string>
     <string name="userInfo_remain">我的余额</string>
 	<string name="user_ticket">我的优惠券</string>
+	<string name="tip_feedback">您的意见将有助于我们共同改进产品和保证服务质量！</string>
+	<string name="submit">提交</string>
     
 </resources>

@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:background="#E4E4E6"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -121,6 +120,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_feedback"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="飘读榜" />
+                android:text="留言板" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="积分" />
+                android:text="收藏室" />
         </LinearLayout>
 
         <LinearLayout
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="电子书" />
+                android:text="积分" />
         </LinearLayout>
     </LinearLayout>
 

@@ -121,6 +121,7 @@
     
     <!-- 灰色背景颜色 -->
     <color name="GreyBg">#E4E4E6</color>
+    <color name="Grey">#F0F0F0</color>
     
     
 
