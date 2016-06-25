@@ -11,8 +11,9 @@
         android:layout_height="71dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal" >
-
+<!-- 分类 -->
         <LinearLayout
+            android:id="@+id/ll_category"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -31,8 +32,9 @@
                 android:layout_marginTop="5dp"
                 android:text="分类" />
         </LinearLayout>
-
+<!-- 捐赠 -->
         <LinearLayout
+            android:id="@+id/ll_donate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,8 +53,9 @@
                 android:layout_marginTop="5dp"
                 android:text="捐赠" />
         </LinearLayout>
-
+<!-- 漂流 -->
         <LinearLayout
+            android:id="@+id/ll_drift"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -71,8 +74,9 @@
                 android:layout_marginTop="5dp"
                 android:text="飘流" />
         </LinearLayout>
-
+<!-- 我的 -->
         <LinearLayout
+            android:id="@+id/ll_my"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -98,8 +102,9 @@
         android:layout_height="71dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal" >
-
+<!-- 漂读榜 -->
         <LinearLayout
+            android:id="@+id/ll_book_rank"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -116,9 +121,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="好书榜" />
+                android:text="漂读榜" />
         </LinearLayout>
-
+<!-- 留言板 -->
         <LinearLayout
             android:id="@+id/ll_feedback"
             android:layout_width="0dp"
@@ -139,8 +144,9 @@
                 android:layout_marginTop="5dp"
                 android:text="留言板" />
         </LinearLayout>
-
+<!-- 收藏室 -->
         <LinearLayout
+            android:id="@+id/ll_collect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -159,8 +165,9 @@
                 android:layout_marginTop="5dp"
                 android:text="收藏室" />
         </LinearLayout>
-
+<!-- 积分 -->
         <LinearLayout
+            android:id="@+id/ll_points"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -3,6 +3,7 @@ package com.xiawa.read.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,10 +16,12 @@ import android.widget.Toast;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.BookRankActivity;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.view.ImageCycleView;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnClickListener
+{
 
 	private ImageCycleView mImageCycleView;
 	private String[] mHomeItemImage = {
@@ -29,7 +32,8 @@ public class HomeFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+			Bundle savedInstanceState)
+	{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
 		mImageCycleView = (ImageCycleView) view.findViewById(R.id.icv_top);
@@ -37,18 +41,60 @@ public class HomeFragment extends Fragment {
 				ImageCycleView.IndicationStyle.IMAGE, R.drawable.dot_blur,
 				R.drawable.dot_focus, 0);
 		initImageCycleView();
-		view.findViewById(R.id.ll_feedback).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(getContext(), FeedbackActivity.class));
-			}
-		});
+		view.findViewById(R.id.ll_category).setOnClickListener(this);
+		view.findViewById(R.id.ll_donate).setOnClickListener(this);
+		view.findViewById(R.id.ll_drift).setOnClickListener(this);
+		view.findViewById(R.id.ll_my).setOnClickListener(this);
+		view.findViewById(R.id.ll_book_rank).setOnClickListener(this);
+		view.findViewById(R.id.ll_collect).setOnClickListener(this);
+		view.findViewById(R.id.ll_feedback).setOnClickListener(this);
+		view.findViewById(R.id.ll_points).setOnClickListener(this);
 		return view;
 	}
 
+	/**
+	 * 监听主页图片按钮点击事件
+	 */
+	@Override
+	public void onClick(View v)
+	{
+		// TODO Auto-generated method stub
+		int id = v.getId();
 
-	private void initImageCycleView() {
+		switch (id)
+		{
+		// 主页分类图片按钮点击事件
+		case R.id.ll_category:// 分类
+
+			break;
+		case R.id.ll_donate:// 捐赠
+
+			break;
+		case R.id.ll_drift:// 漂流
+
+			break;
+		case R.id.ll_my:// 我的
+
+			break;
+		case R.id.ll_book_rank:// 漂读榜
+			startActivity(new Intent(getContext(), BookRankActivity.class));
+			break;
+		case R.id.ll_feedback:// 留言板
+			startActivity(new Intent(getContext(), FeedbackActivity.class));
+			break;
+		case R.id.ll_collect:// 收藏室
+
+			break;
+		case R.id.ll_points:// 积分
+
+			break;
+
+		}
+
+	}
+
+	private void initImageCycleView()
+	{
 		List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();
 		// res图片资源
 		// list.add(new
@@ -69,23 +115,27 @@ public class HomeFragment extends Fragment {
 				"http://www.gdxlz.com/uploads/allimg/160113/1-160113120049319.jpg",
 				"", "http://www.sina.com.cn/"));
 		mImageCycleView
-				.setOnPageClickListener(new ImageCycleView.OnPageClickListener() {
+				.setOnPageClickListener(new ImageCycleView.OnPageClickListener()
+				{
 					@Override
 					public void onClick(View imageView,
-							ImageCycleView.ImageInfo imageInfo) {
+							ImageCycleView.ImageInfo imageInfo)
+					{
 						Toast.makeText(getActivity(),
 								"你点击了" + imageInfo.value.toString(),
 								Toast.LENGTH_SHORT).show();
-//						Intent intent = new Intent(getActivity(),
-//								WebActivity.class);
-//						intent.putExtra("url", imageInfo.value.toString());
-//						startActivity(intent);
+						// Intent intent = new Intent(getActivity(),
+						// WebActivity.class);
+						// intent.putExtra("url", imageInfo.value.toString());
+						// startActivity(intent);
 					}
 				});
 
-		mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack() {
+		mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack()
+		{
 			@Override
-			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo) {
+			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo)
+			{
 
 				// //本地图片
 				// ImageView imageView=new ImageView(getActivity());

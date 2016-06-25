@@ -39,6 +39,8 @@
         <activity android:name="com.xiawa.read.activity.UserInfoActivity" > </activity>
         <!-- 留言板 -->
         <activity android:name="com.xiawa.read.activity.FeedbackActivity" > </activity>
+        <!--漂读榜  -->
+        <activity android:name="com.xiawa.read.activity.BookRankActivity" > </activity>
         
     </application>
 

@@ -15,7 +15,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.xiawa.read.R;
 import com.xiawa.read.fragment.FindFragment;
 import com.xiawa.read.fragment.HomeFragment;
-import com.xiawa.read.fragment.MeFragment;
+import com.xiawa.read.fragment.MyFragment;
 
 public class MainActivity extends FragmentActivity implements
 		ViewPager.OnPageChangeListener, View.OnClickListener
@@ -44,7 +44,7 @@ public class MainActivity extends FragmentActivity implements
 	{
 		mTabs.add(new HomeFragment());
 		mTabs.add(new FindFragment());
-		mTabs.add(new MeFragment());
+		mTabs.add(new MyFragment());
 		mAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
 		{
 			@Override

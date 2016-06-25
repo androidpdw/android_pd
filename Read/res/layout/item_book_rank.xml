@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="186dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="121dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="121dp"
+            android:layout_weight="4" >
+
+            <ImageView
+                android:id="@+id/iv_book_cover"
+                android:layout_width="match_parent"
+                android:layout_height="121dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/tv_book_index"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="#f00"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="#fff" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="121dp"
+            android:layout_weight="6"
+            android:background="#fff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="爱的教育"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_book_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="作者:[意大利]亚米切丝" />
+
+            <TextView
+                android:id="@+id/tv_book_publisher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="出版社:吉林人民出版社" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp" >
+
+                <ImageView
+                    android:id="@+id/iv_red_start_1"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/red_star" />
+
+                <ImageView
+                    android:id="@+id/iv_red_start_2"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/red_star" />
+
+                <ImageView
+                    android:id="@+id/iv_red_start_3"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/red_star" />
+
+                <ImageView
+                    android:id="@+id/iv_red_start_4"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/red_star" />
+
+                <ImageView
+                    android:id="@+id/iv_red_start_5"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/red_star" />
+
+                <TextView
+                    android:id="@+id/tv_book_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="99条评论" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_book_desc"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="#F5F7F6"
+        android:ellipsize="end"
+        android:padding="5dp"
+        android:text="世界经典名著阅读馆：爱的教育（注音版）》采用日记体形式,讲述了意大利小学四年级学生安利柯的成长故事，详细记录了安利柯在一个学年里，在学校、家庭、社会的所见所闻。穿插了他的父母、姐姐写给他的话。以及老师让学生抄写的每月故事，字里行间都洋溢着“爱”：对老师的爱、对同学的爱、对父母的爱、对祖国的爱" />
+
+</LinearLayout>
