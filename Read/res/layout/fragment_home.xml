@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res/com.xiawa.read"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E4E4E6"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="cpz.com.read.fragment.HomeFragment" >
 
     <!-- 顶部搜索栏 -->
@@ -32,10 +33,12 @@
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_height="44dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:hint="不一样的卡梅拉"
-                android:padding="5dp"
+                android:paddingTop="6dp"
+                android:singleLine="true"
+                android:background="@null"
                 android:textSize="18sp" />
 
             <ImageView

@@ -41,6 +41,8 @@
         <activity android:name="com.xiawa.read.activity.FeedbackActivity" > </activity>
         <!--漂读榜  -->
         <activity android:name="com.xiawa.read.activity.BookRankActivity" > </activity>
+        <!-- 图书详情 -->
+        <activity android:name="com.xiawa.read.activity.BookDetailActivity" > </activity>
         
     </application>
 

@@ -17,7 +17,6 @@
         android:layout_height="1dp"
         android:background="#8e8f8e" />
 
-    <include layout="@layout/tab_item_main" >
-    </include>
+    <include layout="@layout/tab_item_main" />
 
 </LinearLayout>

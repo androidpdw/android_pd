@@ -3,7 +3,6 @@ package com.xiawa.read.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,20 +19,19 @@ import com.xiawa.read.activity.BookRankActivity;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.view.ImageCycleView;
 
-public class HomeFragment extends Fragment implements OnClickListener
-{
+public class HomeFragment extends Fragment implements OnClickListener {
 
 	private ImageCycleView mImageCycleView;
 	private String[] mHomeItemImage = {
-			"http://img1.qunarzz.com/travel/poi/201405/22/5bd8451623620821ddb12cfb.jpg_r_720x400x95_d06a7bf4.jpg",
-			"http://img.51766.com/1001/1204250257379.jpg",
-			"http://dimg02.c-ctrip.com/images/fd/tg/g2/M05/87/D9/Cghzf1WwsVWAFjE2ACqTKYbSfPQ625_C_880_350.jpg",
-			"http://tw.mjjq.com/pic/20071105/20071105150959972.jpg" };
+			"http://www.piaoduwang.com/mobile/images/img_main_1.jpg",
+			"http://www.piaoduwang.com/mobile/images/img_main_2.jpg",
+			"http://www.piaoduwang.com/mobile/images/img_main_3.jpg",
+			"http://www.piaoduwang.com/mobile/images/img_main_4.jpg",
+			"http://www.piaoduwang.com/mobile/images/img_main_5.jpg" };
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
-	{
+			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
 		mImageCycleView = (ImageCycleView) view.findViewById(R.id.icv_top);
@@ -56,13 +54,11 @@ public class HomeFragment extends Fragment implements OnClickListener
 	 * 监听主页图片按钮点击事件
 	 */
 	@Override
-	public void onClick(View v)
-	{
+	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		int id = v.getId();
 
-		switch (id)
-		{
+		switch (id) {
 		// 主页分类图片按钮点击事件
 		case R.id.ll_category:// 分类
 
@@ -93,8 +89,7 @@ public class HomeFragment extends Fragment implements OnClickListener
 
 	}
 
-	private void initImageCycleView()
-	{
+	private void initImageCycleView() {
 		List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();
 		// res图片资源
 		// list.add(new
@@ -106,36 +101,34 @@ public class HomeFragment extends Fragment implements OnClickListener
 
 		// 使用网络加载图片
 		list.add(new ImageCycleView.ImageInfo(
-				"https://www.baidu.com/img/bd_logo1.png", "",
+				"http://www.piaoduwang.com/mobile/images/img_main_1.jpg", "",
 				"https://www.baidu.com/"));
 		list.add(new ImageCycleView.ImageInfo(
-				"http://pic2.nipic.com/20090423/1378382_153331048_2.jpg", "",
+				"http://www.piaoduwang.com/mobile/images/img_main_2.jpg", "",
 				"http://www.163.com/"));
 		list.add(new ImageCycleView.ImageInfo(
-				"http://www.gdxlz.com/uploads/allimg/160113/1-160113120049319.jpg",
-				"", "http://www.sina.com.cn/"));
+				"http://www.piaoduwang.com/mobile/images/img_main_3.jpg", "",
+				"http://www.sina.com.cn/"));
+		list.add(new ImageCycleView.ImageInfo(
+				"http://www.piaoduwang.com/mobile/images/img_main_4.jpg", "",
+				"http://www.sina.com.cn/"));
+		list.add(new ImageCycleView.ImageInfo(
+				"http://www.piaoduwang.com/mobile/images/img_main_5.jpg", "",
+				"http://www.sina.com.cn/"));
 		mImageCycleView
-				.setOnPageClickListener(new ImageCycleView.OnPageClickListener()
-				{
+				.setOnPageClickListener(new ImageCycleView.OnPageClickListener() {
 					@Override
 					public void onClick(View imageView,
-							ImageCycleView.ImageInfo imageInfo)
-					{
+							ImageCycleView.ImageInfo imageInfo) {
 						Toast.makeText(getActivity(),
 								"你点击了" + imageInfo.value.toString(),
 								Toast.LENGTH_SHORT).show();
-						// Intent intent = new Intent(getActivity(),
-						// WebActivity.class);
-						// intent.putExtra("url", imageInfo.value.toString());
-						// startActivity(intent);
 					}
 				});
 
-		mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack()
-		{
+		mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack() {
 			@Override
-			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo)
-			{
+			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo) {
 
 				// //本地图片
 				// ImageView imageView=new ImageView(getActivity());
@@ -159,7 +152,6 @@ public class HomeFragment extends Fragment implements OnClickListener
 				ImageView imageView = new ImageView(getActivity());
 				bitmapUtils.display(imageView, imageInfo.image.toString());
 				return imageView;
-
 			}
 		});
 	}

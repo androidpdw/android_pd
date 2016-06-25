@@ -16,13 +16,16 @@
 	    android:text="@string/tip_feedback"/>
 	
 	<EditText 
+	    android:id="@+id/et_content"
 	    android:layout_width="match_parent"
 	    android:layout_height="200dp"
 	    android:layout_margin="10dp"
 	    android:layout_marginTop="5dp"
+	    android:gravity="top"
 	    android:background="@drawable/editsharp"/>
 	
 	<Button 
+	    android:id="@+id/btn_submit"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:text="@string/submit"

@@ -31,7 +31,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_common_round_red"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </FrameLayout>
 
 
@@ -62,7 +62,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_common_round_red"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </FrameLayout>
 
     <FrameLayout
@@ -92,7 +92,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_common_round_red"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </FrameLayout>
 
 </LinearLayout>
