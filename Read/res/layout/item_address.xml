@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_site_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="闽南师范大学站" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_site_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="漳州市芗城区县前直路附近"
+        android:textColor="@color/gray2" />
+    
+    <TextView
+        android:id="@+id/tv_site_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="（距离约300米）"
+        android:textColor="@color/gray2" />
+
+</LinearLayout>

@@ -71,8 +71,9 @@ public class MainActivity extends FragmentActivity implements
 	private void initUI()
 	{
 		vpContainer = (ViewPager) findViewById(R.id.vp_container);
-		vpContainer.setOnPageChangeListener(this);
+		vpContainer.addOnPageChangeListener(this);
 		vpContainer.setAdapter(mAdapter);
+		vpContainer.setOffscreenPageLimit(3);
 //		ivUser.setOnClickListener(this);
 		ibHome = (ImageButton) findViewById(R.id.tab_image_1);
 		ibHome.setSelected(true);

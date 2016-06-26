@@ -1,6 +1,5 @@
 package com.xiawa.read.domain;
 
-import android.R.bool;
 
 public class GlobalConfig {
 	
@@ -23,4 +22,6 @@ public class GlobalConfig {
 	
 	//是否登录
 	public static boolean isLogin=false;
+	
+	
 }

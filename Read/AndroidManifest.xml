@@ -47,6 +47,8 @@
         <activity android:name="com.xiawa.read.activity.BookIntroductActivity" > </activity>
         <!-- 观后感-->
         <activity android:name="com.xiawa.read.activity.BookCommentActivity" > </activity>
+        <!-- 借书地址-->
+        <activity android:name="com.xiawa.read.activity.AddressActivity" > </activity>
         
     </application>
 

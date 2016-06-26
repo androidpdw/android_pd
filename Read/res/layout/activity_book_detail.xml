@@ -280,6 +280,7 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/btn_collect"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -289,6 +290,7 @@
             android:textColor="@color/white" />
 
         <Button
+            android:id="@+id/btn_brrow"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
