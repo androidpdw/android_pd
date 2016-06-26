@@ -1,21 +1,22 @@
 package com.xiawa.read.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+
+import android.widget.EditText;
+
+import android.widget.Toast;
+
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -27,11 +28,13 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
-import com.xiawa.read.domain.GlobalConfig;
+import com.xiawa.read.utils.InitGetImei;
 import com.xiawa.read.utils.URLString;
+import com.xiawa.read.utils.UserInformation;
 import com.xiawa.read.view.CommonProgressDialog;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity
+{
 	// 输入登录名
 	@ViewInject(R.id.et_user_name)
 	private EditText etUserName;
@@ -43,11 +46,12 @@ public class LoginActivity extends Activity {
 
 	/**
 	 * 使用ViewUtils给顶部返回添加事件
-	 * 
+	 *
 	 * @param v
 	 */
 	@OnClick(R.id.iv_back_top)
-	public void backTopOnClick(View v) {
+	public void backTopOnClick(View v)
+	{
 		finish();
 	}
 
@@ -57,7 +61,8 @@ public class LoginActivity extends Activity {
 	 * @param v
 	 */
 	@OnClick(R.id.tv_sign_up)
-	public void signUp(View v) {
+	public void signUp(View v)
+	{
 		startActivity(new Intent(this, SignUpActivity.class));
 	}
 
@@ -67,17 +72,17 @@ public class LoginActivity extends Activity {
 	 * @param v
 	 */
 	@OnClick(R.id.tv_forget_pwd)
-	public void forgetPwd(View v) {
+	public void forgetPwd(View v)
+	{
 		startActivity(new Intent(this, ForgetPasswordActivity.class));
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		ViewUtils.inject(this);
-		findViewById(R.id.iv_back_top).setVisibility(View.VISIBLE);
-		
 	}
 
 	/**
@@ -89,35 +94,58 @@ public class LoginActivity extends Activity {
 	 * @throws JSONException
 	 */
 	public void login(View view) throws UnsupportedEncodingException,
-			NoSuchAlgorithmException, JSONException {
-		if (isUsernameAndPwdValid()) {
+			NoSuchAlgorithmException, JSONException
+	{
+		if (isUsernameAndPwdValid())
+		{
+			String userName = etUserName.getText().toString().trim();// 去除首尾空格
+			String userPwd = etPwd.getText().toString().trim();
+			// userPwd = CommonFunction.getMD5(userPwd); //MD5加密
+
+			InitGetImei initGetImei = new InitGetImei(
+					(TelephonyManager) getSystemService(TELEPHONY_SERVICE)); // 获取imei号
+			String mszDevIDShort = initGetImei.getImei();
+			String timestamp = String.valueOf(System.currentTimeMillis()); // 取时间戳
+
+			JSONObject json = new JSONObject();
+			json.put("token", URLString.TOKEN);
+			json.put("hui", mszDevIDShort);
+			json.put("timestamp", timestamp);
+			json.put("verifycode", UserInformation.VERIFYCODE);
+			json.put("loginname", userName);
+			json.put("password", userPwd);
+			String jsonString = String.valueOf(json);
 
 			String URL = URLString.URL_DOMAIN + URLString.URL_LOGIN;
 
-			sendPOST(URL);
+			sendPOST(URL, jsonString);
 		}
 	}
 
 	/*
 	 * 向服务器提交数据
 	 */
-	public void sendPOST(String url) {
+	public void sendPOST(String url, String jsonString)
+	{
+
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("loginname", etUserName.getText().toString().trim());
-		params.addBodyParameter("password", etPwd.getText().toString().trim());
-		params.addBodyParameter("rememberUser", "1");
+		params.addBodyParameter("json", jsonString);
+
 		httpUtils.send(HttpRequest.HttpMethod.POST, url, params,
-				new RequestCallBack<String>() {
+				new RequestCallBack<String>()
+				{
 
 					@Override
-					public void onStart() {
+					public void onStart()
+					{
 						Log.i("onstart", "onstart");
 						showCustomProgrssDialog();
 					}
 
 					@Override
-					public void onFailure(HttpException arg0, String arg1) {
+					public void onFailure(HttpException arg0, String arg1)
+					{
 						Log.i("failure", "网络连接错误！请重试");
 						hideCustomProgressDialog();
 						Toast.makeText(getApplicationContext(), "网络连接错误！请重试", 0)
@@ -125,60 +153,71 @@ public class LoginActivity extends Activity {
 					}
 
 					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
+					public void onSuccess(ResponseInfo<String> arg0)
+					{
 						;
 						hideCustomProgressDialog();
-						try {
-							//Log.i("arg0", "arg0: " + arg0.result);
+						try
+						{
+							Log.i("arg0", "arg0: " + arg0.result);
 							JSONObject obj = new JSONObject(arg0.result);
 
-							String result = obj.getString("resultCode");
-							if (result.equals("0000")) { // 登录成功
+							String result = new String(obj.getString("status"));
+							String msg = new String(obj.getString("Msg"));
+							Log.i("jsonobject", "result: " + result + " msg:"
+									+ msg);
+							if (result.equals("0"))
+							{ // 登录成功
 								userHomeActivity();
-								SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
-								Editor editor = sp.edit();
-								editor.putBoolean("isisLogin", true);
-								editor.commit();
-								GlobalConfig.isLogin = true;
 								// Toast.makeText(getApplicationContext(),
 								// "登录成功", 0).show();
-							} else {
+							} else
+							{
+
 								Toast.makeText(getApplicationContext(),
 										"用户名或密码错误!", 0).show();
 							}
 
-						} catch (JSONException e) {
+						} catch (JSONException e)
+						{
 							e.printStackTrace();
 						}
 					}
 				});
 	}
 
-	final void showCustomProgrssDialog() {
+	final void showCustomProgrssDialog()
+	{
 		if (null == mCustomProgrssDialog)
 			mCustomProgrssDialog = CommonProgressDialog
 					.createProgrssDialog(this);
-		if (null != mCustomProgrssDialog) {
+		if (null != mCustomProgrssDialog)
+		{
 			// mCustomProgrssDialog.setMessage(msg);
 			mCustomProgrssDialog.show();
 			mCustomProgrssDialog.setCancelable(false);
 		}
 	}
 
-	final void hideCustomProgressDialog() {
-		if (null != mCustomProgrssDialog) {
+	final void hideCustomProgressDialog()
+	{
+		if (null != mCustomProgrssDialog)
+		{
 			mCustomProgrssDialog.dismiss();
 			mCustomProgrssDialog = null;
 		}
 	}
 
-	public boolean isUsernameAndPwdValid() { // 判断登录名和密码是否为空
-		if (TextUtils.isEmpty(etUserName.getText().toString().trim())) {
+	public boolean isUsernameAndPwdValid()
+	{ // 判断登录名和密码是否为空
+		if (TextUtils.isEmpty(etUserName.getText().toString().trim()))
+		{
 
 			Toast.makeText(this, getString(R.string.loginName_empty),
 					Toast.LENGTH_SHORT).show();
 			return false;
-		} else if (TextUtils.isEmpty(etPwd.getText().toString().trim())) {
+		} else if (TextUtils.isEmpty(etPwd.getText().toString().trim()))
+		{
 
 			Toast.makeText(this, getString(R.string.loginPwd_empty),
 					Toast.LENGTH_SHORT).show();
@@ -190,9 +229,11 @@ public class LoginActivity extends Activity {
 	/**
 	 * 跳转到个人主页
 	 */
-	public void userHomeActivity() {
-		// 返回Fragment
+	public void userHomeActivity()
+	{
+		//返回Fragment
 		finish();
+		return;
 		// startActivity(new Intent(this, UserInfoActivity.class));
 	}
 

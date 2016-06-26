@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.xiawa.read.R;
-import com.xiawa.read.domain.GlobalConfig;
 
 public class BookDetailActivity extends BaseActivity {
 
@@ -30,7 +28,7 @@ public class BookDetailActivity extends BaseActivity {
 								BookIntroductActivity.class));
 					}
 				});
-		findViewById(R.id.rl_book_comment).setOnClickListener(
+			findViewById(R.id.rl_book_comment).setOnClickListener(
 				new OnClickListener() {
 
 					@Override
@@ -39,29 +37,5 @@ public class BookDetailActivity extends BaseActivity {
 								BookCommentActivity.class));
 					}
 				});
-		findViewById(R.id.btn_collect).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						startActivity(new Intent(getApplicationContext(),
-								BookCommentActivity.class));
-					}
-				});
-		findViewById(R.id.btn_brrow).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (GlobalConfig.isLogin) {
-					Toast.makeText(getApplicationContext(), "请先登录",
-							Toast.LENGTH_SHORT).show();
-					startActivity(new Intent(getApplicationContext(),
-							LoginActivity.class));
-				} else {
-					startActivity(new Intent(getApplicationContext(),
-							AddressActivity.class));
-				}
-			}
-		});
 	}
 }

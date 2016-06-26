@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">飘读</string>
     <string name="tab_home">Home</string>
     <string name="tab_second">Second</string>
@@ -7,9 +8,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
-    
-    <!-- @author zhengwei  -->
+
+    <!-- @author zhengwei -->
     <string name="common_progress_dialog_image_loading"></string>
     <string name="loginName_empty">登录名为空</string>
     <string name="loginPwd_empty">密码为空</string>
@@ -21,8 +21,53 @@
     <string name="address_empty">请选择居住地址</string>
     <string name="userInfo_assets_shop">积分商城</string>
     <string name="userInfo_remain">我的余额</string>
-	<string name="user_ticket">我的优惠券</string>
-	<string name="tip_feedback">您的意见将有助于我们共同改进产品和保证服务质量！</string>
-	<string name="submit">提交</string>
-    
+    <string name="user_ticket">我的优惠券</string>
+    <string name="tip_feedback">您的意见将有助于我们共同改进产品和保证服务质量！</string>
+    <string name="submit">提交</string>
+
+    <!-- 认证类型 -->
+    <!-- 认证为学生 -->
+    <string-array name="authen_type_student">
+        <item>QQ</item>
+        <item>邮箱</item>
+        <item>位置</item>
+        <item>验证码</item>
+        <item>真实姓名</item>
+        <item>电话号码</item>
+        <item>学校名称</item>
+        <item>教师登录名</item>
+    </string-array>
+    <!-- 认证为老师 -->
+    <string-array name="authen_type_teacher">
+        <item>QQ</item>
+        <item>邮箱</item>
+        <item>位置</item>
+        <item>证件照</item>
+        <item>真实姓名</item>
+        <item>手机号码</item>
+        <item>教授科目</item>
+        <item>学校名称</item>
+        <item>学校电话号码</item>
+    </string-array>
+    <!-- 认证为家长 -->
+    <string-array name="authen_type_parents">
+        <item>QQ</item>
+        <item>邮箱</item>
+        <item>验证码</item>
+        <item>证件照</item>
+        <item>真实姓名</item>
+        <item>手机号码</item>
+        <item>学生登陆名</item>
+        <item>教师登录名</item>
+    </string-array>
+    <!-- 认证为普通会员 -->
+    <string-array name="authen_type_general">
+        <item>QQ</item>
+        <item>邮箱</item>
+        <item>位置</item>
+        <item>证件照</item>
+        <item>真实姓名</item>
+        <item>手机号码</item>
+    </string-array>
+
 </resources>

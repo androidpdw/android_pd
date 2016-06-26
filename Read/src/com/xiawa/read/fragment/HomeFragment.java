@@ -33,11 +33,13 @@ import com.xiawa.read.activity.BookDetailActivity;
 import com.xiawa.read.activity.BookRankActivity;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.activity.MainActivity;
+import com.xiawa.read.activity.RegSuccessActivity;
 import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.view.ImageCycleView;
 import com.xiawa.read.view.MyGridView;
 
-public class HomeFragment extends Fragment implements OnClickListener, OnItemClickListener
+public class HomeFragment extends Fragment implements OnClickListener,
+		OnItemClickListener
 {
 
 	public static final String BOOK_RANK_URL = "http://www.piaoduwang.com/mobile/app/bookRankForAPP.php";
@@ -77,23 +79,25 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 	{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
-		
+
 		mImageCycleView = (ImageCycleView) view.findViewById(R.id.icv_top);
 		mImageCycleView.setIndicationStyle(
 				ImageCycleView.IndicationStyle.IMAGE, R.drawable.dot_blur,
 				R.drawable.dot_focus, 0);
 		initImageCycleView();
-		
-		gvBooks=(MyGridView) view.findViewById(R.id.gv_books);
+
+		gvBooks = (MyGridView) view.findViewById(R.id.gv_books);
 		gvBooks.setOnItemClickListener(this);
 		initData();
-		
+
 		setImgButtonListener(view);
-		
+
 		return view;
 	}
+
 	/**
 	 * GridView onItemClick
+	 * 
 	 * @param parent
 	 * @param view
 	 * @param position
@@ -103,8 +107,10 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id)
 	{
-		Toast.makeText(getContext(), "you click "+position, Toast.LENGTH_SHORT).show();
+		Toast.makeText(getContext(), "you click " + position,
+				Toast.LENGTH_SHORT).show();
 	}
+
 	private void initData()
 	{
 		mBookList = new ArrayList<BookRankItem>();
@@ -166,7 +172,8 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 		{
 		// 主页分类图片按钮点击事件
 		case R.id.ll_category:// 分类
-
+			//测试
+			startActivity(new Intent(getContext(),RegSuccessActivity.class));
 			break;
 		case R.id.ll_donate:// 捐赠
 
@@ -302,6 +309,5 @@ public class HomeFragment extends Fragment implements OnClickListener, OnItemCli
 		ImageView cover;
 
 	}
-
 
 }
