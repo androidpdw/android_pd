@@ -135,7 +135,6 @@ public class WebActivity extends Activity
             } else
             {
                 finish();
-                System.exit(0);//退出程序
             }
         }
         return super.onKeyDown(keyCode, event);

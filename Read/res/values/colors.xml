@@ -77,6 +77,7 @@
     <color name="orange_theme_color_pressed">#7feb5e18</color>
     <color name="possible_result_points">#c0ffff00</color>
     <color name="red">#fff95762</color>
+    <color name="red_all">#ffff0000</color>
     <color name="red_card">#fff07a5a</color>
     <color name="result_view">#b0000000</color>
     <color name="separate_line_color">#ffcfcfcf</color>

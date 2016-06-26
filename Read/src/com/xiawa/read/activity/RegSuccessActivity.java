@@ -1,14 +1,11 @@
 package com.xiawa.read.activity;
 
-import com.xiawa.read.R;
-
-import android.R.integer;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.xiawa.read.R;
 
 public class RegSuccessActivity extends BaseActivity
 {
@@ -22,6 +19,7 @@ public class RegSuccessActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_success);
 		setHeaderTitle("注册成功");
+		findViewById(R.id.header).setBackgroundResource(R.color.red_all);
 	}
 
 	/**

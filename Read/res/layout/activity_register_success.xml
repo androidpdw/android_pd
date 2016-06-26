@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include layout="@layout/view_header" />
+    <include 
+        android:id="@+id/header"
+        layout="@layout/view_header" />
 
     <TextView
         android:id="@+id/tv_auth_student"

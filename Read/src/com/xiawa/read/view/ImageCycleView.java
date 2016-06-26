@@ -248,14 +248,15 @@ public class ImageCycleView extends FrameLayout {
 	public void loadData(List<ImageInfo> list,LoadImageCallBack callBack){
 		data=list;
 		mCount=list.size();
+		System.out.println("count:" + mCount);
 		initIndication();
 		if(callBack==null){
 			new IllegalArgumentException("LoadImageCallBack 回调函数不能为空！");
 		}
 		mLoadImageCallBack=callBack;
 		mViewPager.setAdapter(new ImageCycleAdapter());
-		//最大值中间 的第一个
-		mViewPager.setCurrentItem(Integer.MAX_VALUE/2-((Integer.MAX_VALUE/2)%mCount));
+//		//最大值中间 的第一个
+		mViewPager.setCurrentItem(300/2-((300/2)%mCount));
 	}
 
 	/**
@@ -372,7 +373,7 @@ public class ImageCycleView extends FrameLayout {
 		@Override
 		public Object instantiateItem(ViewGroup container, final int position) {
 			final ImageInfo imageInfo = data.get(position % mCount);
-
+			System.out.println("instantiateItem");
 			ImageView imageView=mLoadImageCallBack.loadAndDisplay(imageInfo);
 			imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 					ViewGroup.LayoutParams.MATCH_PARENT));

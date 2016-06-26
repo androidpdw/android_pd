@@ -29,6 +29,8 @@ public class MainActivity extends FragmentActivity implements
 	private ImageButton ibHome;
 	private ImageButton ibBook;
 	private ImageButton ibMy;
+	
+	private MyFragment myFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -40,11 +42,20 @@ public class MainActivity extends FragmentActivity implements
 		initUI();
 	}
 
-	private void initData()
-	{
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (myFragment!=null) {
+			myFragment.updateUI();
+		}
+	}
+
+	private void initData() {
 		mTabs.add(new HomeFragment());
 		mTabs.add(new FindFragment());
-		mTabs.add(new MyFragment());
+		myFragment = new MyFragment(this);
+		mTabs.add(myFragment);
 		mAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
 		{
 			@Override
@@ -71,7 +82,7 @@ public class MainActivity extends FragmentActivity implements
 	private void initUI()
 	{
 		vpContainer = (ViewPager) findViewById(R.id.vp_container);
-		vpContainer.setOnPageChangeListener(this);
+		vpContainer.addOnPageChangeListener(this);
 		vpContainer.setAdapter(mAdapter);
 //		ivUser.setOnClickListener(this);
 		ibHome = (ImageButton) findViewById(R.id.tab_image_1);

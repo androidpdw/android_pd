@@ -1,22 +1,21 @@
 package com.xiawa.read.activity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-
-import android.widget.EditText;
-
-import android.widget.Toast;
-
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -28,9 +27,8 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
-import com.xiawa.read.utils.InitGetImei;
+import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.utils.URLString;
-import com.xiawa.read.utils.UserInformation;
 import com.xiawa.read.view.CommonProgressDialog;
 
 public class LoginActivity extends Activity
@@ -98,27 +96,10 @@ public class LoginActivity extends Activity
 	{
 		if (isUsernameAndPwdValid())
 		{
-			String userName = etUserName.getText().toString().trim();// 去除首尾空格
-			String userPwd = etPwd.getText().toString().trim();
-			// userPwd = CommonFunction.getMD5(userPwd); //MD5加密
-
-			InitGetImei initGetImei = new InitGetImei(
-					(TelephonyManager) getSystemService(TELEPHONY_SERVICE)); // 获取imei号
-			String mszDevIDShort = initGetImei.getImei();
-			String timestamp = String.valueOf(System.currentTimeMillis()); // 取时间戳
-
-			JSONObject json = new JSONObject();
-			json.put("token", URLString.TOKEN);
-			json.put("hui", mszDevIDShort);
-			json.put("timestamp", timestamp);
-			json.put("verifycode", UserInformation.VERIFYCODE);
-			json.put("loginname", userName);
-			json.put("password", userPwd);
-			String jsonString = String.valueOf(json);
-
+			
 			String URL = URLString.URL_DOMAIN + URLString.URL_LOGIN;
 
-			sendPOST(URL, jsonString);
+			sendPOST(URL, "");
 		}
 	}
 
@@ -130,7 +111,9 @@ public class LoginActivity extends Activity
 
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("json", jsonString);
+		params.addBodyParameter("username", etUserName.getText().toString().trim());
+		params.addBodyParameter("password", etPwd.getText().toString().trim());
+		params.addBodyParameter("rememberUser", "1");
 
 		httpUtils.send(HttpRequest.HttpMethod.POST, url, params,
 				new RequestCallBack<String>()
@@ -162,15 +145,17 @@ public class LoginActivity extends Activity
 							Log.i("arg0", "arg0: " + arg0.result);
 							JSONObject obj = new JSONObject(arg0.result);
 
-							String result = new String(obj.getString("status"));
-							String msg = new String(obj.getString("Msg"));
-							Log.i("jsonobject", "result: " + result + " msg:"
-									+ msg);
-							if (result.equals("0"))
-							{ // 登录成功
-								userHomeActivity();
-								// Toast.makeText(getApplicationContext(),
-								// "登录成功", 0).show();
+							String result = new String(obj.getString("resultCode"));
+							if (result.equals("0000"))
+							{ 
+								finish();
+								SharedPreferences sp = getApplicationContext().getSharedPreferences("config", 0);
+								Editor editor = sp.edit();
+								editor.putBoolean("isLogin", true);
+								editor.putString("username", etUserName.getText().toString().trim());
+								editor.putString("password", etPwd.getText().toString().trim());
+								editor.commit();
+								GlobalConfig.isLogin = true;
 							} else
 							{
 

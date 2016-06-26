@@ -49,6 +49,8 @@
         <activity android:name="com.xiawa.read.activity.BookCommentActivity" > </activity>
         <!--认证页面  -->
         <activity android:name="com.xiawa.read.activity.AuthenActivity" > </activity>
+        <!--借书地址  -->
+        <activity android:name="com.xiawa.read.activity.AddressActivity" > </activity>
         
     </application>
 

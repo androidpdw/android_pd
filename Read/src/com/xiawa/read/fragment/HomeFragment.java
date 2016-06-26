@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,8 +106,9 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id)
 	{
-		Toast.makeText(getContext(), "you click " + position,
-				Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(getContext(),BookDetailActivity.class);
+		intent.putExtra("BookItem", mBookList.get(position));
+		startActivity(intent);
 	}
 
 	private void initData()
@@ -121,7 +121,6 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			@Override
 			public void onFailure(HttpException arg0, String arg1)
 			{
-				// TODO Auto-generated method stub
 
 			}
 
@@ -129,14 +128,17 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			public void onSuccess(ResponseInfo<String> arg0)
 			{
 				// TODO Auto-generated method stub
-				List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
-						BookRankItem.class);
+				try {
+					List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
+							BookRankItem.class);
 
-				for (int i = 0; i < bookRankItems.size(); i++)
-				{
-					mBookList.add(bookRankItems.get(i));
+					for (int i = 0; i < bookRankItems.size(); i++)
+					{
+						mBookList.add(bookRankItems.get(i));
+					}
+					mHandler.sendEmptyMessage(UPDATA_GRID_VIEW);
+				} catch (Exception e) {
 				}
-				mHandler.sendEmptyMessage(UPDATA_GRID_VIEW);
 			}
 		});
 
@@ -194,7 +196,7 @@ public class HomeFragment extends Fragment implements OnClickListener,
 
 			break;
 		case R.id.ll_points:// 积分
-			startActivity(new Intent(getContext(), BookDetailActivity.class));
+//			startActivity(new Intent(getContext(), BookDetailActivity.class));
 			break;
 
 		}
@@ -208,19 +210,19 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		// 使用网络加载图片
 		list.add(new ImageCycleView.ImageInfo(
 				"http://www.piaoduwang.com/mobile/images/img_main_1.jpg", "",
-				"https://www.baidu.com/"));
+				"http://www.piaoduwang.com/mobile/images/img_main_1.jpg"));
 		list.add(new ImageCycleView.ImageInfo(
 				"http://www.piaoduwang.com/mobile/images/img_main_2.jpg", "",
-				"http://www.163.com/"));
+				"http://www.piaoduwang.com/mobile/images/img_main_2.jpg"));
 		list.add(new ImageCycleView.ImageInfo(
 				"http://www.piaoduwang.com/mobile/images/img_main_3.jpg", "",
-				"http://www.sina.com.cn/"));
+				"http://www.piaoduwang.com/mobile/images/img_main_3.jpg"));
 		list.add(new ImageCycleView.ImageInfo(
 				"http://www.piaoduwang.com/mobile/images/img_main_4.jpg", "",
-				"http://www.sina.com.cn/"));
+				"http://www.piaoduwang.com/mobile/images/img_main_4.jpg"));
 		list.add(new ImageCycleView.ImageInfo(
 				"http://www.piaoduwang.com/mobile/images/img_main_5.jpg", "",
-				"http://www.sina.com.cn/"));
+				"http://www.piaoduwang.com/mobile/images/img_main_5.jpg"));
 		mImageCycleView
 				.setOnPageClickListener(new ImageCycleView.OnPageClickListener()
 				{
@@ -239,7 +241,6 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			@Override
 			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo)
 			{
-
 				BitmapUtils bitmapUtils = new BitmapUtils(getActivity());
 				ImageView imageView = new ImageView(getActivity());
 				bitmapUtils.display(imageView, imageInfo.image.toString());
@@ -295,7 +296,6 @@ public class HomeFragment extends Fragment implements OnClickListener,
 				bitmapUtils.display(holder.cover, COVER_PIC_URL + url);
 			} catch (UnsupportedEncodingException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
