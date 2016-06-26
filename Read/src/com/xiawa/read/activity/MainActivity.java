@@ -29,6 +29,8 @@ public class MainActivity extends FragmentActivity implements
 	private ImageButton ibHome;
 	private ImageButton ibBook;
 	private ImageButton ibMy;
+	
+	private MyFragment myFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -39,12 +41,19 @@ public class MainActivity extends FragmentActivity implements
 		initData();
 		initUI();
 	}
+	
+	@Override
+		protected void onResume() {
+			super.onResume();
+			myFragment.updateUI();
+		}
 
 	private void initData()
 	{
 		mTabs.add(new HomeFragment());
 		mTabs.add(new FindFragment());
-		mTabs.add(new MyFragment());
+		myFragment = new MyFragment();
+		mTabs.add(myFragment);
 		mAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
 		{
 			@Override

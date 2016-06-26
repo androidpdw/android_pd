@@ -168,9 +168,18 @@ public class MyFragment extends Fragment {
 	}
 	
 	/**登录成功后切换并设置UI*/
-	private void updateUI() {
-		ll_login.setVisibility(View.GONE);
-		ll_userinfo.setVisibility(View.VISIBLE);
+	public void updateUI() {
+		SharedPreferences sp = context.getSharedPreferences("config", 0);
+		
+		boolean isLogin = sp.getBoolean("isLogin", false);
+		
+		if (isLogin) {
+			ll_login.setVisibility(View.GONE);
+			ll_userinfo.setVisibility(View.VISIBLE);
+		} else {
+			ll_login.setVisibility(View.VISIBLE);
+			ll_userinfo.setVisibility(View.GONE);
+		}
 	}
 	
 	final void showCustomProgrssDialog() {
