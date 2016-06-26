@@ -46,6 +46,12 @@ public class MyFragment extends Fragment {
 	private String username;
 	private String password;
 	
+	private boolean finished = false;
+	
+	public MyFragment(Context context) {
+		this.context = context;
+	}
+	
 	@ViewInject(R.id.ll_login)
 	private LinearLayout ll_login;
 	@ViewInject(R.id.ll_userinfo)
@@ -101,6 +107,7 @@ public class MyFragment extends Fragment {
 			ll_userinfo.setVisibility(View.GONE);
 		}
 		init();
+		finished = true;
 		return view;
 	}
 
@@ -169,8 +176,10 @@ public class MyFragment extends Fragment {
 	
 	/**登录成功后切换并设置UI*/
 	public void updateUI() {
+		if (!finished) {
+			return;
+		}
 		SharedPreferences sp = context.getSharedPreferences("config", 0);
-		
 		boolean isLogin = sp.getBoolean("isLogin", false);
 		
 		if (isLogin) {
