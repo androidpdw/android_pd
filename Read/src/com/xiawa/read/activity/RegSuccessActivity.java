@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.xiawa.read.R;
 
@@ -20,6 +21,8 @@ public class RegSuccessActivity extends BaseActivity
 		setContentView(R.layout.activity_register_success);
 		setHeaderTitle("注册成功");
 		findViewById(R.id.header).setBackgroundResource(R.color.red_all);
+		TextView tv = (TextView) findViewById(R.id.tv_title);
+		tv.setTextColor(getResources().getColor(R.color.white));
 	}
 
 	/**
@@ -52,7 +55,6 @@ public class RegSuccessActivity extends BaseActivity
 			break;
 		case R.id.tv_auth_later:// 以后再说
 			finish();
-			startActivity(new Intent(this, UserInfoActivity.class));
 			break;
 
 		}

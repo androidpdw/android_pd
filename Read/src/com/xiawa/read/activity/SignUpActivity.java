@@ -2,12 +2,10 @@ package com.xiawa.read.activity;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,21 +14,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources.NotFoundException;
-import android.content.res.Resources.Theme;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -41,7 +30,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,11 +45,8 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
 import com.xiawa.read.utils.AssetsUtils;
-import com.xiawa.read.utils.CommonFunction;
-import com.xiawa.read.utils.InitGetImei;
 import com.xiawa.read.utils.UIUtils;
 import com.xiawa.read.utils.URLString;
-import com.xiawa.read.utils.UserInformation;
 import com.xiawa.read.view.CommonProgressDialog;
 import com.xiawa.read.view.MaterialEditText;
 import com.xiawa.read.view.MySpringSwitchButton;
@@ -98,7 +83,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	@ViewInject(R.id.met_pwd_answer)
 	private MaterialEditText metPwdAnswer;
 
-	private String mSex = "man"; //记录性别,默认为男生
+	private String mSex = "0"; //记录性别,默认为男生
 	private ListView lvCountries;
 	private ListView lvEducation;
 	private List<AddressPicker.Country> mCountries;
@@ -137,50 +122,39 @@ public class SignUpActivity extends Activity implements OnClickListener
 	public void signUp(View view) throws NoSuchAlgorithmException, JSONException
 	{
 		if(isRequiredValid()){
-			
-		
-		InitGetImei initGetImei = new InitGetImei((TelephonyManager)getSystemService(TELEPHONY_SERVICE)); //获取imei号
-    	String mszDevIDShort = initGetImei.getImei();
-    	long timestamp = System.currentTimeMillis();		 //取时间戳
 		
     	String metPwd=metPassword.getText().toString().trim();
     	String metPwdConfirm=metPasswordConfirm.getText().toString().trim();
-		//metPwd = CommonFunction.getMD5(metPwd);
+		if (!metPwd.equals(metPwdConfirm)) {
+			Toast.makeText(getApplicationContext(), "两次输入密码不一致！", Toast.LENGTH_SHORT).show();
+			return;
+		}
+    	//metPwd = CommonFunction.getMD5(metPwd);
 		//metPwdConfirm = CommonFunction.getMD5(metPwdConfirm);
 		String date=tvBirthDate.getText().toString();
-		String year=date.substring(0,4);
-		String month=date.substring(5,7);
-		String day=date.substring(8,10);
-		String birthDate=year+month+day;
-		String address = tvAddress.getText().toString()+tvCountry.getText().toString();
+//		String year=date.substring(0,4);
+//		String month=date.substring(5,7);
+//		String day=date.substring(8,10);
+//		String birthDate=year+month+day;
+		String address = tvAddress.getText().toString();//+tvCountry.getText().toString();
 		
-		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+birthDate+" "+address+" "+tvEducation.getText().toString());
-		
-		JSONObject json = new JSONObject();
-    	json.put("token", URLString.TOKEN);
-	    json.put("hui", mszDevIDShort);
-	    json.put("timestamp", timestamp);
-	    json.put("verifycode", UserInformation.VERIFYCODE);
-	    json.put("loginname", metLoginName.getText().toString().trim());
-	    json.put("nickname", metNickName.getText().toString().trim());
-	    json.put("password", metPwd);
-	    json.put("password2", metPwdConfirm);
-	    json.put("sexy", mSex);
-	    json.put("pwdquestion", metPwdQuestion.getText().toString().trim());
-	    json.put("pwdanswer", metPwdAnswer.getText().toString().trim());
-	    json.put("birthdate", birthDate);
-	    json.put("address", address);
-	    json.put("education", tvEducation.getText().toString());
-	    /* json.put("addressid1", );
-	    json.put("addressid2", );
-	    json.put("addressid3", );
-	    json.put("addressid4", );
-	    json.put("education", ); */
-	    String jsonString = String.valueOf(json);  		
-
+		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+date+" "+address+" "+tvEducation.getText().toString());
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("chkRegUserName", metLoginName.getText().toString().trim());
+		params.addBodyParameter("regUserName", metLoginName.getText().toString().trim());
+		params.addBodyParameter("regPwd", metPwd);
+		params.addBodyParameter("regNickName", metNickName.getText().toString().trim());
+		params.addBodyParameter("regPwdQuestion", metPwdQuestion.getText().toString().trim());
+		params.addBodyParameter("regPwdAnswer", metPwdAnswer.getText().toString().trim());
+		params.addBodyParameter("regSex", mSex);
+		params.addBodyParameter("regAddress", address);
+		params.addBodyParameter("regBirthDate", date);
+		params.addBodyParameter("regEducation", "0");
+//		params.addBodyParameter("regEducation", tvEducation.getText().toString());
+	    
 		String URL = URLString.URL_DOMAIN + URLString.URL_REGISTER;
 		
-		sendPOST(URL, jsonString);
+		sendPOST(URL, params);
 		}
 	}
 	/**
@@ -199,10 +173,10 @@ public class SignUpActivity extends Activity implements OnClickListener
 			{//性别选择
 				if(left){
 					Log.i("zheng", "left");
-					mSex="man";
+					mSex="0";
 				}else{
 					Log.i("zheng", "right");
-					mSex="woman";
+					mSex="1";
 				}
 			}
 		});
@@ -484,11 +458,9 @@ public class SignUpActivity extends Activity implements OnClickListener
 	/*
 	 * 向服务器提交数据
 	 */
-	public void sendPOST(String url, String jsonString) {
+	public void sendPOST(String url, RequestParams params) {
 		
 		HttpUtils httpUtils = new HttpUtils();
-		RequestParams params = new RequestParams();
-		params.addBodyParameter("json", jsonString);
 
 		httpUtils.send(HttpRequest.HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
@@ -511,17 +483,14 @@ public class SignUpActivity extends Activity implements OnClickListener
 				Log.i("onsuccess", "onsuccess");
 				hideCustomProgressDialog();
 				try {
-					Log.i("ZHENGmsg", "arh0 "+arg0.result);
 					JSONObject obj = new JSONObject(arg0.result);
 					
-					String result = new String(obj.getString("status"));
-					String msg=new String(obj.getString("Msg"));
-					Log.i("ZHENGmsg", "result: "+result+" msg:"+msg);
-					if (result.equals("0")) {  //注册成功
+					String result = new String(obj.getString("resultCode"));
+					String msg=new String(obj.getString("resultMsg"));
+					if (result.equals("0000")) {  //注册成功
 						resSuccessActivity();
 					} else {
-						
-						Toast.makeText(getApplicationContext(), "用户名已存在！", 0).show();
+						Toast.makeText(getApplicationContext(), msg, 0).show();
 					}
 
 				} catch (JSONException e) {
@@ -536,6 +505,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 	 */
 	public void resSuccessActivity() {
 		startActivity(new Intent(this, RegSuccessActivity.class));
+		finish();
 	}
 	
 	final void showCustomProgrssDialog() {

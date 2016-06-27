@@ -1,30 +1,18 @@
 package com.xiawa.read.activity;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.xiawa.read.R;
-import com.xiawa.read.activity.BookRankActivity.ViewHolder;
-import com.xiawa.read.bean.BookRankItem;
-
-import android.R.integer;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.xiawa.read.R;
 
 public class AuthenActivity extends BaseActivity
 {
@@ -39,13 +27,15 @@ public class AuthenActivity extends BaseActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_authen);
 		ViewUtils.inject(this);
 		Intent intent = getIntent();
 		int type = intent.getIntExtra("type", 0);
 		initView(type);
+		findViewById(R.id.rl_root).setBackgroundColor(getResources().getColor(R.color.red_all));
+		TextView tv = (TextView) findViewById(R.id.tv_title);
+		tv.setTextColor(getResources().getColor(R.color.white));
 	}
 	/***
 	 * 提交按钮点击事件
@@ -53,7 +43,14 @@ public class AuthenActivity extends BaseActivity
 	 */
 	public void onSubmit(View view)
 	{
-		
+		//TODO
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Toast.makeText(getApplicationContext(), "认证成功！", 0).show();
+		finish();
 		
 	}
 
@@ -99,6 +96,7 @@ public class AuthenActivity extends BaseActivity
 				holder.key = (TextView) convertView.findViewById(R.id.tv_key);
 				holder.value = (EditText) convertView
 						.findViewById(R.id.et_value);
+				holder.value.setBackgroundColor(getResources().getColor(R.color.white));
 				convertView.setTag(holder);
 			} else
 			{
