@@ -14,8 +14,11 @@ public class URLString {
 	
 	public static final String URL_LOGIN = "ajax/login_ajax.php";
 	public static final String URL_REGISTER	= "app/register.php";
+	public static final String URL_SEARCH	= "app/search.php";
 	public static final String URL_GET_VERITFY = "pd_app_getverifycode.php";
 	public static final String URL_GET_BOOKDETAIL = "app/bookDetail.php";
+
+	public static final String URL_CLASSIFYBOOK = "app/classifyBook.php";
 	
 	
 }

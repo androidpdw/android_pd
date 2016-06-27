@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Grey"
+    android:orientation="vertical" >
+    
+    <include 
+        android:id="@+id/view_header"
+        layout="@layout/view_header"/>
+    
+    <TextView 
+        android:id="@+id/tv_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="玩命搜索中..."/>
+    
+    <TextView 
+        android:id="@+id/tv_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:text="很抱歉，没有找到您想要的书"/>
+    
+    <ListView 
+        android:layout_below="@+id/view_header"
+        android:id="@+id/listView"
+        android:dividerHeight="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+    
+
+</RelativeLayout>

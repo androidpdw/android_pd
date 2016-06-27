@@ -45,6 +45,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:text="爱的教育"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView

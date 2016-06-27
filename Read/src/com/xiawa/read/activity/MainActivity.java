@@ -3,6 +3,7 @@ package com.xiawa.read.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.lidroid.xutils.ViewUtils;
 import com.xiawa.read.R;
+import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.fragment.FindFragment;
 import com.xiawa.read.fragment.HomeFragment;
 import com.xiawa.read.fragment.MyFragment;
@@ -36,6 +38,9 @@ public class MainActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		SharedPreferences sp = getSharedPreferences("config", 0);
+		GlobalConfig.isLogin = sp.getBoolean("isLogin", false);
+		GlobalConfig.username = sp.getString("username", "");
 		setContentView(R.layout.activity_main);
 		ViewUtils.inject(this);
 		initData();

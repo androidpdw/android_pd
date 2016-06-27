@@ -136,7 +136,11 @@ public class SignUpActivity extends Activity implements OnClickListener
 //		String month=date.substring(5,7);
 //		String day=date.substring(8,10);
 //		String birthDate=year+month+day;
-		String address = tvAddress.getText().toString();//+tvCountry.getText().toString();
+		String country = tvCountry.getText().toString();
+		if (country.equals("点击以选择乡镇/街道")) {
+			country="";
+		}
+		String address = tvAddress.getText().toString()+tvCountry.getText().toString();
 		
 		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+date+" "+address+" "+tvEducation.getText().toString());
 		RequestParams params = new RequestParams();

@@ -54,5 +54,7 @@
         <attr name="description" format="string"></attr>
         <attr name="price" format="string"></attr>
     </declare-styleable>
+     
+     
 
 </resources>

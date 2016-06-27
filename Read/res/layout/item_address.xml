@@ -2,29 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
-    <TextView
-        android:id="@+id/tv_site_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="闽南师范大学站" />
+        android:orientation="horizontal" >
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_site"
+            android:gravity="center_vertical"
+            android:text="名称: "
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_site_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="闽南师范大学站"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_marginTop="10dp"
-        android:id="@+id/tv_site_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="漳州市芗城区县前直路附近"
-        android:textColor="@color/gray2" />
-    
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="服务站地址: "
+            android:textColor="@color/gray2" />
+
+        <TextView
+            android:id="@+id/tv_site_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="漳州市芗城区县前直路附近"
+            android:textColor="@color/gray2" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_site_distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="（距离约300米）"
-        android:textColor="@color/gray2" />
+        android:textColor="@color/gray2"
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_home_books2"
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:background="#E4E4E6"
+    android:clickable="true"
     android:layout_marginTop="10dp"
     android:orientation="vertical" >
 

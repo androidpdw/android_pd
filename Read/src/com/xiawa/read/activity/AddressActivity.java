@@ -33,8 +33,8 @@ public class AddressActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(getApplicationContext(),WebActivity.class);
-				intent.putExtra("url", "http://www.piaoduwang.com/mobile/test/index.php");
+				Intent intent = new Intent(getApplicationContext(),PayActivity.class);
+				intent.putExtra("url", "http://www.piaoduwang.com/mobile/alipay/index.php");
 				startActivity(intent);
 			}
 		});

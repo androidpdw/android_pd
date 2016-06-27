@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import com.xiawa.read.R;
 
 
-public class WebActivity extends BaseActivity
+public class PayActivity extends BaseActivity
 {
 
     private WebView webView;
@@ -104,7 +103,7 @@ public class WebActivity extends BaseActivity
 
                 if (dialog == null)
                 {
-                    dialog = new ProgressDialog(WebActivity.this);
+                    dialog = new ProgressDialog(PayActivity.this);
                     dialog.setTitle("加载中……");
                     dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     dialog.setProgress(newProgress);
@@ -118,26 +117,6 @@ public class WebActivity extends BaseActivity
 
             }
         });
-    }
-
-    //改写物理按键——返回的逻辑
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            //Toast.makeText(this, webView.getUrl(), Toast.LENGTH_SHORT).show();
-            if (webView.canGoBack())
-            {
-                webView.goBack();//返回上一页面
-                return true;
-            } else
-            {
-                finish();
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }
 

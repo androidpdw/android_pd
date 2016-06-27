@@ -51,7 +51,16 @@
         <activity android:name="com.xiawa.read.activity.AuthenActivity" > </activity>
         <!--借书地址  -->
         <activity android:name="com.xiawa.read.activity.AddressActivity" > </activity>
-        
+        <!--热门图书  -->
+        <activity android:name="com.xiawa.read.activity.BookArrangeActivity" > </activity>
+        <!--页面支付  -->
+        <activity android:name="com.xiawa.read.activity.PayActivity" > </activity>
+        <!--消息中心  -->
+        <activity android:name="com.xiawa.read.activity.MessageActivity" > </activity>
+        <!--搜索  -->
+        <activity android:name="com.xiawa.read.activity.SearchActivity" > </activity>
+        <!--分类  -->
+        <activity android:name="com.xiawa.read.activity.ClassifyActivity" > </activity>
     </application>
 
 </manifest>

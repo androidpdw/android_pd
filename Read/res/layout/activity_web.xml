@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="cpz.com.read.activity.WebActivity">
 
+    <include layout="@layout/view_header"/>
+    
     <WebView
         android:id="@+id/wv"
         android:layout_width="match_parent"

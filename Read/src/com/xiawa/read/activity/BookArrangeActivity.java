@@ -20,19 +20,22 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
 import com.xiawa.read.bean.BookRankItem;
 
-public class BookRankActivity extends BaseActivity
-{
+public class BookArrangeActivity extends BaseActivity {
+
 	public static final String BOOK_RANK_URL = "http://www.piaoduwang.com/mobile/app/bookRankForAPP.php";
 	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
 	protected static final int UPDATA_LIST = 0;
 	private List<BookRankItem> mBookList;
+	@ViewInject(R.id.listView)
 	private ListView lvBookList;
 
 	private Handler mHandler = new Handler()
@@ -61,17 +64,16 @@ public class BookRankActivity extends BaseActivity
 			}
 		};
 	};
-
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_book_rank);
-		setHeaderTitle("飘读榜");
-		lvBookList = (ListView) findViewById(R.id.lv_book_list);
+		setContentView(R.layout.activity_book_arrange);
+		ViewUtils.inject(this);
+		setHeaderTitle("热门图书");
 		initData();
 	}
-
+	
 	private void initData()
 	{
 		mBookList = new ArrayList<BookRankItem>();
@@ -82,14 +84,12 @@ public class BookRankActivity extends BaseActivity
 			@Override
 			public void onFailure(HttpException arg0, String arg1)
 			{
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0)
 			{
-				// TODO Auto-generated method stub
 				List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
 						BookRankItem.class);
 				
@@ -101,7 +101,7 @@ public class BookRankActivity extends BaseActivity
 			}
 		});
 	}
-
+	
 	class BookListAdapter extends BaseAdapter
 	{
 		@Override
@@ -129,7 +129,7 @@ public class BookRankActivity extends BaseActivity
 			BookRankItem book = mBookList.get(position);
 			if (convertView == null)
 			{
-				convertView = View.inflate(BookRankActivity.this,
+				convertView = View.inflate(BookArrangeActivity.this,
 						R.layout.item_book_rank, null);
 				holder = new ViewHolder();
 				holder.title = (TextView) convertView
@@ -145,6 +145,7 @@ public class BookRankActivity extends BaseActivity
 				holder.cover = (ImageView) convertView
 						.findViewById(R.id.iv_book_cover);
 				convertView.setTag(holder);
+				holder.desc.setVisibility(View.GONE);
 			} else
 			{
 				holder = (ViewHolder) convertView.getTag();
@@ -153,7 +154,7 @@ public class BookRankActivity extends BaseActivity
 			holder.author.setText(book.author);
 			holder.publisher.setText(book.publisher);
 			holder.desc.setText(book.text);
-			BitmapUtils bitmapUtils = new BitmapUtils(BookRankActivity.this);
+			BitmapUtils bitmapUtils = new BitmapUtils(BookArrangeActivity.this);
 			try
 			{
 				String url = URLEncoder.encode(book.coverpic, "utf-8");
@@ -180,5 +181,5 @@ public class BookRankActivity extends BaseActivity
 		ImageView cover;
 
 	}
-
+	
 }

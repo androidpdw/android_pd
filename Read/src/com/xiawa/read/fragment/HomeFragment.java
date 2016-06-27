@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,16 +25,23 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.BookArrangeActivity;
 import com.xiawa.read.activity.BookDetailActivity;
 import com.xiawa.read.activity.BookRankActivity;
+import com.xiawa.read.activity.ClassifyActivity;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.activity.MainActivity;
 import com.xiawa.read.activity.RegSuccessActivity;
+import com.xiawa.read.activity.SearchActivity;
+import com.xiawa.read.activity.WebActivity;
 import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.view.ImageCycleView;
 import com.xiawa.read.view.MyGridView;
@@ -78,7 +87,7 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+		ViewUtils.inject(this,view);
 		mImageCycleView = (ImageCycleView) view.findViewById(R.id.icv_top);
 		mImageCycleView.setIndicationStyle(
 				ImageCycleView.IndicationStyle.IMAGE, R.drawable.dot_blur,
@@ -88,7 +97,24 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		gvBooks = (MyGridView) view.findViewById(R.id.gv_books);
 		gvBooks.setOnItemClickListener(this);
 		initData();
+		view.findViewById(R.id.item_home_books1).setOnClickListener(
+				new OnClickListener() {
 
+					@Override
+					public void onClick(View v) {
+						startActivity(new Intent(getActivity(),
+								BookArrangeActivity.class));
+					}
+				});
+		view.findViewById(R.id.item_home_books2).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						startActivity(new Intent(getActivity(),
+								BookArrangeActivity.class));
+					}
+				});
 		setImgButtonListener(view);
 
 		return view;
@@ -127,7 +153,6 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0)
 			{
-				// TODO Auto-generated method stub
 				try {
 					List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
 							BookRankItem.class);
@@ -174,11 +199,11 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		{
 		// 主页分类图片按钮点击事件
 		case R.id.ll_category:// 分类
-			//测试
-			startActivity(new Intent(getContext(),RegSuccessActivity.class));
+			startActivity(new Intent(getContext(),ClassifyActivity.class));
 			break;
 		case R.id.ll_donate:// 捐赠
-
+			//测试
+			startActivity(new Intent(getContext(),RegSuccessActivity.class));
 			break;
 		case R.id.ll_drift:// 漂流
 
@@ -230,9 +255,9 @@ public class HomeFragment extends Fragment implements OnClickListener,
 					public void onClick(View imageView,
 							ImageCycleView.ImageInfo imageInfo)
 					{
-						Toast.makeText(getActivity(),
-								"你点击了" + imageInfo.value.toString(),
-								Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(getContext(),WebActivity.class);
+						intent.putExtra("url", imageInfo.value.toString());
+						startActivity(intent);
 					}
 				});
 
@@ -308,6 +333,20 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		TextView title;
 		ImageView cover;
 
+	}
+	
+	@ViewInject(R.id.et_word)
+	private EditText et_word;
+	
+	@OnClick(R.id.iv_search)
+	public void search(View view) {
+		if (TextUtils.isEmpty(et_word.getText().toString())) {
+			Toast.makeText(getContext(), "请输入关键字", 0).show();
+			return;
+		}
+		Intent intent = new Intent(getContext(),SearchActivity.class);
+		intent.putExtra("word", et_word.getText().toString());
+		startActivity(intent);
 	}
 
 }

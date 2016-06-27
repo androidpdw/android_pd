@@ -13,9 +13,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.HttpUtils;
@@ -28,7 +31,9 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.activity.ForgetPasswordActivity;
+import com.xiawa.read.activity.MessageActivity;
 import com.xiawa.read.activity.SignUpActivity;
 import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.utils.URLString;
@@ -60,6 +65,10 @@ public class MyFragment extends Fragment {
 	private LinearLayout ll_login;
 	@ViewInject(R.id.ll_userinfo)
 	private LinearLayout ll_userinfo;
+	@ViewInject(R.id.nickName_tv)
+	private TextView tv_nickName;
+	@ViewInject(R.id.tv_score)
+	private TextView tv_score;
 
 	private CommonProgressDialog mCustomProgrssDialog;
 
@@ -70,7 +79,17 @@ public class MyFragment extends Fragment {
 	@ViewInject(R.id.et_password)
 	private EditText etPwd;
 
+	@ViewInject(R.id.msgView)
+	private RelativeLayout msgView;
+
+	@ViewInject(R.id.feedbackView)
+	private RelativeLayout feedbackView;
+
+	@ViewInject(R.id.settingView)
+	private RelativeLayout settingView;
+
 	private boolean isFinished = false;
+
 	/**
 	 * 注册
 	 * 
@@ -89,7 +108,8 @@ public class MyFragment extends Fragment {
 	 */
 	@OnClick(R.id.tv_forget_pwd)
 	public void forgetPwd(View v) {
-		getActivity().startActivity(new Intent(getActivity(), ForgetPasswordActivity.class));
+		getActivity().startActivity(
+				new Intent(getActivity(), ForgetPasswordActivity.class));
 	}
 
 	@Override
@@ -102,66 +122,92 @@ public class MyFragment extends Fragment {
 		if (isLogin) {
 			ll_login.setVisibility(View.GONE);
 			ll_userinfo.setVisibility(View.VISIBLE);
+			updateUserInfo();
 		} else {
 			ll_login.setVisibility(View.VISIBLE);
 			ll_userinfo.setVisibility(View.GONE);
 		}
-		
-		init();
+
+		init(view);
 		isFinished = true;
 		return view;
 	}
 
-	private void init() {
+	private void init(View view) {
+
 	}
-	
+
+	private void updateUserInfo() {
+		tv_nickName.setText(GlobalConfig.username);
+		msgView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				context.startActivity(new Intent(context, MessageActivity.class));
+			}
+		});
+		feedbackView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				context.startActivity(new Intent(context,
+						FeedbackActivity.class));
+			}
+		});
+		settingView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				SharedPreferences sp = context.getApplicationContext()
+						.getSharedPreferences("config", 0);
+				sp.edit().putBoolean("isLogin", false).commit();
+				updateUI();
+			}
+		});
+	}
+
 	public void updateUI() {
 		if (context == null || !isFinished) {
-			return ;
+			return;
 		}
-		SharedPreferences sp = context.getApplicationContext().getSharedPreferences("config", 0);
+		SharedPreferences sp = context.getApplicationContext()
+				.getSharedPreferences("config", 0);
 		boolean isLogin = sp.getBoolean("isLogin", false);
 		if (isLogin) {
 			ll_login.setVisibility(View.GONE);
 			ll_userinfo.setVisibility(View.VISIBLE);
+			updateUserInfo();
 		} else {
 			ll_login.setVisibility(View.VISIBLE);
 			ll_userinfo.setVisibility(View.GONE);
 		}
 	}
 
-	final void showCustomProgrssDialog()
-	{
+	final void showCustomProgrssDialog() {
 		if (null == mCustomProgrssDialog)
 			mCustomProgrssDialog = CommonProgressDialog
 					.createProgrssDialog(context);
-		if (null != mCustomProgrssDialog)
-		{
+		if (null != mCustomProgrssDialog) {
 			// mCustomProgrssDialog.setMessage(msg);
 			mCustomProgrssDialog.show();
 			mCustomProgrssDialog.setCancelable(false);
 		}
 	}
 
-	final void hideCustomProgressDialog()
-	{
-		if (null != mCustomProgrssDialog)
-		{
+	final void hideCustomProgressDialog() {
+		if (null != mCustomProgrssDialog) {
 			mCustomProgrssDialog.dismiss();
 			mCustomProgrssDialog = null;
 		}
 	}
 
-	public boolean isUsernameAndPwdValid()
-	{ // 判断登录名和密码是否为空
-		if (TextUtils.isEmpty(etUserName.getText().toString().trim()))
-		{
+	public boolean isUsernameAndPwdValid() { // 判断登录名和密码是否为空
+		if (TextUtils.isEmpty(etUserName.getText().toString().trim())) {
 
 			Toast.makeText(context, getString(R.string.loginName_empty),
 					Toast.LENGTH_SHORT).show();
 			return false;
-		} else if (TextUtils.isEmpty(etPwd.getText().toString().trim()))
-		{
+		} else if (TextUtils.isEmpty(etPwd.getText().toString().trim())) {
 
 			Toast.makeText(context, getString(R.string.loginPwd_empty),
 					Toast.LENGTH_SHORT).show();
@@ -175,60 +221,58 @@ public class MyFragment extends Fragment {
 		String url = URLString.URL_DOMAIN + URLString.URL_LOGIN;
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("username", etUserName.getText().toString().trim());
+		params.addBodyParameter("username", etUserName.getText().toString()
+				.trim());
 		params.addBodyParameter("password", etPwd.getText().toString().trim());
 		params.addBodyParameter("rememberUser", "1");
 
 		httpUtils.send(HttpRequest.HttpMethod.POST, url, params,
-				new RequestCallBack<String>()
-				{
+				new RequestCallBack<String>() {
 
 					@Override
-					public void onStart()
-					{
+					public void onStart() {
 						Log.i("onstart", "onstart");
 						showCustomProgrssDialog();
 					}
 
 					@Override
-					public void onFailure(HttpException arg0, String arg1)
-					{
+					public void onFailure(HttpException arg0, String arg1) {
 						Log.i("failure", "网络连接错误！请重试");
 						hideCustomProgressDialog();
-						Toast.makeText(context, "网络连接错误！请重试", 0)
-								.show();
+						Toast.makeText(context, "网络连接错误！请重试", 0).show();
 					}
 
 					@Override
-					public void onSuccess(ResponseInfo<String> arg0)
-					{
+					public void onSuccess(ResponseInfo<String> arg0) {
 						;
 						hideCustomProgressDialog();
-						try
-						{
+						try {
 							Log.i("arg0", "arg0: " + arg0.result);
 							JSONObject obj = new JSONObject(arg0.result);
 
-							String result = new String(obj.getString("resultCode"));
-							if (result.equals("0000"))
-							{ 
-								SharedPreferences sp = context.getApplicationContext().getSharedPreferences("config", 0);
+							String result = new String(obj
+									.getString("resultCode"));
+							if (result.equals("0000")) {
+								SharedPreferences sp = context
+										.getApplicationContext()
+										.getSharedPreferences("config", 0);
 								Editor editor = sp.edit();
 								editor.putBoolean("isLogin", true);
-								editor.putString("username", etUserName.getText().toString().trim());
-								editor.putString("password", etPwd.getText().toString().trim());
+								editor.putString("username", etUserName
+										.getText().toString().trim());
+								editor.putString("password", etPwd.getText()
+										.toString().trim());
 								editor.commit();
 								updateUI();
 								GlobalConfig.isLogin = true;
-							} else
-							{
+								GlobalConfig.username = etUserName.getText()
+										.toString().trim();
+							} else {
 
-								Toast.makeText(context,
-										"用户名或密码错误!", 0).show();
+								Toast.makeText(context, "用户名或密码错误!", 0).show();
 							}
 
-						} catch (JSONException e)
-						{
+						} catch (JSONException e) {
 							e.printStackTrace();
 						}
 					}
