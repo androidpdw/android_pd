@@ -34,6 +34,7 @@ import com.xiawa.read.R;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.activity.ForgetPasswordActivity;
 import com.xiawa.read.activity.MessageActivity;
+import com.xiawa.read.activity.OrderActivity;
 import com.xiawa.read.activity.SignUpActivity;
 import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.utils.URLString;
@@ -87,6 +88,15 @@ public class MyFragment extends Fragment {
 
 	@ViewInject(R.id.settingView)
 	private RelativeLayout settingView;
+	
+	@ViewInject(R.id.all_order_rl)
+	private LinearLayout all_order_rl;
+	
+	@ViewInject(R.id.wait_pay_order_rl)
+	private RelativeLayout wait_pay_order_rl;
+	
+	@ViewInject(R.id.no_comment_rl)
+	private RelativeLayout check_rl;
 
 	private boolean isFinished = false;
 
@@ -162,6 +172,34 @@ public class MyFragment extends Fragment {
 						.getSharedPreferences("config", 0);
 				sp.edit().putBoolean("isLogin", false).commit();
 				updateUI();
+			}
+		});
+		all_order_rl.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getContext(),OrderActivity.class);
+				intent.putExtra("index", 0);
+				startActivity(intent);
+			}
+		});
+		
+		wait_pay_order_rl.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getContext(),OrderActivity.class);
+				intent.putExtra("index", 1);
+				startActivity(intent);
+			}
+		});
+		check_rl.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getContext(),OrderActivity.class);
+				intent.putExtra("index", 2);
+				startActivity(intent);
 			}
 		});
 	}

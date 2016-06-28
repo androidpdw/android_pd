@@ -61,6 +61,8 @@
         <activity android:name="com.xiawa.read.activity.SearchActivity" > </activity>
         <!--分类  -->
         <activity android:name="com.xiawa.read.activity.ClassifyActivity" > </activity>
+        <!--订单  -->
+        <activity android:name="com.xiawa.read.activity.OrderActivity" > </activity>
     </application>
 
 </manifest>

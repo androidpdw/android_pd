@@ -89,15 +89,17 @@ public class BookRankActivity extends BaseActivity
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0)
 			{
-				// TODO Auto-generated method stub
-				List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
-						BookRankItem.class);
-				
-				for (int i = 0; i < bookRankItems.size(); i++)
-				{
-					mBookList.add(bookRankItems.get(i));
+				try {
+					List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
+							BookRankItem.class);
+					
+					for (int i = 0; i < bookRankItems.size(); i++)
+					{
+						mBookList.add(bookRankItems.get(i));
+					}
+					mHandler.sendEmptyMessage(UPDATA_LIST);
+				} catch (Exception e) {
 				}
-				mHandler.sendEmptyMessage(UPDATA_LIST);
 			}
 		});
 	}
@@ -162,7 +164,6 @@ public class BookRankActivity extends BaseActivity
 				holder.index.setText((position+1)+"");
 			} catch (UnsupportedEncodingException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

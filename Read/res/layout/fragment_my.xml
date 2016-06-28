@@ -7,6 +7,7 @@
     tools:context="cpz.com.read.fragment.HomeFragment" >
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_userinfo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -234,6 +235,7 @@
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
+                        android:clickable="true"
                         android:gravity="center_horizontal"
                         android:orientation="vertical" >
 
@@ -259,6 +261,7 @@
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
+                        android:clickable="true"
                         android:orientation="vertical" >
 
                         <ImageView
@@ -295,6 +298,7 @@
                         android:layout_width="0.0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
+                        android:clickable="true"
                         android:orientation="vertical" >
 
                         <ImageView
@@ -321,7 +325,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="11.0dip"
                             android:paddingBottom="15.0dip"
-                            android:text="待点评"
+                            android:text="待审核"
                             android:textColor="@color/normal_text_color"
                             android:textSize="@dimen/textsize_11sp" />
                     </RelativeLayout>
@@ -434,7 +438,6 @@
 
     <LinearLayout
         android:id="@+id/ll_login"
-        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >

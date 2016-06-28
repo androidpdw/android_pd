@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.xiawa.read.R;
+import com.xiawa.read.bean.OrderBean;
 import com.xiawa.read.fragment.VpSimpleFragment;
 import com.xiawa.read.view.ViewPagerIndicator;
 
@@ -23,6 +24,10 @@ public class ClassifyActivity extends FragmentActivity {
 	
 	private ViewPager mViewPager;
 	private ViewPagerIndicator mIndicator;
+	
+	private List<OrderBean> mAllOrderList;
+	private List<OrderBean> mPayOrderList;
+	private List<OrderBean> mCheckOrderList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,8 @@ public class ClassifyActivity extends FragmentActivity {
 		mIndicator.setViewPager(mViewPager,0);
 	}
 	
+	
+
 	private void initView()
 	{
 		mViewPager = (ViewPager) findViewById(R.id.id_vp);
