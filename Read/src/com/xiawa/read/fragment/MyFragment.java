@@ -305,6 +305,7 @@ public class MyFragment extends Fragment {
 								GlobalConfig.isLogin = true;
 								GlobalConfig.username = etUserName.getText()
 										.toString().trim();
+								tv_nickName.setText(GlobalConfig.username);
 							} else {
 
 								Toast.makeText(context, "用户名或密码错误!", 0).show();

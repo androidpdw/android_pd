@@ -24,11 +24,10 @@ import com.xiawa.read.R;
 import com.xiawa.read.activity.PayActivity;
 import com.xiawa.read.bean.OrderBean;
 
-public class OrderFragment extends Fragment
-{
+public class OrderFragment extends Fragment {
 	public static final String BUNDLE_TITLE = "title";
 	private String mTitle = "DefaultValue";
-	
+
 	private List<OrderBean> mDatas;
 
 	public OrderFragment(List<OrderBean> data) {
@@ -37,77 +36,73 @@ public class OrderFragment extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState)
-	{
+			Bundle savedInstanceState) {
 		Bundle arguments = getArguments();
-		if (arguments != null)
-		{
+		if (arguments != null) {
 			mTitle = arguments.getString(BUNDLE_TITLE);
 		}
-		if (mDatas.size()==0) {
+		if (mDatas.size() == 0) {
 			TextView tv = new TextView(getActivity());
 			tv.setText("暂无");
 			tv.setGravity(Gravity.CENTER);
 			return tv;
 		}
 		ListView listView = new ListView(getContext());
+		listView.setFocusable(false);
 		listView.setAdapter(new GridViewBookAdpter());
 		return listView;
 	}
 
-	public static OrderFragment newInstance(List<OrderBean> data)
-	{
+	public static OrderFragment newInstance(List<OrderBean> data) {
 		Bundle bundle = new Bundle();
 		bundle.putString(BUNDLE_TITLE, "");
 		OrderFragment fragment = new OrderFragment(data);
 		fragment.setArguments(bundle);
 		return fragment;
 	}
-	
-	class GridViewBookAdpter extends BaseAdapter
-	{
+
+	class GridViewBookAdpter extends BaseAdapter {
 		public static final String COVER_PIC_URL = "http://www.piaoduwang.com/pd_images/pd_BookPick/";
 
 		@Override
-		public int getCount()
-		{
+		public int getCount() {
 			return mDatas.size();
 		}
 
 		@Override
-		public OrderBean getItem(int position)
-		{
+		public OrderBean getItem(int position) {
 			return mDatas.get(position);
 		}
 
 		@Override
-		public long getItemId(int position)
-		{
+		public long getItemId(int position) {
 			return position;
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			ViewHolder holder;
 			OrderBean book = mDatas.get(position);
-			if (convertView == null)
-			{
-				convertView = View.inflate(getContext(),
-						R.layout.item_order, null);
+			if (convertView == null) {
+				convertView = View.inflate(getContext(), R.layout.item_order,
+						null);
 				holder = new ViewHolder();
 				holder.title = (TextView) convertView
 						.findViewById(R.id.tv_book_title);
 				holder.cover = (ImageView) convertView
 						.findViewById(R.id.iv_book_cover);
 				holder.cover.setScaleType(ScaleType.FIT_XY);
-				holder.price = (TextView) convertView.findViewById(R.id.tv_price);
-				holder.tv_ordercode = (TextView) convertView.findViewById(R.id.tv_ordercode);
-				holder.btn_check = (Button) convertView.findViewById(R.id.btn_check);
-				holder.btn_pay = (Button) convertView.findViewById(R.id.btn_pay);
+				holder.price = (TextView) convertView
+						.findViewById(R.id.tv_price);
+				holder.tv_ordercode = (TextView) convertView
+						.findViewById(R.id.tv_ordercode);
+				holder.btn_check = (Button) convertView
+						.findViewById(R.id.btn_check);
+				holder.btn_pay = (Button) convertView
+						.findViewById(R.id.btn_pay);
 				convertView.setTag(holder);
-			} else
-			{
+			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.title.setText(book.bookname);
@@ -115,25 +110,26 @@ public class OrderFragment extends Fragment
 			holder.tv_ordercode.setText(book.ordercode);
 			if (book.status.equals("0") && book.paid.equals("0")) {
 				holder.btn_check.setVisibility(View.GONE);
-			} else {
-				holder.btn_pay.setVisibility(View.GONE);
 				holder.btn_pay.setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent(getContext(),PayActivity.class);
-						intent.putExtra("url", "http://www.piaoduwang.com/mobile/alipay/index.php");
+						Intent intent = new Intent(getContext(),
+								PayActivity.class);
+						intent.putExtra("url",
+								"http://www.piaoduwang.com/mobile/alipay/index.php");
 						startActivity(intent);
 					}
 				});
+			} else {
+				holder.btn_pay.setVisibility(View.GONE);
+
 			}
 			BitmapUtils bitmapUtils = new BitmapUtils(getContext());
-			try
-			{
+			try {
 				String url = URLEncoder.encode(book.coverpic, "utf-8");
 				bitmapUtils.display(holder.cover, COVER_PIC_URL + url);
-			} catch (UnsupportedEncodingException e)
-			{
+			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 
@@ -141,8 +137,7 @@ public class OrderFragment extends Fragment
 		}
 	}
 
-	class ViewHolder
-	{
+	class ViewHolder {
 		TextView title;
 		ImageView cover;
 		TextView price;
