@@ -65,6 +65,8 @@
         <activity android:name="com.xiawa.read.activity.OrderActivity" > </activity>
         <!--提交订单  -->
         <activity android:name="com.xiawa.read.activity.SubmitOrderActivity" > </activity>
+        <!--收藏室 -->
+        <activity android:name="com.xiawa.read.activity.CollectionActivity" > </activity>
     </application>
 
 </manifest>

@@ -37,10 +37,12 @@ import com.xiawa.read.activity.BookArrangeActivity;
 import com.xiawa.read.activity.BookDetailActivity;
 import com.xiawa.read.activity.BookRankActivity;
 import com.xiawa.read.activity.ClassifyActivity;
+import com.xiawa.read.activity.CollectionActivity;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.activity.MainActivity;
 import com.xiawa.read.activity.RegSuccessActivity;
 import com.xiawa.read.activity.SearchActivity;
+import com.xiawa.read.activity.SubmitOrderActivity;
 import com.xiawa.read.activity.WebActivity;
 import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.view.ImageCycleView;
@@ -87,7 +89,7 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
-		ViewUtils.inject(this,view);
+		ViewUtils.inject(this, view);
 		mImageCycleView = (ImageCycleView) view.findViewById(R.id.icv_top);
 		mImageCycleView.setIndicationStyle(
 				ImageCycleView.IndicationStyle.IMAGE, R.drawable.dot_blur,
@@ -98,19 +100,23 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		gvBooks.setOnItemClickListener(this);
 		initData();
 		view.findViewById(R.id.item_home_books1).setOnClickListener(
-				new OnClickListener() {
+				new OnClickListener()
+				{
 
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v)
+					{
 						startActivity(new Intent(getActivity(),
 								BookArrangeActivity.class));
 					}
 				});
 		view.findViewById(R.id.item_home_books2).setOnClickListener(
-				new OnClickListener() {
+				new OnClickListener()
+				{
 
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v)
+					{
 						startActivity(new Intent(getActivity(),
 								BookArrangeActivity.class));
 					}
@@ -132,7 +138,7 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id)
 	{
-		Intent intent = new Intent(getContext(),BookDetailActivity.class);
+		Intent intent = new Intent(getContext(), BookDetailActivity.class);
 		intent.putExtra("BookItem", mBookList.get(position));
 		startActivity(intent);
 	}
@@ -153,16 +159,18 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0)
 			{
-				try {
-					List<BookRankItem> bookRankItems = JSON.parseArray(arg0.result,
-							BookRankItem.class);
+				try
+				{
+					List<BookRankItem> bookRankItems = JSON.parseArray(
+							arg0.result, BookRankItem.class);
 
 					for (int i = 0; i < bookRankItems.size(); i++)
 					{
 						mBookList.add(bookRankItems.get(i));
 					}
 					mHandler.sendEmptyMessage(UPDATA_GRID_VIEW);
-				} catch (Exception e) {
+				} catch (Exception e)
+				{
 				}
 			}
 		});
@@ -199,11 +207,11 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		{
 		// 主页分类图片按钮点击事件
 		case R.id.ll_category:// 分类
-			startActivity(new Intent(getContext(),ClassifyActivity.class));
+			startActivity(new Intent(getContext(), ClassifyActivity.class));
 			break;
 		case R.id.ll_donate:// 捐赠
-			//测试
-			startActivity(new Intent(getContext(),RegSuccessActivity.class));
+			// 测试
+			startActivity(new Intent(getContext(), SubmitOrderActivity.class));
 			break;
 		case R.id.ll_drift:// 漂流
 
@@ -218,10 +226,11 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			startActivity(new Intent(getContext(), FeedbackActivity.class));
 			break;
 		case R.id.ll_collect:// 收藏室
-
+			startActivity(new Intent(getContext(), CollectionActivity.class));
 			break;
 		case R.id.ll_points:// 积分
-//			startActivity(new Intent(getContext(), BookDetailActivity.class));
+			// startActivity(new Intent(getContext(),
+			// BookDetailActivity.class));
 			break;
 
 		}
@@ -255,7 +264,8 @@ public class HomeFragment extends Fragment implements OnClickListener,
 					public void onClick(View imageView,
 							ImageCycleView.ImageInfo imageInfo)
 					{
-						Intent intent = new Intent(getContext(),WebActivity.class);
+						Intent intent = new Intent(getContext(),
+								WebActivity.class);
 						intent.putExtra("url", imageInfo.value.toString());
 						startActivity(intent);
 					}
@@ -334,17 +344,19 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		ImageView cover;
 
 	}
-	
+
 	@ViewInject(R.id.et_word)
 	private EditText et_word;
-	
+
 	@OnClick(R.id.iv_search)
-	public void search(View view) {
-		if (TextUtils.isEmpty(et_word.getText().toString())) {
+	public void search(View view)
+	{
+		if (TextUtils.isEmpty(et_word.getText().toString()))
+		{
 			Toast.makeText(getContext(), "请输入关键字", 0).show();
 			return;
 		}
-		Intent intent = new Intent(getContext(),SearchActivity.class);
+		Intent intent = new Intent(getContext(), SearchActivity.class);
 		intent.putExtra("word", et_word.getText().toString());
 		startActivity(intent);
 	}

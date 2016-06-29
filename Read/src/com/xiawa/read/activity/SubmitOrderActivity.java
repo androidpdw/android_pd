@@ -10,5 +10,6 @@ public class SubmitOrderActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_order);
+		setHeaderTitle("提交订单");
 	}
 }
