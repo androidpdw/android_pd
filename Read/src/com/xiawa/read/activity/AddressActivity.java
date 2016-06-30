@@ -1,5 +1,7 @@
 package com.xiawa.read.activity;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,12 +22,15 @@ public class AddressActivity extends BaseActivity {
 	private String[] distance = {"（距离约300米）","（距离约500米）","（距离约2000米）","（距离约2500米）","（距离约2800米）"};
 	
 	private ListView listView;
-	
+	private Bundle extras;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_address);
 		setHeaderTitle("选择借书地址");
+		Intent intent = getIntent();
+		extras = intent.getExtras();
+		
 		listView = (ListView) findViewById(R.id.listView);
 		listView.setAdapter(new BookAdapter());
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -33,9 +38,11 @@ public class AddressActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(getApplicationContext(),PayActivity.class);
-				intent.putExtra("url", "http://www.piaoduwang.com/mobile/alipay/index.php");
-				startActivity(intent);
+				/*Intent intent = new Intent(getApplicationContext(),PayActivity.class);
+				intent.putExtra("url", "http://www.piaoduwang.com/mobile/alipay/index.php");*/
+				Intent intent2 = new Intent(getApplicationContext(),SubmitOrderActivity.class);
+				intent2.putExtras(extras);
+				startActivity(intent2);
 			}
 		});
 	}

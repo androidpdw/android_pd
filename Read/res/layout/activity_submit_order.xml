@@ -14,65 +14,7 @@
         android:padding="5dp"
         android:text="东山三味书屋：福建省_漳州市_东山县 " />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#f8f8f8"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/iv_book_cover"
-            android:background="@drawable/book_a"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_book_cover"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_book_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="爱的教育"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tv_book_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="作者:[意大利]亚米切丝"
-                android:textColor="@color/gray2"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/tv_book_publisher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:text="出版社:吉林人民出版社"
-                android:textColor="@color/gray2"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:textColor="@color/red_all"
-            android:text="¥ 0.79" />
-
-    </RelativeLayout>
+    <include layout="@layout/item_submit_order_product" />
 
     <View
         android:layout_width="match_parent"
@@ -108,19 +50,21 @@
             android:background="#f8f8f8" />
 
         <RadioGroup
+            android:id="@+id/rg_pay_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <RadioButton
+                android:id="@+id/rb_aipay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="支付宝" />
 
             <RadioButton
+                android:id="@+id/rb_wxpay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:text="微信支付" />
         </RadioGroup>
     </LinearLayout>
@@ -135,55 +79,55 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:padding="5dp"
-        android:textColor="@color/gray2"
-        android:text="该订单完成后，您将获得 10 积分" />
+        android:text="该订单完成后，您将获得 10 积分"
+        android:textColor="@color/gray2" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#f8f8f8" />
-    
-   <RelativeLayout 
-       android:layout_width="match_parent"
-       android:padding="5dp"
-       android:layout_height="wrap_content">
-       
-       <TextView 
-           android:id="@+id/tv_price_all"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textColor="@color/red_all"
-           android:textSize="18sp"
-           android:layout_alignParentRight="true"
-           android:text="19.8"/>
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignBottom="@+id/tv_price_all"
-           android:layout_toLeftOf="@+id/textView1"
-           android:text="应付款金额: " />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp" >
 
-       <TextView
-           android:textSize="18sp"
-           android:id="@+id/textView1"
-           android:textColor="@color/red_all"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignBaseline="@+id/tv_price_all"
-           android:layout_alignBottom="@+id/tv_price_all"
-           android:layout_toLeftOf="@+id/tv_price_all"
-           android:text="¥ " />
+        <TextView
+            android:id="@+id/tv_price_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="19.8"
+            android:textColor="@color/red_all"
+            android:textSize="18sp" />
 
-   </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_price_all"
+            android:layout_toLeftOf="@+id/textView1"
+            android:text="应付款金额: " />
 
-   <Button 
-       android:onClick="onSubmitClick"
-       android:layout_margin="10dp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="提交订单"
-       android:textSize="16sp"
-       android:textColor="@color/white"
-       android:background="@drawable/btn_login_selector"/>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_price_all"
+            android:layout_alignBottom="@+id/tv_price_all"
+            android:layout_toLeftOf="@+id/tv_price_all"
+            android:text="¥ "
+            android:textColor="@color/red_all"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_login_selector"
+        android:onClick="onSubmitClick"
+        android:text="提交订单"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
 </LinearLayout>

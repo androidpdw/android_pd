@@ -22,6 +22,7 @@ import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.bean.CollectionsItem;
 
 import android.R.integer;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceActivity.Header;
@@ -50,7 +51,7 @@ public class CollectionActivity extends BaseActivity
 	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
 	protected static final int UPDATA_LIST = 0;
 	// ---end--用BookRank数据模拟
-	
+
 	// 更新总价格
 	protected static final int UPDATE_TOTAL_PRICE = 1;
 	// 选择所有按钮
@@ -78,7 +79,7 @@ public class CollectionActivity extends BaseActivity
 				break;
 			case UPDATE_TOTAL_PRICE:
 				updateTotalPrice();
-				tvTotalPrice.setText("￥"+mTotalPrice);
+				tvTotalPrice.setText("￥" + mTotalPrice);
 				break;
 
 			}
@@ -107,12 +108,13 @@ public class CollectionActivity extends BaseActivity
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked)
 			{
-				for(int i=0;i<mCollectionsItems.size();i++)
-					mCollectionsItems.get(i).isCheck=isChecked;
+				for (int i = 0; i < mCollectionsItems.size(); i++)
+					mCollectionsItems.get(i).isCheck = isChecked;
 				mHandler.sendEmptyMessage(UPDATA_LIST);
 			}
 		});
 	}
+
 	/**
 	 * 计算订单总价格
 	 */
@@ -129,6 +131,7 @@ public class CollectionActivity extends BaseActivity
 		}
 
 	}
+
 	/**
 	 * 初始化数据，暂用BookRank数据
 	 */
@@ -161,6 +164,7 @@ public class CollectionActivity extends BaseActivity
 						ci.bookname = item.bookname;
 						ci.coverpic = item.coverpic;
 						ci.price = "1" + i + ".0";
+//						ci.price = item.price;
 						ci.isCheck = Math.random() > 0.5 ? true : false;
 						mCollectionsItems.add(ci);
 					}
@@ -179,7 +183,27 @@ public class CollectionActivity extends BaseActivity
 	 */
 	public void onSubmitClick(View view)
 	{
+		Intent intent = new Intent(getApplicationContext(),
+				AddressActivity.class);
+		ArrayList<BookRankItem> items = new ArrayList<BookRankItem>();
+		for (int i = 0; i < mCollectionsItems.size(); i++)
+		{
+			CollectionsItem item = mCollectionsItems.get(i);
+			if (item.isCheck)
+			{	
+				BookRankItem bookRankItem = new BookRankItem();
+				bookRankItem.price=item.price;
+				bookRankItem.coverpic=item.coverpic;
+				bookRankItem.bookname=item.bookname;
+				
+				items.add(bookRankItem);
+			}
+		}
 
+		Bundle bu = new Bundle();
+		bu.putSerializable("BOOKS", items);
+		intent.putExtras(bu);
+		startActivity(intent);
 	}
 
 	class CollectionsAdapter extends BaseAdapter
@@ -204,11 +228,12 @@ public class CollectionActivity extends BaseActivity
 		}
 
 		@Override
-		public View getView(final int position, View convertView, ViewGroup parent)
+		public View getView(final int position, View convertView,
+				ViewGroup parent)
 		{
 			ViewHolder holder;
 			CollectionsItem collectionsItem = mCollectionsItems.get(position);
-			System.out.println("mCollectionsItems current pos "+position);
+			System.out.println("mCollectionsItems current pos " + position);
 			if (convertView == null)
 			{
 				convertView = View.inflate(CollectionActivity.this,
@@ -228,16 +253,17 @@ public class CollectionActivity extends BaseActivity
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.title.setText(collectionsItem.bookname);
-			holder.price.setText("￥"+collectionsItem.price);
+			holder.price.setText("￥" + collectionsItem.price);
 			holder.isCheck.setChecked(collectionsItem.isCheck);
 			holder.isCheck.setOnClickListener(new OnClickListener()
 			{
-				
+
 				@Override
 				public void onClick(View v)
 				{
 					// TODO Auto-generated method stub
-					mCollectionsItems.get(position).isCheck=((CheckBox)v).isChecked();
+					mCollectionsItems.get(position).isCheck = ((CheckBox) v)
+							.isChecked();
 					mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
 				}
 			});

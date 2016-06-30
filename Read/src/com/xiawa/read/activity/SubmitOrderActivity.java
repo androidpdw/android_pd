@@ -1,12 +1,16 @@
 package com.xiawa.read.activity;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.BreakIterator;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,19 +20,33 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.alipay.sdk.app.PayTask;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
 import com.xiawa.read.alipay.PayResult;
 import com.xiawa.read.alipay.SignUtils;
+import com.xiawa.read.bean.BookDetailItem;
+import com.xiawa.read.bean.BookRankItem;
+import com.xiawa.read.utils.URLString;
 
 public class SubmitOrderActivity extends BaseActivity
 {
-
+	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
 	// 商户PID
 	public static final String PARTNER = "2088121295307264";
 	// 商户收款账号
@@ -40,33 +58,45 @@ public class SubmitOrderActivity extends BaseActivity
 
 	private static final int SDK_PAY_FLAG = 1;
 
-	@ViewInject(R.id.tv_book_title)
-	TextView tvBookTitle;
+	private static final int UPDATE_TOTAL_PRICE = 0;
 
+	// 订单总价格
 	@ViewInject(R.id.tv_price_all)
-	TextView tvPriceAll;
+	private TextView tvPriceAll;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_submit_order);
-		ViewUtils.inject(this);
-		setHeaderTitle("提交订单");
+	// 订单只有一个条目
+	@ViewInject(R.id.rl_single_item)
+	private RelativeLayout rlSingleItem;
 
-	}
+	// 订单有多个条目
+	@ViewInject(R.id.ll_multity_items)
+	private LinearLayout llMultityItems;
+	// 支付方式
+	@ViewInject(R.id.rg_pay_method)
+	private RadioGroup rgPayMethod;
 
-	public void onSubmitClick(View view)
-	{
-		String title = tvBookTitle.getText().toString();
-		String price = tvPriceAll.getText().toString();
-//		if (!TextUtils.isEmpty(title))
-//			intent.putExtra("product_subject", title);
-//		if (!TextUtils.isEmpty(price))
-//			intent.putExtra("product_price", price);
+	// 订单只有单个条目时，书的价格
+	@ViewInject(R.id.tv_price)
+	private TextView tvPrice;
+	// 订单只有单个条目时，书名
+	@ViewInject(R.id.tv_book_title)
+	private TextView tvBookTitle;
+	// 订单只有单个条目时，书的封面
+	@ViewInject(R.id.iv_book_cover)
+	private ImageView ivBookCover;
 
-		pay();
-	}
+	// 订单有多个条目，前四个封面
+	@ViewInject(R.id.imageView1)
+	private ImageView imageView1;
+	@ViewInject(R.id.imageView2)
+	private ImageView imageView2;
+	@ViewInject(R.id.imageView3)
+	private ImageView imageView3;
+	@ViewInject(R.id.imageView4)
+	private ImageView imageView4;
+	// 订单有多个条目时，条目总数。
+	@ViewInject(R.id.tv_total_items)
+	private TextView tvTotalItems;
 
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler()
@@ -74,7 +104,6 @@ public class SubmitOrderActivity extends BaseActivity
 		@SuppressWarnings("unused")
 		public void handleMessage(Message msg)
 		{
-			System.out.println("debug handleMessage");
 			switch (msg.what)
 			{
 			case SDK_PAY_FLAG:
@@ -86,7 +115,6 @@ public class SubmitOrderActivity extends BaseActivity
 				 * docType=1) 建议商户依赖异步通知
 				 */
 				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-				System.out.println("debug resultInfo"+resultInfo);
 				String resultStatus = payResult.getResultStatus();
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000"))
@@ -112,17 +140,227 @@ public class SubmitOrderActivity extends BaseActivity
 				}
 				break;
 			}
-			default:
+			case UPDATE_TOTAL_PRICE:
+				tvPriceAll.setText(totalPrice + "");
 				break;
 			}
 		};
 	};
 
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_submit_order);
+		ViewUtils.inject(this);
+		setHeaderTitle("提交订单");
+		Intent intent = getIntent();
+		if (intent != null)
+			initData(intent);
+
+	}
+
+	/**
+	 * 提交订单通过Intent接受数据
+	 * 
+	 * @param intent
+	 * 
+	 */
+	private void initData(Intent intent)
+	{
+		Bundle extras = intent.getExtras();
+		ArrayList<BookRankItem> items = (ArrayList<BookRankItem>) extras
+				.getSerializable("BOOKS");
+		if (items.size() == 1)// 订单只有一个条目
+		{
+			BookRankItem bookRankItem = items.get(0);
+			rlSingleItem.setVisibility(View.VISIBLE);
+			llMultityItems.setVisibility(View.INVISIBLE);
+			tvPrice.setText(bookRankItem.price);
+			tvPriceAll.setText(bookRankItem.price);
+			tvBookTitle.setText(bookRankItem.bookname);
+			BitmapUtils bitmapUtils = new BitmapUtils(SubmitOrderActivity.this);
+			try
+			{
+				String url = URLEncoder.encode(bookRankItem.coverpic, "utf-8");
+				bitmapUtils.display(ivBookCover, COVER_PIC_URL + url);
+			} catch (UnsupportedEncodingException e)
+			{
+				e.printStackTrace();
+			}
+		} else
+		// 订单有多个条目
+		{
+			rlSingleItem.setVisibility(View.INVISIBLE);
+			llMultityItems.setVisibility(View.VISIBLE);
+			tvTotalItems.setText("共" + items.size() + "件");
+			for(int i=0;i<items.size();i++)
+				totalPrice+=Float.parseFloat(items.get(i).price);
+			mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
+			BitmapUtils bitmapUtils = new BitmapUtils(SubmitOrderActivity.this);
+			try
+			{
+				String url = URLEncoder.encode(items.get(0).coverpic, "utf-8");
+				bitmapUtils.display(imageView1, COVER_PIC_URL + url);
+				System.out.println("debug1 "+COVER_PIC_URL + url);
+
+				if (items.size() >= 2)
+				{
+					url = URLEncoder.encode(items.get(1).coverpic, "utf-8");
+					bitmapUtils.display(imageView2, COVER_PIC_URL + url);
+					System.out.println("debug2 "+COVER_PIC_URL + url);
+				}
+
+				if (items.size() >= 3)
+				{
+					url = URLEncoder.encode(items.get(2).coverpic, "utf-8");
+					bitmapUtils.display(imageView3, COVER_PIC_URL + url);
+					System.out.println("debug3 "+COVER_PIC_URL + url);
+				}
+				if (items.size() >= 4)
+				{
+					url = URLEncoder.encode(items.get(3).coverpic, "utf-8");
+					bitmapUtils.display(imageView4, COVER_PIC_URL + url);
+					System.out.println("debug4 "+COVER_PIC_URL + url);
+				}
+			} catch (UnsupportedEncodingException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void onSubmitClick(View view)
+	{
+		String title = tvBookTitle.getText().toString();
+		String price = tvPriceAll.getText().toString();
+		int checkedRadioButtonId = rgPayMethod.getCheckedRadioButtonId();
+		if (checkedRadioButtonId == R.id.rb_aipay)
+			alipay(title, "", price);
+		if (checkedRadioButtonId == R.id.rb_wxpay)
+			Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
+	}
+
+	private int imgIndex;
+	private float totalPrice = 0;
+
+	private void getBookDetail(final ArrayList<String> isbns)
+	{
+		HttpUtils utils = new HttpUtils();
+		if (isbns.size() == 1)// 订单只有一个条目
+		{
+			rlSingleItem.setVisibility(View.VISIBLE);
+			llMultityItems.setVisibility(View.INVISIBLE);
+			utils.send(HttpMethod.GET, URLString.URL_DOMAIN
+					+ URLString.URL_GET_BOOKDETAIL + "?isbn=" + isbns.get(0),
+					new RequestCallBack<String>()
+					{
+
+						@Override
+						public void onFailure(HttpException arg0, String arg1)
+						{
+
+						}
+
+						@Override
+						public void onSuccess(ResponseInfo<String> arg0)
+						{
+							BookDetailItem bookDetailItem = JSON.parseObject(
+									arg0.result, BookDetailItem.class);
+							tvPrice.setText(bookDetailItem.price);
+							tvPriceAll.setText(bookDetailItem.price);
+							tvBookTitle.setText(bookDetailItem.bookname);
+							BitmapUtils bitmapUtils = new BitmapUtils(
+									SubmitOrderActivity.this);
+							try
+							{
+								String url = URLEncoder.encode(
+										bookDetailItem.coverpic, "utf-8");
+								bitmapUtils.display(ivBookCover, COVER_PIC_URL
+										+ url);
+							} catch (UnsupportedEncodingException e)
+							{
+								e.printStackTrace();
+							}
+						}
+					});
+		} else
+		// 订单有多个条目
+		{
+			rlSingleItem.setVisibility(View.INVISIBLE);
+			llMultityItems.setVisibility(View.VISIBLE);
+			tvTotalItems.setText("共" + isbns.size() + "件");
+
+			for (imgIndex = 0; imgIndex < isbns.size(); imgIndex++)
+			{
+				utils.send(HttpMethod.GET,
+						URLString.URL_DOMAIN + URLString.URL_GET_BOOKDETAIL
+								+ "?isbn=" + isbns.get(imgIndex),
+						new RequestCallBack<String>()
+						{
+
+							@Override
+							public void onFailure(HttpException arg0,
+									String arg1)
+							{
+
+							}
+
+							@Override
+							public void onSuccess(ResponseInfo<String> arg0)
+							{
+								BookDetailItem bookDetailItem = JSON
+										.parseObject(arg0.result,
+												BookDetailItem.class);
+								BitmapUtils bitmapUtils = new BitmapUtils(
+										SubmitOrderActivity.this);
+
+								totalPrice += Float
+										.parseFloat(bookDetailItem.price);
+								if (imgIndex == isbns.size() - 1)
+									mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
+								try
+								{
+									String url = URLEncoder.encode(
+											bookDetailItem.coverpic, "utf-8");
+									if (imgIndex == 0)
+										bitmapUtils.display(imageView1,
+												COVER_PIC_URL + url);
+									if (imgIndex == 1)
+										bitmapUtils.display(imageView2,
+												COVER_PIC_URL + url);
+									if (imgIndex == 2)
+										bitmapUtils.display(imageView3,
+												COVER_PIC_URL + url);
+									if (imgIndex == 3)
+										bitmapUtils.display(imageView4,
+												COVER_PIC_URL + url);
+									System.out.println("debug price="
+											+ bookDetailItem.price + " pic_url"
+											+ COVER_PIC_URL + url + " imgInex"
+											+ imgIndex);
+
+								} catch (UnsupportedEncodingException e)
+								{
+									e.printStackTrace();
+								}
+							}
+						});
+			}
+		}
+	}
+
 	/**
 	 * call alipay sdk pay. 调用SDK支付
 	 * 
+	 * @param subject
+	 *            商品
+	 * @param body
+	 *            商品详细描述
+	 * @param price
+	 *            价格
 	 */
-	public void pay()
+	public void alipay(String subject, String body, String price)
 	{
 		if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
 				|| TextUtils.isEmpty(SELLER))
@@ -142,11 +380,8 @@ public class SubmitOrderActivity extends BaseActivity
 							}).show();
 			return;
 		}
-		
-		String title = tvBookTitle.getText().toString();
-		String price = tvPriceAll.getText().toString();
-		
-		String orderInfo = getOrderInfo(title, "该测试商品的详细描述", price);
+
+		String orderInfo = getOrderInfo(subject, body, price);
 
 		/**
 		 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
@@ -168,7 +403,7 @@ public class SubmitOrderActivity extends BaseActivity
 		 */
 		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
 				+ getSignType();
-		System.out.println("payInfo"+payInfo);
+		System.out.println("payInfo" + payInfo);
 		Runnable payRunnable = new Runnable()
 		{
 

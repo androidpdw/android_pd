@@ -7,12 +7,11 @@
     tools:context="cpz.com.read.fragment.HomeFragment" >
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_userinfo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-         >
+        android:visibility="gone" >
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -432,6 +431,37 @@
                 </RelativeLayout>
 
                 <View style="@style/item_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_item_switch"
+                    android:clickable="true"
+                    android:padding="7dp" >
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:src="@drawable/list_set" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/item_arrow" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/imageView4"
+                        android:text="关于我们" />
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

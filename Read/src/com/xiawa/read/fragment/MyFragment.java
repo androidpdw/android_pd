@@ -31,6 +31,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.AboutUsActivity;
 import com.xiawa.read.activity.FeedbackActivity;
 import com.xiawa.read.activity.ForgetPasswordActivity;
 import com.xiawa.read.activity.MessageActivity;
@@ -98,6 +99,9 @@ public class MyFragment extends Fragment {
 	@ViewInject(R.id.no_comment_rl)
 	private RelativeLayout check_rl;
 
+	@ViewInject(R.id.rl_about)
+	private RelativeLayout rlAbout;
+	
 	private boolean isFinished = false;
 
 	/**
@@ -200,6 +204,16 @@ public class MyFragment extends Fragment {
 				Intent intent = new Intent(getContext(),OrderActivity.class);
 				intent.putExtra("index", 2);
 				startActivity(intent);
+			}
+		});
+		
+		rlAbout.setOnClickListener(new OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				startActivity(new Intent(context,AboutUsActivity.class));
 			}
 		});
 	}

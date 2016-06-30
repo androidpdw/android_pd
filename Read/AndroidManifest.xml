@@ -67,9 +67,8 @@
         <activity android:name="com.xiawa.read.activity.SubmitOrderActivity" > </activity>
         <!--收藏室 -->
         <activity android:name="com.xiawa.read.activity.CollectionActivity" > </activity>
-        <!--付款  -->
-        <activity android:name="com.xiawa.read.alipay.PayDemoActivity" > </activity>
-        <activity android:name="com.xiawa.read.alipay.H5PayDemoActivity" > </activity>
+        <!--关于  -->
+        <activity android:name="com.xiawa.read.activity.AboutUsActivity" > </activity>
         
          <!-- alipay sdk begin -->
         <activity

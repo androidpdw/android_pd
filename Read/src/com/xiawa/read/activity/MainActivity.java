@@ -102,13 +102,31 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onPageSelected(int position)
 	{
+		switch (position+1)
+		{
+		case 1:
+			ibHome.setSelected(true);
+			ibBook.setSelected(false);
+			ibMy.setSelected(false);
+			break;
+		case 2:
+			ibHome.setSelected(false);
+			ibBook.setSelected(true);
+			ibMy.setSelected(false);
+			break;
+		case 3:
+			ibHome.setSelected(false);
+			ibBook.setSelected(false);
+			ibMy.setSelected(true);
+			break;
 
+		}
 	}
 
 	@Override
 	public void onPageScrollStateChanged(int state)
 	{
-
+		
 	}
 
 	@Override

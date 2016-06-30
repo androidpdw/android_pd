@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_single_item"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#f8f8f8"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/iv_book_cover"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/book_a"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_book_cover"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="爱的教育"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_book_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="作者:[意大利]亚米切丝"
+                android:textColor="@color/gray2"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_book_publisher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="出版社:吉林人民出版社"
+                android:textColor="@color/gray2"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="19.8"
+            android:textColor="@color/red_all" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_price"
+            android:layout_alignBottom="@+id/tv_price"
+            android:layout_toLeftOf="@+id/tv_price"
+            android:text="¥ "
+            android:textColor="@color/red_all" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/ll_multity_items"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+           />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+             />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+             />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+             />
+
+        <TextView
+            android:id="@+id/tv_total_items"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="共10件" />
+
+    </LinearLayout>
+
+</FrameLayout>

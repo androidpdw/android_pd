@@ -52,7 +52,7 @@
                             android:text="昵称"
                             android:textColor="@color/white"
                             android:textSize="@dimen/textsize_main_15sp" />
-						
+
                         <TextView
                             android:id="@+id/tv_score"
                             android:layout_width="wrap_content"
@@ -60,7 +60,6 @@
                             android:text="积分0"
                             android:textColor="@color/white"
                             android:textSize="@dimen/textsize_main_15sp" />
-                        
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -68,9 +67,9 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="75.0dip"
-                android:visibility="gone"
                 android:background="@color/white"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <LinearLayout
                     android:id="@+id/user_info_coupon"
@@ -118,7 +117,6 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    
                     android:orientation="vertical" >
 
                     <LinearLayout
@@ -346,102 +344,132 @@
                 style="@style/item_divider"
                 android:layout_marginTop="@dimen/public_standard_margins" />
 
-			<RelativeLayout
-			    android:id="@+id/msgView"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:background="@drawable/background_item_switch"
-			    android:clickable="true"
-			    android:padding="7dp" >
+            <RelativeLayout
+                android:id="@+id/msgView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_item_switch"
+                android:clickable="true"
+                android:padding="7dp" >
 
-			    <ImageView
-			        android:id="@+id/iv"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_centerVertical="true"
-			        android:padding="5dp"
-			        android:src="@drawable/list_massage" />
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:src="@drawable/list_massage" />
 
-			    <TextView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_toRightOf="@id/iv"
-			        android:layout_centerVertical="true"
-			        android:text="消息中心" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/iv"
+                    android:text="消息中心" />
 
-			    <ImageView
-			        android:id="@+id/imageView1"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentRight="true"
-			        android:layout_centerVertical="true"
-			        android:src="@drawable/item_arrow" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/item_arrow" />
+            </RelativeLayout>
 
-			</RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/feedbackView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_item_switch"
+                android:clickable="true"
+                android:padding="7dp" >
 
-			<RelativeLayout
-			    android:id="@+id/feedbackView"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:background="@drawable/background_item_switch"
-			    android:clickable="true"
-			    android:padding="7dp" >
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:src="@drawable/list_feedback" />
 
-			    <ImageView
-			        android:id="@+id/imageView2"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_centerVertical="true"
-			        android:padding="5dp"
-			        android:src="@drawable/list_feedback" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/item_arrow" />
 
-			    <ImageView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentRight="true"
-			        android:layout_centerVertical="true"
-			        android:src="@drawable/item_arrow" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView2"
+                    android:text="意见反馈" />
+            </RelativeLayout>
 
-			    <TextView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_toRightOf="@+id/imageView2"
-			        android:layout_centerVertical="true"
-			        android:text="意见反馈" />
-			</RelativeLayout>
-			
-			<RelativeLayout
-			    android:id="@+id/settingView"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:background="@drawable/background_item_switch"
-			    android:clickable="true"
-			    android:padding="7dp" >
+            <RelativeLayout
+                android:id="@+id/settingView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_item_switch"
+                android:clickable="true"
+                android:padding="7dp" >
 
-			    <ImageView
-			        android:id="@+id/imageView3"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_centerVertical="true"
-			        android:padding="5dp"
-			        android:src="@drawable/list_set" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:src="@drawable/list_set" />
 
-			    <ImageView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentRight="true"
-			        android:layout_centerVertical="true"
-			        android:src="@drawable/item_arrow" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/item_arrow" />
 
-			    <TextView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_toRightOf="@+id/imageView3"
-			        android:layout_centerVertical="true"
-			        android:text="设置" />
-			</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView3"
+                    android:text="设置" />
+            </RelativeLayout>
 
             <View style="@style/item_divider" />
+
+            <RelativeLayout
+                android:id="@+id/rl_about"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_item_switch"
+                android:padding="7dp" >
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:src="@drawable/list_set" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/item_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView4"
+                    android:text="关于我们" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
