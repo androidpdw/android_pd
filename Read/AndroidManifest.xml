@@ -67,6 +67,21 @@
         <activity android:name="com.xiawa.read.activity.SubmitOrderActivity" > </activity>
         <!--收藏室 -->
         <activity android:name="com.xiawa.read.activity.CollectionActivity" > </activity>
+        <!--付款  -->
+        <activity android:name="com.xiawa.read.alipay.PayDemoActivity" > </activity>
+        <activity android:name="com.xiawa.read.alipay.H5PayDemoActivity" > </activity>
+        
+         <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
+        <!-- alipay sdk end -->
+        
     </application>
 
 </manifest>

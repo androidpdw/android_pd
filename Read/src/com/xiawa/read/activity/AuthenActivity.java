@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
+import com.xiawa.read.fragment.MyFragment;
 
 public class AuthenActivity extends BaseActivity
 {
@@ -51,6 +52,7 @@ public class AuthenActivity extends BaseActivity
 		}
 		Toast.makeText(getApplicationContext(), "认证成功！", 0).show();
 		finish();
+		startActivity(new Intent(this,MainActivity.class));
 		
 	}
 
