@@ -159,7 +159,6 @@ public class BookRankActivity extends BaseActivity
 			try
 			{
 				String url = URLEncoder.encode(book.coverpic, "utf-8");
-				System.out.println("picture="+COVER_PIC_URL+url);
 				bitmapUtils.display(holder.cover, COVER_PIC_URL + url);
 				holder.index.setText((position+1)+"");
 			} catch (UnsupportedEncodingException e)

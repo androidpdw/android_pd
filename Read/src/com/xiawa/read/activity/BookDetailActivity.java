@@ -60,6 +60,7 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 		findViewById(R.id.rl_book_comment).setOnClickListener(this);
 		findViewById(R.id.btn_collect).setOnClickListener(this);
 		findViewById(R.id.btn_brrow).setOnClickListener(this);
+		findViewById(R.id.rl_address).setOnClickListener(this);;
 	}
 
 	List<ImageCycleView.ImageInfo> list;
@@ -187,7 +188,8 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 				startActivity(intent2);
 			}
 			break;
-		default:
+		case R.id.rl_address:
+//			startActivity(new Intent(this,AddressActivity.class));
 			break;
 		}
 	}

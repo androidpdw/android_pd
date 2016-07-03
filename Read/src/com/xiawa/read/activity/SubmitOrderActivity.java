@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+
+import org.json.JSONObject;
+
 import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -19,7 +22,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -37,29 +42,42 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.xiawa.read.R;
 import com.xiawa.read.alipay.PayResult;
 import com.xiawa.read.alipay.SignUtils;
 import com.xiawa.read.bean.BookDetailItem;
 import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.utils.URLString;
+import com.xiawa.read.wxpay.Constants;
+import com.xiawa.read.wxpay.Util;
+import com.xiawa.read.wxpay.WXPayActivity;
 
 public class SubmitOrderActivity extends BaseActivity
 {
 	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
+
+	// IWXAPI 是第三方app和微信通信的openapi接口
+	private IWXAPI api;
+
 	// 商户PID
 	public static final String PARTNER = "2088121295307264";
 	// 商户收款账号
 	public static final String SELLER = "fjxiawa@qq.com";
 	// 商户私钥，pkcs8格式
-	public static final String RSA_PRIVATE = "";
+	public static final String RSA_PRIVATE = ""
+			+ "QU0g/A61t/K2";
 	// 支付宝公钥
-	public static final String RSA_PUBLIC = "";
+	public static final String RSA_PUBLIC = ""
+			+ "F/9mQduQL2+IGr56eQIDAQAB";
 
 	private static final int SDK_PAY_FLAG = 1;
 
 	private static final int UPDATE_TOTAL_PRICE = 0;
 
+	private float mTotalPrice = 0;
 	// 订单总价格
 	@ViewInject(R.id.tv_price_all)
 	private TextView tvPriceAll;
@@ -141,7 +159,7 @@ public class SubmitOrderActivity extends BaseActivity
 				break;
 			}
 			case UPDATE_TOTAL_PRICE:
-				tvPriceAll.setText(totalPrice + "");
+				tvPriceAll.setText(mTotalPrice + "");
 				break;
 			}
 		};
@@ -169,6 +187,8 @@ public class SubmitOrderActivity extends BaseActivity
 	private void initData(Intent intent)
 	{
 		Bundle extras = intent.getExtras();
+		if (extras == null)
+			return;
 		ArrayList<BookRankItem> items = (ArrayList<BookRankItem>) extras
 				.getSerializable("BOOKS");
 		if (items.size() == 1)// 订单只有一个条目
@@ -194,34 +214,34 @@ public class SubmitOrderActivity extends BaseActivity
 			rlSingleItem.setVisibility(View.INVISIBLE);
 			llMultityItems.setVisibility(View.VISIBLE);
 			tvTotalItems.setText("共" + items.size() + "件");
-			for(int i=0;i<items.size();i++)
-				totalPrice+=Float.parseFloat(items.get(i).price);
+			for (int i = 0; i < items.size(); i++)
+				mTotalPrice += Float.parseFloat(items.get(i).price);
 			mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
 			BitmapUtils bitmapUtils = new BitmapUtils(SubmitOrderActivity.this);
 			try
 			{
 				String url = URLEncoder.encode(items.get(0).coverpic, "utf-8");
 				bitmapUtils.display(imageView1, COVER_PIC_URL + url);
-				System.out.println("debug1 "+COVER_PIC_URL + url);
+				System.out.println("debug1 " + COVER_PIC_URL + url);
 
 				if (items.size() >= 2)
 				{
 					url = URLEncoder.encode(items.get(1).coverpic, "utf-8");
 					bitmapUtils.display(imageView2, COVER_PIC_URL + url);
-					System.out.println("debug2 "+COVER_PIC_URL + url);
+					System.out.println("debug2 " + COVER_PIC_URL + url);
 				}
 
 				if (items.size() >= 3)
 				{
 					url = URLEncoder.encode(items.get(2).coverpic, "utf-8");
 					bitmapUtils.display(imageView3, COVER_PIC_URL + url);
-					System.out.println("debug3 "+COVER_PIC_URL + url);
+					System.out.println("debug3 " + COVER_PIC_URL + url);
 				}
 				if (items.size() >= 4)
 				{
 					url = URLEncoder.encode(items.get(3).coverpic, "utf-8");
 					bitmapUtils.display(imageView4, COVER_PIC_URL + url);
-					System.out.println("debug4 "+COVER_PIC_URL + url);
+					System.out.println("debug4 " + COVER_PIC_URL + url);
 				}
 			} catch (UnsupportedEncodingException e)
 			{
@@ -238,116 +258,82 @@ public class SubmitOrderActivity extends BaseActivity
 		if (checkedRadioButtonId == R.id.rb_aipay)
 			alipay(title, "", price);
 		if (checkedRadioButtonId == R.id.rb_wxpay)
-			Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
+			wxpay();
+		// Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
 	}
 
-	private int imgIndex;
-	private float totalPrice = 0;
-
-	private void getBookDetail(final ArrayList<String> isbns)
+	private void wxpay()
 	{
-		HttpUtils utils = new HttpUtils();
-		if (isbns.size() == 1)// 订单只有一个条目
+		api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+		api.registerApp(Constants.APP_ID);
+		String url = "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android";
+		Toast.makeText(SubmitOrderActivity.this, "获取订单中...", Toast.LENGTH_SHORT)
+				.show();
+		PayReq req = new PayReq();
+		req.appId=Constants.APP_ID;
+//		req.appId = "wxf8b4f85f3a794e77"; // 测试用appId
+//		req.appId = "wxd930ea5d5a258f4f";
+		req.partnerId = "1900000109";
+		req.prepayId= "1101000000140415649af9fc314aa427";
+		req.packageValue = "Sign=WXPay";
+		req.nonceStr= "1101000000140429eb40476f8896f4c9";
+		req.timeStamp= "1398746574";
+		req.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+		api.sendReq(req);
+		Toast.makeText(SubmitOrderActivity.this, "正常调起支付",
+				Toast.LENGTH_SHORT).show();
+		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+//		api.sendReq(req);
+//		startActivity(new Intent(SubmitOrderActivity.this, WXPayActivity.class));
+//        finish();
+		
+		/*
+		try
 		{
-			rlSingleItem.setVisibility(View.VISIBLE);
-			llMultityItems.setVisibility(View.INVISIBLE);
-			utils.send(HttpMethod.GET, URLString.URL_DOMAIN
-					+ URLString.URL_GET_BOOKDETAIL + "?isbn=" + isbns.get(0),
-					new RequestCallBack<String>()
-					{
-
-						@Override
-						public void onFailure(HttpException arg0, String arg1)
-						{
-
-						}
-
-						@Override
-						public void onSuccess(ResponseInfo<String> arg0)
-						{
-							BookDetailItem bookDetailItem = JSON.parseObject(
-									arg0.result, BookDetailItem.class);
-							tvPrice.setText(bookDetailItem.price);
-							tvPriceAll.setText(bookDetailItem.price);
-							tvBookTitle.setText(bookDetailItem.bookname);
-							BitmapUtils bitmapUtils = new BitmapUtils(
-									SubmitOrderActivity.this);
-							try
-							{
-								String url = URLEncoder.encode(
-										bookDetailItem.coverpic, "utf-8");
-								bitmapUtils.display(ivBookCover, COVER_PIC_URL
-										+ url);
-							} catch (UnsupportedEncodingException e)
-							{
-								e.printStackTrace();
-							}
-						}
-					});
-		} else
-		// 订单有多个条目
-		{
-			rlSingleItem.setVisibility(View.INVISIBLE);
-			llMultityItems.setVisibility(View.VISIBLE);
-			tvTotalItems.setText("共" + isbns.size() + "件");
-
-			for (imgIndex = 0; imgIndex < isbns.size(); imgIndex++)
+			byte[] buf = Util.httpGet(url);
+			if (buf != null && buf.length > 0)
 			{
-				utils.send(HttpMethod.GET,
-						URLString.URL_DOMAIN + URLString.URL_GET_BOOKDETAIL
-								+ "?isbn=" + isbns.get(imgIndex),
-						new RequestCallBack<String>()
-						{
-
-							@Override
-							public void onFailure(HttpException arg0,
-									String arg1)
-							{
-
-							}
-
-							@Override
-							public void onSuccess(ResponseInfo<String> arg0)
-							{
-								BookDetailItem bookDetailItem = JSON
-										.parseObject(arg0.result,
-												BookDetailItem.class);
-								BitmapUtils bitmapUtils = new BitmapUtils(
-										SubmitOrderActivity.this);
-
-								totalPrice += Float
-										.parseFloat(bookDetailItem.price);
-								if (imgIndex == isbns.size() - 1)
-									mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
-								try
-								{
-									String url = URLEncoder.encode(
-											bookDetailItem.coverpic, "utf-8");
-									if (imgIndex == 0)
-										bitmapUtils.display(imageView1,
-												COVER_PIC_URL + url);
-									if (imgIndex == 1)
-										bitmapUtils.display(imageView2,
-												COVER_PIC_URL + url);
-									if (imgIndex == 2)
-										bitmapUtils.display(imageView3,
-												COVER_PIC_URL + url);
-									if (imgIndex == 3)
-										bitmapUtils.display(imageView4,
-												COVER_PIC_URL + url);
-									System.out.println("debug price="
-											+ bookDetailItem.price + " pic_url"
-											+ COVER_PIC_URL + url + " imgInex"
-											+ imgIndex);
-
-								} catch (UnsupportedEncodingException e)
-								{
-									e.printStackTrace();
-								}
-							}
-						});
+				String content = new String(buf);
+				Log.e("get server pay params:", content);
+				JSONObject json = new JSONObject(content);
+				if (null != json && !json.has("retcode"))
+				{
+					PayReq req = new PayReq();
+					req.appId = "wxf8b4f85f3a794e77"; // 测试用appId
+					//req.appId = json.getString("appid");
+					req.partnerId = json.getString("partnerid");
+					req.prepayId = json.getString("prepayid");
+					req.nonceStr = json.getString("noncestr");
+					req.timeStamp = json.getString("timestamp");
+					req.packageValue = json.getString("package");
+					req.sign = json.getString("sign");
+					req.extData = "app data"; // optional
+					Toast.makeText(SubmitOrderActivity.this, "正常调起支付",
+							Toast.LENGTH_SHORT).show();
+					// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+					api.sendReq(req);
+					startActivity(new Intent(SubmitOrderActivity.this, WXPayActivity.class));
+			        finish();
+				} else
+				{
+					Log.d("PAY_GET", "返回错误" + json.getString("retmsg"));
+					Toast.makeText(SubmitOrderActivity.this,
+							"返回错误" + json.getString("retmsg"),
+							Toast.LENGTH_SHORT).show();
+				}
+			} else
+			{
+				Log.d("PAY_GET", "服务器请求错误");
+				Toast.makeText(SubmitOrderActivity.this, "服务器请求错误",
+						Toast.LENGTH_SHORT).show();
 			}
+		} catch (Exception e)
+		{
+			Log.e("PAY_GET", "异常：" + e.getMessage());
+			Toast.makeText(SubmitOrderActivity.this, "异常：" + e.getMessage(),
+					Toast.LENGTH_SHORT).show();
 		}
+		*/
 	}
 
 	/**

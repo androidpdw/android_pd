@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="libs/nineoldandroids-2.4.0.jar"/>
 	<classpathentry kind="lib" path="libs/org.apache.http.legacy.jar"/>
 	<classpathentry kind="lib" path="libs/alipaySdk-20160516.jar"/>
+	<classpathentry kind="lib" path="libs/libammsdk.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
