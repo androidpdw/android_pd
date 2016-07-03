@@ -2,6 +2,7 @@ package com.xiawa.read.fragment;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import com.lidroid.xutils.BitmapUtils;
 import com.xiawa.read.R;
 import com.xiawa.read.activity.PayActivity;
+import com.xiawa.read.activity.SubmitOrderActivity;
+import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.bean.OrderBean;
 
 public class OrderFragment extends Fragment {
@@ -80,10 +83,10 @@ public class OrderFragment extends Fragment {
 		}
 
 		@Override
-		public View getView(final int position, View convertView,
+		public View getView( int position, View convertView,
 				ViewGroup parent) {
 			ViewHolder holder;
-			OrderBean book = mDatas.get(position);
+			final OrderBean book = mDatas.get(position);
 			if (convertView == null) {
 				convertView = View.inflate(getContext(), R.layout.item_order,
 						null);
@@ -115,9 +118,16 @@ public class OrderFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(getContext(),
-								PayActivity.class);
-						intent.putExtra("url",
-								"http://www.piaoduwang.com/mobile/alipay/index.php");
+								SubmitOrderActivity.class);
+						ArrayList<BookRankItem> items = new ArrayList<BookRankItem>();
+						BookRankItem bookRankItem = new BookRankItem();
+						bookRankItem.bookname=book.bookname;
+						bookRankItem.price=book.price;
+						bookRankItem.coverpic=book.coverpic;
+						items.add(bookRankItem);
+						Bundle bu = new Bundle();
+						bu.putSerializable("BOOKS", items);
+						intent.putExtras(bu);
 						startActivity(intent);
 					}
 				});

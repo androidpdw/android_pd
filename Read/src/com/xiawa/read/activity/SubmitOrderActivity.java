@@ -70,8 +70,7 @@ public class SubmitOrderActivity extends BaseActivity
 	public static final String RSA_PRIVATE = ""
 			+ "QU0g/A61t/K2";
 	// 支付宝公钥
-	public static final String RSA_PUBLIC = ""
-			+ "F/9mQduQL2+IGr56eQIDAQAB";
+	public static final String RSA_PUBLIC = "";
 
 	private static final int SDK_PAY_FLAG = 1;
 

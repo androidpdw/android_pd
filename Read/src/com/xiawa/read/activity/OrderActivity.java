@@ -112,7 +112,6 @@ public class OrderActivity extends FragmentActivity {
 					System.out.println(arg0.result);
 					mAllOrderList = JSON.parseArray(arg0.result,
 							OrderBean.class);
-					
 					for (int i = 0; i < mAllOrderList.size(); i++)
 					{
 						OrderBean bean = mAllOrderList.get(i);

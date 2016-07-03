@@ -13,5 +13,6 @@ public class OrderBean {
 	public String author;
 	public String ischeck;
 	public String coverpic;
+	public String price;
 	
 }
