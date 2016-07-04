@@ -38,8 +38,9 @@ public class GlobalConfig {
 	
 	public static void backToHome() {
 		for (int i = 0; i < list.size(); i++) {
-			Activity activity = list.remove(i);
+			Activity activity = list.get(i);
 			activity.finish();
 		}
+		list.clear();
 	}
 }

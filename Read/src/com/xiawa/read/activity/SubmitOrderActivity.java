@@ -244,8 +244,8 @@ public class SubmitOrderActivity extends BaseActivity
 	{
 		int checkedRadioButtonId = rgPayMethod.getCheckedRadioButtonId();
 		if (checkedRadioButtonId == R.id.rb_aipay){
-			alipay("1", "1", "0.01");
-//			submitOrder();
+//			alipay("1", "1", "0.01");
+			submitOrder();
 		} else if (checkedRadioButtonId == R.id.rb_wxpay)
 			Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
 			//wxpay();
@@ -482,9 +482,9 @@ public class SubmitOrderActivity extends BaseActivity
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-//		orderInfo += "&notify_url=" + "\"" + "http://www.piaoduwang/mobile/alipay/return_url.php"
-//				+ "\"";
-		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
+		orderInfo += "&notify_url=" + "\"" + "http://www.piaoduwang/mobile/alipay/return_url.php"
+				+ "\"";
+//		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
 
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";

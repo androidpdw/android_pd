@@ -140,6 +140,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		if (country.equals("点击以选择乡镇/街道")) {
 			country="";
 		}
+		country = "_" +country;
 		String address = tvAddress.getText().toString()+tvCountry.getText().toString();
 		
 		Log.i("data", metPwdQuestion.getText()+" "+metPwdAnswer.getText()+" "+date+" "+address+" "+tvEducation.getText().toString());
@@ -321,7 +322,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 				tvCountry.setText("查询乡镇/街道中...");
 				tvCountry.setClickable(false);
 				getTown(areaId);
-				tvAddress.setText(province + city + county);
+				tvAddress.setText(province +"_"+ city +"_"+ county);
 				llCountry.setVisibility(View.VISIBLE);
 				viewDivide.setVisibility(View.VISIBLE);
 			}

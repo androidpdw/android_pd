@@ -175,6 +175,7 @@ public class MyFragment extends Fragment {
 				SharedPreferences sp = context.getApplicationContext()
 						.getSharedPreferences("config", 0);
 				sp.edit().putBoolean("isLogin", false).commit();
+				GlobalConfig.isLogin = false;
 				updateUI();
 			}
 		});
