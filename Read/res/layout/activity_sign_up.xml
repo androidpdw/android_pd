@@ -249,7 +249,7 @@
                     android:layout_marginRight="5dp"
                     android:clickable="true"
                     android:singleLine="true"
-                    android:text="福建省漳州市芗城区"
+                    android:text=""
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
             </LinearLayout>

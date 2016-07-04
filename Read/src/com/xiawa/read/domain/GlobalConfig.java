@@ -1,6 +1,8 @@
 package com.xiawa.read.domain;
 
-import android.R.bool;
+import java.util.ArrayList;
+
+import android.app.Activity;
 
 public class GlobalConfig {
 	
@@ -23,4 +25,21 @@ public class GlobalConfig {
 	
 	//是否登录
 	public static boolean isLogin=false;
+	
+	public static ArrayList<Activity> list = new ArrayList<Activity>();
+	
+	public static void add(Activity activity){
+		list.add(activity);
+	}
+	
+	public static void remove(Activity activity){
+		list.remove(activity);
+	}
+	
+	public static void backToHome() {
+		for (int i = 0; i < list.size(); i++) {
+			Activity activity = list.remove(i);
+			activity.finish();
+		}
+	}
 }

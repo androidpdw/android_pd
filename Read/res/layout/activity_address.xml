@@ -6,11 +6,34 @@
     android:orientation="vertical" >
 
     <include layout="@layout/view_header" />
-
-    <ListView
+    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none" />
+        
+        <TextView 
+            android:id="@+id/tv_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="正在获取服务站..."/>
+        
+        <TextView 
+            android:id="@+id/tv_no_site"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="该图书已被借阅完"/>
+        
+    </FrameLayout>
+
+    
 
 </LinearLayout>

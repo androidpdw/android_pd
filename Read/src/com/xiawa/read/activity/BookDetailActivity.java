@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
@@ -26,6 +28,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
 import com.xiawa.read.bean.BookDetailItem;
 import com.xiawa.read.bean.BookRankItem;
+import com.xiawa.read.bean.SiteBean;
 import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.utils.URLString;
 import com.xiawa.read.view.ImageCycleView;
@@ -39,6 +42,8 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 	private BookDetailItem bookDetailItem;
 
 	private ImageCycleView mImageCycleView;
+	
+	private ArrayList<SiteBean> siteList;
 
 	@ViewInject(R.id.tv_price)
 	private TextView tv_price;
@@ -46,6 +51,10 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tv_book_name;
 	@ViewInject(R.id.tv_book_author)
 	private TextView tv_book_author;
+	@ViewInject(R.id.tv_site_count)
+	private TextView tv_site_count;
+	
+	private boolean isFinished = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +65,7 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 		setHeaderTitle("图书详情");
 		bookItem = (BookRankItem) getIntent().getSerializableExtra("BookItem");
 		getBookDetail(bookItem.isbn);
+		getLocation();
 		findViewById(R.id.rl_book_text).setOnClickListener(this);
 		findViewById(R.id.rl_book_comment).setOnClickListener(this);
 		findViewById(R.id.btn_collect).setOnClickListener(this);
@@ -139,6 +149,7 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 						tv_price.setText("¥" + bookDetailItem.price);
 						tv_book_name.setText(bookDetailItem.bookname);
 						tv_book_author.setText(bookDetailItem.author);
+						isFinished = true;
 						try
 						{
 							initImageCycleView();
@@ -162,8 +173,10 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 			startActivity(intent);
 			break;
 		case R.id.rl_book_comment:
-			startActivity(new Intent(getApplicationContext(),
-					BookCommentActivity.class));
+			Intent intent3 = new Intent(getApplicationContext(),
+					BookCommentActivity.class);
+			intent3.putExtra("bookItem", bookItem);
+			startActivity(intent3);
 			break;
 		case R.id.btn_collect:
 			/*******************************************************/
@@ -177,6 +190,10 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 						LoginActivity.class));
 			} else
 			{
+				if (!isFinished) {
+					Toast.makeText(getApplicationContext(), "正在获取数据...", 0).show();
+					return;
+				}
 				Intent intent2 = new Intent(getApplicationContext(),
 						AddressActivity.class);
 				ArrayList<BookRankItem> items = new ArrayList<BookRankItem>();
@@ -184,13 +201,56 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 				items.add(bookItem);
 				Bundle bu = new Bundle();
 				bu.putSerializable("BOOKS", items);
+				bu.putBoolean("isSite", false);
 				intent2.putExtras(bu);
 				startActivity(intent2);
 			}
 			break;
 		case R.id.rl_address:
-//			startActivity(new Intent(this,AddressActivity.class));
+			Intent intent2 = new Intent(getApplicationContext(),
+					AddressActivity.class);
+			ArrayList<BookRankItem> items = new ArrayList<BookRankItem>();
+			bookItem.price=bookDetailItem.price;
+			items.add(bookItem);
+			Bundle bu = new Bundle();
+			bu.putSerializable("BOOKS", items);
+			bu.putBoolean("isSite", true);
+			intent2.putExtras(bu);
+			startActivity(intent2);
 			break;
 		}
+	}
+	
+	private void getLocation() {
+		if (GlobalConfig.isLogin == false) {
+			tv_site_count.setText("还未登录，无法定位");
+			tv_site_count.setEnabled(false);
+			return;
+		}
+		HttpUtils utils = new HttpUtils();
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("loginname",GlobalConfig.username);
+		params.addBodyParameter("isbn",bookItem.isbn);
+		utils.send(HttpMethod.POST, URLString.URL_DOMAIN
+				+ URLString.URL_GET_BOOKLOCATION,params,
+				new RequestCallBack<String>()
+				{
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1)
+					{
+						Log.e("hsq", arg1);
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0)
+					{
+						try {
+							siteList = (ArrayList<SiteBean>) JSON.parseArray(arg0.result, SiteBean.class);
+							tv_site_count.setText(siteList.size()+"");
+						} catch (Exception e) {
+						}
+					}
+				});
 	}
 }

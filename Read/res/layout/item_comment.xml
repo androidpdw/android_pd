@@ -17,6 +17,7 @@
             android:src="@drawable/icon_user" />
 
         <TextView
+            android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableRight="@drawable/v1"
@@ -39,6 +40,7 @@
         android:layout_marginTop="20dp" >
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

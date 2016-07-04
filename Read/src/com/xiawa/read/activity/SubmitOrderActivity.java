@@ -1,19 +1,9 @@
 package com.xiawa.read.activity;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.BreakIterator;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
 
-
-import org.json.JSONObject;
-
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,7 +14,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -32,12 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.alipay.sdk.app.PayTask;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
@@ -48,12 +37,10 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.xiawa.read.R;
 import com.xiawa.read.alipay.PayResult;
 import com.xiawa.read.alipay.SignUtils;
-import com.xiawa.read.bean.BookDetailItem;
 import com.xiawa.read.bean.BookRankItem;
-import com.xiawa.read.utils.URLString;
+import com.xiawa.read.bean.SiteBean;
+import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.wxpay.Constants;
-import com.xiawa.read.wxpay.Util;
-import com.xiawa.read.wxpay.WXPayActivity;
 
 public class SubmitOrderActivity extends BaseActivity
 {
@@ -67,10 +54,9 @@ public class SubmitOrderActivity extends BaseActivity
 	// 商户收款账号
 	public static final String SELLER = "fjxiawa@qq.com";
 	// 商户私钥，pkcs8格式
-	public static final String RSA_PRIVATE = ""
-			+ "QU0g/A61t/K2";
+	public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKo4ZdmdqrhTqw/K5lD78vyXdbpOx4Lb1GqcfZu5KMYjCPtufPNp6bIE33fdh7C5yvodu/JWvMxLt74++UVliWAvKbUFFyNufaOaV6d/9AHw0XMpJwFut0yhQmL7gksRkC9j0LfuWIDP7rHPx7UirUBlgcEX/2ZB25Avb4gavnp5AgMBAAECgYBi/9Icstprwh2nXbZ+O0qjJePOq6rVrMzqBIH5Y8MXGaFLuoLpfxvv8W2W5TzZx/UJaum4lEHR/+epui538gnm922oe8qm0gajYlZ493YW3hJVONx9+IXg20sXEBuLwCbGyvXZAYVBv5s0cJbmteCitXGcfsaIYfHFHB7yXs7ZEQJBAOIrdhGVvUvVAZycqv96sVWp0HDs8i9CCYhbeib6zyZpwPlDSBEK4HMg+kwG5gQ3Vta7N3/+J2fzAEvOtWDtAgsCQQDAq9LV0zabI9rOCCzYtMCUbjBVFQUjwslIKJRYEkV9yogx/yGjBF6XHzL9PiQCHz2h3+mHAXBxAvohA+LHkKwLAkAk5txz0A+7wLxrljBcUOOAS53D3xVA2rB9fBd5JrEH3ndq9CxdA35NqpLMNs/u3iygCpnqm0hIsKBavhZgAyuzAkA+zUMR86DO/ObrVXrYwEItn6UddpaQS4O0g5WnB32jPQsb0N+z9U6nz8GdDk5Kash6JTRHj06JZ8EEVfHrvtp1AkBbNK3ICk4uAYCOynnvywBe8M/zXwlEDtXln5olpQ6v6pI4Ch04m6bD4VgjmGF6Zky/B5J2V+jTQU0g/A61t/K2";
 	// 支付宝公钥
-	public static final String RSA_PUBLIC = "";
+	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBidQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssysdfkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
 
 	private static final int SDK_PAY_FLAG = 1;
 
@@ -114,6 +100,9 @@ public class SubmitOrderActivity extends BaseActivity
 	// 订单有多个条目时，条目总数。
 	@ViewInject(R.id.tv_total_items)
 	private TextView tvTotalItems;
+	
+	ArrayList<BookRankItem> items;
+	SiteBean site;
 
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler()
@@ -138,6 +127,7 @@ public class SubmitOrderActivity extends BaseActivity
 				{
 					Toast.makeText(SubmitOrderActivity.this, "支付成功",
 							Toast.LENGTH_SHORT).show();
+					GlobalConfig.backToHome();
 				} else
 				{
 					// 判断resultStatus 为非"9000"则代表可能支付失败
@@ -146,13 +136,12 @@ public class SubmitOrderActivity extends BaseActivity
 					{
 						Toast.makeText(SubmitOrderActivity.this, "支付结果确认中",
 								Toast.LENGTH_SHORT).show();
-
+						GlobalConfig.backToHome();
 					} else
 					{
 						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
 						Toast.makeText(SubmitOrderActivity.this, "支付失败",
 								Toast.LENGTH_SHORT).show();
-
 					}
 				}
 				break;
@@ -188,8 +177,10 @@ public class SubmitOrderActivity extends BaseActivity
 		Bundle extras = intent.getExtras();
 		if (extras == null)
 			return;
-		ArrayList<BookRankItem> items = (ArrayList<BookRankItem>) extras
+		items = (ArrayList<BookRankItem>) extras
 				.getSerializable("BOOKS");
+		site = (SiteBean) extras.getSerializable("SITE");
+		Log.e("hsq", site.toString());
 		if (items.size() == 1)// 订单只有一个条目
 		{
 			BookRankItem bookRankItem = items.get(0);
@@ -251,14 +242,36 @@ public class SubmitOrderActivity extends BaseActivity
 
 	public void onSubmitClick(View view)
 	{
-		String title = tvBookTitle.getText().toString();
-		String price = tvPriceAll.getText().toString();
 		int checkedRadioButtonId = rgPayMethod.getCheckedRadioButtonId();
-		if (checkedRadioButtonId == R.id.rb_aipay)
-			alipay(title, "", price);
-		if (checkedRadioButtonId == R.id.rb_wxpay)
-			wxpay();
-		// Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
+		if (checkedRadioButtonId == R.id.rb_aipay){
+			alipay("1", "1", "0.01");
+//			submitOrder();
+		} else if (checkedRadioButtonId == R.id.rb_wxpay)
+			Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
+			//wxpay();
+	}
+
+	private void submitOrder() {
+		HttpUtils utils = new HttpUtils();
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("bookcode", site.bookcode);
+		params.addBodyParameter("holder", site.holder);
+		params.addBodyParameter("paytype", "0");
+		params.addBodyParameter("loginname", GlobalConfig.username);
+		utils.send(HttpMethod.POST, "http://www.piaoduwang.com/mobile/app/submitOrder.php",params,new RequestCallBack<String>() {
+			
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				Toast.makeText(getApplicationContext(), "提交订单失败", 0).show();
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				String title = tvBookTitle.getText().toString();
+				String price = tvPriceAll.getText().toString();
+				alipay(title, title, price);
+			}
+		});
 	}
 
 	private void wxpay()
@@ -469,8 +482,9 @@ public class SubmitOrderActivity extends BaseActivity
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
-				+ "\"";
+//		orderInfo += "&notify_url=" + "\"" + "http://www.piaoduwang/mobile/alipay/return_url.php"
+//				+ "\"";
+		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
 
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";
@@ -506,14 +520,15 @@ public class SubmitOrderActivity extends BaseActivity
 	 */
 	private String getOutTradeNo()
 	{
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
-				Locale.getDefault());
-		Date date = new Date();
-		String key = format.format(date);
-
-		Random r = new Random();
-		key = key + r.nextInt();
-		key = key.substring(0, 15);
+//		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+//				Locale.getDefault());
+//		Date date = new Date();
+//		String key = format.format(date);
+//
+//		Random r = new Random();
+//		key = key + r.nextInt();
+//		key = key.substring(0, 15);
+		String key = System.currentTimeMillis() +site.bookcode;
 		return key;
 	}
 

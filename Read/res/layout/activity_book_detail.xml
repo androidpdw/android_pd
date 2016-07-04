@@ -191,21 +191,21 @@
                     android:src="@drawable/arrow_right" />
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/tv_site_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/textView2"
                     android:layout_alignBottom="@+id/textView2"
                     android:layout_toRightOf="@+id/textView2"
-                    android:text="37"
+                    android:text="0"
                     android:textColor="@color/red" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView1"
-                    android:layout_alignBottom="@+id/textView1"
-                    android:layout_toRightOf="@+id/textView1"
+                    android:layout_alignBaseline="@+id/tv_site_count"
+                    android:layout_alignBottom="@+id/tv_site_count"
+                    android:layout_toRightOf="@+id/tv_site_count"
                     android:text="个附近服务站"
                     android:textColor="@color/gray2" />
             </RelativeLayout>

@@ -301,7 +301,7 @@ public class SignUpActivity extends Activity implements OnClickListener
 		String json = AssetsUtils.readText(this, "city.json");
 		data.addAll(JSON.parseArray(json, AddressPicker.Province.class));
 		AddressPicker picker = new AddressPicker(this, data);
-		picker.setSelectedItem("福建", "漳州", "芗城");
+//		picker.setSelectedItem("福建", "漳州", "芗城");
 		picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener()
 		{
 
