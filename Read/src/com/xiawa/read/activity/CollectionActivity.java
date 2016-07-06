@@ -4,11 +4,25 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -17,26 +31,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
-import com.xiawa.read.activity.BookRankActivity.ViewHolder;
 import com.xiawa.read.bean.BookRankItem;
 import com.xiawa.read.bean.CollectionsItem;
-
-import android.R.integer;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceActivity.Header;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
 /**
  * 收藏室
@@ -51,7 +47,7 @@ public class CollectionActivity extends BaseActivity
 	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
 	protected static final int UPDATA_LIST = 0;
 	// ---end--用BookRank数据模拟
-
+	List<BookRankItem> bookRankItems;
 	// 更新总价格
 	protected static final int UPDATE_TOTAL_PRICE = 1;
 	// 选择所有按钮
@@ -75,6 +71,16 @@ public class CollectionActivity extends BaseActivity
 			{
 			case UPDATA_LIST:
 				lvCollections.setAdapter(new CollectionsAdapter());
+				lvCollections.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent intent = new Intent(getApplicationContext(),BookDetailActivity.class);
+						intent.putExtra("BookItem", bookRankItems.get(position));
+						startActivity(intent);
+					}
+				});
 				mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
 				break;
 			case UPDATE_TOTAL_PRICE:
@@ -89,7 +95,6 @@ public class CollectionActivity extends BaseActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_collection);
 		ViewUtils.inject(this);
@@ -154,7 +159,7 @@ public class CollectionActivity extends BaseActivity
 			{
 				try
 				{
-					List<BookRankItem> bookRankItems = JSON.parseArray(
+					bookRankItems = JSON.parseArray(
 							arg0.result, BookRankItem.class);
 
 					for (int i = 0; i < bookRankItems.size(); i++)
@@ -164,6 +169,7 @@ public class CollectionActivity extends BaseActivity
 						ci.bookname = item.bookname;
 						ci.coverpic = item.coverpic;
 						ci.price = "1" + i + ".0";
+						ci.author = item.author;
 //						ci.price = item.price;
 						ci.isCheck = Math.random() > 0.5 ? true : false;
 						mCollectionsItems.add(ci);
@@ -253,7 +259,8 @@ public class CollectionActivity extends BaseActivity
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.title.setText(collectionsItem.bookname);
-			holder.price.setText("￥" + collectionsItem.price);
+//			holder.price.setText("￥" + collectionsItem.price);
+			holder.price.setText(collectionsItem.author);
 			holder.isCheck.setChecked(collectionsItem.isCheck);
 			holder.isCheck.setOnClickListener(new OnClickListener()
 			{

@@ -9,6 +9,7 @@
         android:checked="false"
         android:id="@+id/cb_isCheck"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content" />
 
     <ImageView
@@ -37,23 +38,22 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tv_book_name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/tv_book_name"
+            android:layout_centerVertical="true"
             android:text="金额:"
+            android:visibility="gone"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_book_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView1"
-            android:layout_alignBottom="@+id/textView1"
-            android:layout_toRightOf="@+id/textView1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_book_name"
             android:text="￥19.8"
             android:textColor="@color/red_all"
             android:textSize="18sp" />
+
     </RelativeLayout>
 
 </LinearLayout>

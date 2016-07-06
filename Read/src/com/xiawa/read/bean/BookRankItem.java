@@ -14,5 +14,5 @@ public class BookRankItem implements Serializable
 	public String comment;
 	public String index;
 	public String price;
-	
+	public boolean isCheck;
 }

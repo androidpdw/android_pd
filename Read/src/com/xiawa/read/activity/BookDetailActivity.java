@@ -55,6 +55,8 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tv_site_count;
 	
 	private boolean isFinished = false;
+	
+	private String isbn = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -64,7 +66,12 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 		ViewUtils.inject(this);
 		setHeaderTitle("图书详情");
 		bookItem = (BookRankItem) getIntent().getSerializableExtra("BookItem");
-		getBookDetail(bookItem.isbn);
+		if (bookItem == null) {
+			isbn = getIntent().getStringExtra("isbn");
+		} else {
+			isbn = bookItem.isbn;
+		}
+		getBookDetail(isbn);
 		getLocation();
 		findViewById(R.id.rl_book_text).setOnClickListener(this);
 		findViewById(R.id.rl_book_comment).setOnClickListener(this);
@@ -223,8 +230,9 @@ public class BookDetailActivity extends BaseActivity implements OnClickListener
 	
 	private void getLocation() {
 		if (GlobalConfig.isLogin == false) {
+			findViewById(R.id.rl_address).setEnabled(false);
 			tv_site_count.setText("还未登录，无法定位");
-			tv_site_count.setEnabled(false);
+			findViewById(R.id.textView11).setVisibility(View.GONE);
 			return;
 		}
 		HttpUtils utils = new HttpUtils();

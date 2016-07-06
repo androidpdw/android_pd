@@ -78,6 +78,9 @@ public class SubmitOrderActivity extends BaseActivity
 	@ViewInject(R.id.rg_pay_method)
 	private RadioGroup rgPayMethod;
 
+	@ViewInject(R.id.tv_site_name)
+	private TextView tv_site_name;
+	
 	// 订单只有单个条目时，书的价格
 	@ViewInject(R.id.tv_price)
 	private TextView tvPrice;
@@ -189,6 +192,7 @@ public class SubmitOrderActivity extends BaseActivity
 			tvPrice.setText(bookRankItem.price);
 			tvPriceAll.setText(bookRankItem.price);
 			tvBookTitle.setText(bookRankItem.bookname);
+			tv_site_name.setText(site.nickname + " : " +site.address);
 			BitmapUtils bitmapUtils = new BitmapUtils(SubmitOrderActivity.this);
 			try
 			{
