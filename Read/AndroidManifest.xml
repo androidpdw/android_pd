@@ -93,6 +93,15 @@
         <!-- 关于 -->
         <activity android:name="com.xiawa.read.activity.AboutUsActivity" >
         </activity>
+        <!-- 服务站登录 -->
+        <activity android:name="com.xiawa.read.activity.AdminLoginActivity" >
+        </activity>
+        <!-- 服务站借书 -->
+        <activity android:name="com.xiawa.read.activity.BorrowBookActivity" >
+        </activity>
+        <!-- 服务站还书 -->
+        <activity android:name="com.xiawa.read.activity.ReturnBookActivity" >
+        </activity>
 
         <!-- alipay sdk begin -->
         <activity

@@ -6,6 +6,9 @@ import android.app.Activity;
 
 public class GlobalConfig {
 	
+	//是否是服务站登录
+	public static boolean isAdmin=false;
+	
 	//是否认证
 	public static boolean isAuth = false;
 

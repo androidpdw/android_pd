@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:text="飘流" />
+                android:text="服务站登录" />
         </LinearLayout>
 <!-- 我的 -->
         <LinearLayout

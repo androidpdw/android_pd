@@ -33,6 +33,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.AdminLoginActivity;
 import com.xiawa.read.activity.BookArrangeActivity;
 import com.xiawa.read.activity.BookDetailActivity;
 import com.xiawa.read.activity.BookRankActivity;
@@ -64,10 +65,13 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	private List<BookRankItem> mBookList;
 	private MyGridView gvBooks;
 
-	private Handler mHandler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
+	private Handler mHandler = new Handler()
+	{
+		public void handleMessage(android.os.Message msg)
+		{
 			int what = msg.what;
-			switch (what) {
+			switch (what)
+			{
 			case UPDATA_GRID_VIEW:
 				gvBooks.setAdapter(new GridViewBookAdpter());
 				break;
@@ -80,7 +84,8 @@ public class HomeFragment extends Fragment implements OnClickListener,
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+			Bundle savedInstanceState)
+	{
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
 		ViewUtils.inject(this, view);
@@ -94,19 +99,23 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		gvBooks.setOnItemClickListener(this);
 		initData();
 		view.findViewById(R.id.ll_zuowen).setOnClickListener(
-				new OnClickListener() {
+				new OnClickListener()
+				{
 
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v)
+					{
 						startActivity(new Intent(getActivity(),
 								BookArrangeActivity.class));
 					}
 				});
 		view.findViewById(R.id.ll_xiaoxue).setOnClickListener(
-				new OnClickListener() {
+				new OnClickListener()
+				{
 
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v)
+					{
 						Intent intent = new Intent(getActivity(),
 								ClassifyActivity.class);
 						intent.putExtra("index", 0);
@@ -114,10 +123,12 @@ public class HomeFragment extends Fragment implements OnClickListener,
 					}
 				});
 		view.findViewById(R.id.ll_zhonggao).setOnClickListener(
-				new OnClickListener() {
+				new OnClickListener()
+				{
 
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v)
+					{
 						Intent intent = new Intent(getActivity(),
 								ClassifyActivity.class);
 						intent.putExtra("index", 1);
@@ -139,37 +150,44 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+			long id)
+	{
 		Intent intent = new Intent(getContext(), BookDetailActivity.class);
 		intent.putExtra("BookItem", mBookList.get(position));
 		startActivity(intent);
 	}
 
-	private void initData() {
+	private void initData()
+	{
 		mBookList = new ArrayList<BookRankItem>();
 		HttpUtils utils = new HttpUtils();
-		utils.send(HttpMethod.GET, BOOK_RANK_URL,
-				new RequestCallBack<String>() {
+		utils.send(HttpMethod.GET, BOOK_RANK_URL, new RequestCallBack<String>()
+		{
 
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
+			@Override
+			public void onFailure(HttpException arg0, String arg1)
+			{
 
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0)
+			{
+				try
+				{
+					List<BookRankItem> bookRankItems = JSON.parseArray(
+							arg0.result, BookRankItem.class);
+
+					for (int i = 0; i < bookRankItems.size(); i++)
+					{
+						mBookList.add(bookRankItems.get(i));
 					}
-
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						try {
-							List<BookRankItem> bookRankItems = JSON.parseArray(
-									arg0.result, BookRankItem.class);
-
-							for (int i = 0; i < bookRankItems.size(); i++) {
-								mBookList.add(bookRankItems.get(i));
-							}
-							mHandler.sendEmptyMessage(UPDATA_GRID_VIEW);
-						} catch (Exception e) {
-						}
-					}
-				});
+					mHandler.sendEmptyMessage(UPDATA_GRID_VIEW);
+				} catch (Exception e)
+				{
+				}
+			}
+		});
 
 	}
 
@@ -178,7 +196,8 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	 * 
 	 * @param view
 	 */
-	private void setImgButtonListener(View view) {
+	private void setImgButtonListener(View view)
+	{
 		view.findViewById(R.id.ll_category).setOnClickListener(this);
 		view.findViewById(R.id.ll_donate).setOnClickListener(this);
 		view.findViewById(R.id.ll_drift).setOnClickListener(this);
@@ -193,21 +212,26 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	 * 监听主页图片按钮点击事件
 	 */
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v)
+	{
 		// TODO Auto-generated method stub
 		int id = v.getId();
 
-		switch (id) {
+		switch (id)
+		{
 		// 主页分类图片按钮点击事件
 		case R.id.ll_category:// 分类
 			startActivity(new Intent(getContext(), ClassifyActivity.class));
 			break;
 		case R.id.ll_donate:// 捐赠
 			// 测试
-			startActivity(new Intent(getContext(), SubmitOrderActivity.class));
+			// startActivity(new Intent(getContext(),
+			// SubmitOrderActivity.class));
+			// ((MainActivity) getActivity()).adminLogin();
+			// ((MainActivity) getActivity()).changeTab(1);
 			break;
 		case R.id.ll_drift:// 漂流
-
+			startActivity(new Intent(getContext(), AdminLoginActivity.class));
 			break;
 		case R.id.ll_my:// 我的
 			((MainActivity) getActivity()).changeTab(3);
@@ -230,7 +254,8 @@ public class HomeFragment extends Fragment implements OnClickListener,
 
 	}
 
-	private void initImageCycleView() {
+	private void initImageCycleView()
+	{
 		List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();
 
 		// 使用网络加载图片
@@ -250,10 +275,12 @@ public class HomeFragment extends Fragment implements OnClickListener,
 				"http://www.piaoduwang.com/mobile/images/img_main_5.jpg", "",
 				"http://www.piaoduwang.com/mobile/images/img_main_5.jpg"));
 		mImageCycleView
-				.setOnPageClickListener(new ImageCycleView.OnPageClickListener() {
+				.setOnPageClickListener(new ImageCycleView.OnPageClickListener()
+				{
 					@Override
 					public void onClick(View imageView,
-							ImageCycleView.ImageInfo imageInfo) {
+							ImageCycleView.ImageInfo imageInfo)
+					{
 						Intent intent = new Intent(getContext(),
 								WebActivity.class);
 						intent.putExtra("url", imageInfo.value.toString());
@@ -261,9 +288,11 @@ public class HomeFragment extends Fragment implements OnClickListener,
 					}
 				});
 
-		mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack() {
+		mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack()
+		{
 			@Override
-			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo) {
+			public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo)
+			{
 				BitmapUtils bitmapUtils = new BitmapUtils(getActivity());
 				ImageView imageView = new ImageView(getActivity());
 				bitmapUtils.display(imageView, imageInfo.image.toString());
@@ -272,27 +301,33 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		});
 	}
 
-	class GridViewBookAdpter extends BaseAdapter {
+	class GridViewBookAdpter extends BaseAdapter
+	{
 		@Override
-		public int getCount() {
+		public int getCount()
+		{
 			return mBookList.size();
 		}
 
 		@Override
-		public Object getItem(int position) {
+		public Object getItem(int position)
+		{
 			return mBookList.get(position);
 		}
 
 		@Override
-		public long getItemId(int position) {
+		public long getItemId(int position)
+		{
 			return position;
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
 			ViewHolder holder;
 			BookRankItem book = mBookList.get(position);
-			if (convertView == null) {
+			if (convertView == null)
+			{
 				convertView = View.inflate(getContext(),
 						R.layout.item_gridview_book, null);
 				holder = new ViewHolder();
@@ -301,15 +336,18 @@ public class HomeFragment extends Fragment implements OnClickListener,
 				holder.cover = (ImageView) convertView
 						.findViewById(R.id.iv_book_cover);
 				convertView.setTag(holder);
-			} else {
+			} else
+			{
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.title.setText(book.bookname);
 			BitmapUtils bitmapUtils = new BitmapUtils(getContext());
-			try {
+			try
+			{
 				String url = URLEncoder.encode(book.coverpic, "utf-8");
 				bitmapUtils.display(holder.cover, COVER_PIC_URL + url);
-			} catch (UnsupportedEncodingException e) {
+			} catch (UnsupportedEncodingException e)
+			{
 				e.printStackTrace();
 			}
 
@@ -317,7 +355,8 @@ public class HomeFragment extends Fragment implements OnClickListener,
 		}
 	}
 
-	class ViewHolder {
+	class ViewHolder
+	{
 		TextView title;
 		ImageView cover;
 
@@ -327,8 +366,10 @@ public class HomeFragment extends Fragment implements OnClickListener,
 	private EditText et_word;
 
 	@OnClick(R.id.iv_search)
-	public void search(View view) {
-		if (TextUtils.isEmpty(et_word.getText().toString())) {
+	public void search(View view)
+	{
+		if (TextUtils.isEmpty(et_word.getText().toString()))
+		{
 			Toast.makeText(getContext(), "请输入关键字", 0).show();
 			return;
 		}

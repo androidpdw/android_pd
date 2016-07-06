@@ -7,7 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +18,7 @@ import android.widget.ImageButton;
 import com.lidroid.xutils.ViewUtils;
 import com.xiawa.read.R;
 import com.xiawa.read.domain.GlobalConfig;
+import com.xiawa.read.fragment.AdminFragment;
 import com.xiawa.read.fragment.FindFragment;
 import com.xiawa.read.fragment.HomeFragment;
 import com.xiawa.read.fragment.MyFragment;
@@ -25,7 +29,7 @@ public class MainActivity extends FragmentActivity implements
 //	@ViewInject(R.id.iv_user)
 //	private ImageView ivUser;
 	private ViewPager vpContainer;
-	private FragmentPagerAdapter mAdapter;
+	private MyFragmentAdapter mAdapter;
 	private String[] mTitles = new String[] { "1", "2", "3", "4" };
 	private List<Fragment> mTabs = new ArrayList<Fragment>();
 	private ImageButton ibHome;
@@ -54,6 +58,12 @@ public class MainActivity extends FragmentActivity implements
 		if (myFragment!=null) {
 			myFragment.updateUI();
 		}
+		
+		//服务站登录成功
+		if(GlobalConfig.isAdmin)
+		{
+			adminLogin();
+		}
 	}
 
 	private void initData() {
@@ -61,22 +71,21 @@ public class MainActivity extends FragmentActivity implements
 		mTabs.add(new FindFragment());
 		myFragment = new MyFragment(this);
 		mTabs.add(myFragment);
-		mAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
-		{
-			@Override
-			public int getCount()
-			{
-				return mTabs.size();
-			}
-
-			@Override
-			public Fragment getItem(int arg0)
-			{
-				return mTabs.get(arg0);
-			}
-		};
+		mAdapter = new MyFragmentAdapter(getSupportFragmentManager());
 		initTabIndicator();
 
+	}
+	
+	/**
+	 * 服务站登录
+	 */
+	public void adminLogin()
+	{
+		mTabs.remove(0);
+		AdminFragment adminFragment = new AdminFragment();
+		mTabs.add(0,adminFragment);
+		vpContainer.removeViewAt(0);
+		mAdapter.notifyDataSetChanged();
 	}
 
 	private void initTabIndicator()
@@ -180,5 +189,33 @@ public class MainActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
+	
+	class MyFragmentAdapter extends FragmentStatePagerAdapter{
 
+		public MyFragmentAdapter(FragmentManager fm)
+		{
+			super(fm);
+			notifyDataSetChanged();
+		}
+		
+		@Override
+		public int getItemPosition(Object object)
+		{
+			// TODO Auto-generated method stub
+			return PagerAdapter.POSITION_NONE;
+		}
+		
+		@Override
+		public int getCount()
+		{
+			return mTabs.size();
+		}
+
+		@Override
+		public Fragment getItem(int arg0)
+		{
+			return mTabs.get(arg0);
+		}
+		
+	}
 }
