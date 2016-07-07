@@ -14,7 +14,5 @@ public class OrderBean {
 	public String ischeck;
 	public String coverpic;
 	public String price;
-	public String paytype;
-	
 	
 }

@@ -99,9 +99,6 @@ public class MyFragment extends Fragment {
 	@ViewInject(R.id.no_comment_rl)
 	private RelativeLayout check_rl;
 
-	@ViewInject(R.id.rl_refund)
-	private RelativeLayout rl_refund;
-
 	@ViewInject(R.id.rl_about)
 	private RelativeLayout rlAbout;
 	
@@ -210,16 +207,6 @@ public class MyFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
-		rl_refund.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getContext(),OrderActivity.class);
-				intent.putExtra("index", 3);
-				startActivity(intent);
-			}
-		});
-		
 		
 		rlAbout.setOnClickListener(new OnClickListener()
 		{

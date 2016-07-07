@@ -4,9 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,18 +28,11 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.xiawa.read.R;
 import com.xiawa.read.activity.OrderActivity;
 import com.xiawa.read.alipay.PayResult;
 import com.xiawa.read.alipay.SignUtils;
 import com.xiawa.read.bean.OrderBean;
-import com.xiawa.read.utils.URLString;
 
 public class OrderFragment extends Fragment {
 	
@@ -58,38 +48,14 @@ public class OrderFragment extends Fragment {
 		private static final int SDK_PAY_FLAG = 1;
 
 		private static final int UPDATE_TOTAL_PRICE = 0;
-		
-	public static final String BUNDLE_TITLE = "title";
 	
+	public static final String BUNDLE_TITLE = "title";
 	private String mTitle = "DefaultValue";
 
 	private List<OrderBean> mDatas;
-	
-	private GridViewBookAdpter adapter;
-	
-	private OrderActivity activity;
-	
-	private int type;
 
-	public OrderFragment(List<OrderBean> data, int type) {
+	public OrderFragment(List<OrderBean> data) {
 		mDatas = data;
-		this.type = type;
-		switch (type) {
-		case 0:
-			mDatas = OrderActivity.mAllOrderList;
-			break;
-		case 1:
-			mDatas = OrderActivity.mPayOrderList;
-			break;
-		case 2:
-			mDatas = OrderActivity.mReturnBookList;
-			break;
-		case 3:
-			mDatas = OrderActivity.mRefundList;
-	break;
-		default:
-			break;
-		}
 	}
 
 	@Override
@@ -99,7 +65,6 @@ public class OrderFragment extends Fragment {
 		if (arguments != null) {
 			mTitle = arguments.getString(BUNDLE_TITLE);
 		}
-		activity = (OrderActivity) getActivity();
 		if (mDatas.size() == 0) {
 			TextView tv = new TextView(getActivity());
 			tv.setText("暂无");
@@ -108,21 +73,19 @@ public class OrderFragment extends Fragment {
 		}
 		ListView listView = new ListView(getContext());
 		listView.setFocusable(false);
-		adapter = new GridViewBookAdpter();
-		listView.setAdapter(adapter);
+		listView.setAdapter(new GridViewBookAdpter());
 		return listView;
 	}
 
-	public static OrderFragment newInstance(List<OrderBean> data, int type) {
+	public static OrderFragment newInstance(List<OrderBean> data) {
 		Bundle bundle = new Bundle();
 		bundle.putString(BUNDLE_TITLE, "");
-		OrderFragment fragment = new OrderFragment(data,type);
+		OrderFragment fragment = new OrderFragment(data);
 		fragment.setArguments(bundle);
 		return fragment;
 	}
 	
 	private OrderBean ob;
-	private int pos;
 
 	class GridViewBookAdpter extends BaseAdapter {
 		public static final String COVER_PIC_URL = "http://www.piaoduwang.com/pd_images/pd_BookPick/";
@@ -164,14 +127,6 @@ public class OrderFragment extends Fragment {
 						.findViewById(R.id.btn_check);
 				holder.btn_pay = (Button) convertView
 						.findViewById(R.id.btn_pay);
-				holder.btn_cancel_order = (Button) convertView
-						.findViewById(R.id.btn_cancel_order);
-				holder.btn_refund = (Button) convertView
-						.findViewById(R.id.btn_refund);
-				holder.btn_return_book = (Button) convertView
-						.findViewById(R.id.btn_return_book);
-				holder.btn_refunding = (Button) convertView
-						.findViewById(R.id.btn_refunding);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -179,15 +134,8 @@ public class OrderFragment extends Fragment {
 			holder.title.setText(book.bookname);
 			holder.price.setText("¥ " + book.account);
 			holder.tv_ordercode.setText(book.ordercode);
-			holder.btn_pay.setVisibility(View.GONE);
-			holder.btn_check.setVisibility(View.GONE);
-			holder.btn_cancel_order.setVisibility(View.GONE);
-			holder.btn_refund.setVisibility(View.GONE);
-			holder.btn_return_book.setVisibility(View.GONE);
-			holder.btn_refunding.setVisibility(View.GONE);
 			if (book.status.equals("0") && book.paid.equals("0")) {
-				
-				holder.btn_pay.setVisibility(View.VISIBLE);
+				holder.btn_check.setVisibility(View.GONE);
 				holder.btn_pay.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -196,66 +144,9 @@ public class OrderFragment extends Fragment {
 						alipay(book.bookname, book.bookname, book.account);
 					}
 				});
-				
-				holder.btn_cancel_order.setVisibility(View.VISIBLE);
-				holder.btn_cancel_order.setOnClickListener(new OnClickListener() {
+			} else {
+				holder.btn_pay.setVisibility(View.GONE);
 
-					@Override
-					public void onClick(View v) {
-						
-						new AlertDialog.Builder(getContext())
-						.setTitle("取消订单")
-						.setMessage("确定要取消该订单吗？")
-						
-						.setNegativeButton("取消", null)
-						.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								ob = mDatas.get(position);
-								cancelOrder();
-							}
-						})
-						.show();
-					}
-
-				});
-			} else if(book.status.equals("1")){
-				
-				holder.btn_return_book.setVisibility(View.VISIBLE);
-				holder.btn_return_book.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						
-						new AlertDialog.Builder(getContext())
-						.setTitle("申请还书")
-						.setMessage("确定要还书吗？")
-						
-						.setNegativeButton("取消", null)
-						.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								ob = mDatas.get(position);
-								pos = position;
-								returnBook();
-							}
-						})
-						.show();
-						
-					}
-				});
-			} else if (book.status.equals("2")) {
-				holder.btn_refund.setVisibility(View.VISIBLE);
-				holder.btn_refund.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						ob = mDatas.get(position);
-						refund();
-					}
-				});
 			}
 			BitmapUtils bitmapUtils = new BitmapUtils(getContext());
 			try {
@@ -264,6 +155,7 @@ public class OrderFragment extends Fragment {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
+
 			return convertView;
 		}
 	}
@@ -275,10 +167,6 @@ public class OrderFragment extends Fragment {
 		TextView tv_ordercode;
 		Button btn_pay;
 		Button btn_check;
-		Button btn_cancel_order;
-		Button btn_refund;
-		Button btn_return_book;
-		Button btn_refunding;
 	}
 	
 	@SuppressLint("HandlerLeak")
@@ -532,106 +420,4 @@ public class OrderFragment extends Fragment {
 	{
 		return "sign_type=\"RSA\"";
 	}
-	
-	private void cancelOrder() {
-		HttpUtils httpUtils = new HttpUtils();
-		RequestParams params = new RequestParams();
-		params.addBodyParameter("ordercode", ob.ordercode);
-
-		httpUtils.send(HttpRequest.HttpMethod.POST, URLString.URL_CANCEL_ORDER, params,new RequestCallBack<String>() {
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				try {
-					JSONObject obj = new JSONObject(arg0.result);
-					String resultCode = obj.getString("resultCode");
-					if (resultCode.equals("0000")) {
-						Toast.makeText(getContext(), "删除订单成功", Toast.LENGTH_SHORT).show();
-						activity.cancelOrder(ob, type);
-					} else {
-						Toast.makeText(getContext(), "删除订单失败", Toast.LENGTH_SHORT).show();
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	private void returnBook() {
-		HttpUtils httpUtils = new HttpUtils();
-		RequestParams params = new RequestParams();
-		params.addBodyParameter("data", ob.ordercode+"#" +ob.exchange);
-
-		httpUtils.send(HttpRequest.HttpMethod.POST, URLString.URL_RETURN_BOOK, params,new RequestCallBack<String>() {
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				try {
-					JSONObject obj = new JSONObject(arg0.result);
-					String resultCode = obj.getString("resultCode");
-					String resultMsg = obj.getString("resultMsg");
-					Toast.makeText(getContext(), resultMsg, Toast.LENGTH_SHORT).show();
-					if (resultCode.equals("0000")) {
-						//TODO
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	private void refund() {
-		HttpUtils httpUtils = new HttpUtils();
-		RequestParams params = new RequestParams();
-		params.addBodyParameter("paytype", ob.paytype);
-		params.addBodyParameter("ordercode", ob.ordercode);
-		httpUtils.send(HttpRequest.HttpMethod.POST, URLString.URL_REFUND, params,new RequestCallBack<String>() {
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				try {
-					JSONObject obj = new JSONObject(arg0.result);
-					String resultCode = obj.getString("resultCode");
-					String resultMsg = obj.getString("resultMsg");
-					Toast.makeText(getContext(), resultMsg, Toast.LENGTH_SHORT).show();
-					if (resultCode.equals("0000")) {
-						activity.refund(ob, pos);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	public void remove(OrderBean ob) {
-		mDatas.remove(ob);
-		adapter.notifyDataSetChanged();
-	}
-
-	public void returnBook(OrderBean ob) {
-		adapter.notifyDataSetChanged();
-	}
-	
-	public void refund(OrderBean ob) {
-		adapter.notifyDataSetChanged();
-	}
-	
 }
