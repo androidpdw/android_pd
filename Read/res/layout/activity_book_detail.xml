@@ -229,7 +229,7 @@
                 android:background="@color/white" >
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -251,9 +251,9 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView3"
-                    android:layout_alignBottom="@+id/textView3"
-                    android:layout_toRightOf="@+id/textView3"
+                    android:layout_alignBaseline="@+id/tv_admin"
+                    android:layout_alignBottom="@+id/tv_admin"
+                    android:layout_toRightOf="@+id/tv_admin"
                     android:text="98%"
                     android:textColor="@color/red" />
 

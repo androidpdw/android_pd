@@ -3,7 +3,10 @@ package com.xiawa.read.fragment;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xiawa.read.R;
+import com.xiawa.read.activity.BorrowBookActivity;
+import com.xiawa.read.activity.ReturnBookActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -52,10 +55,10 @@ public class AdminFragment extends Fragment implements OnClickListener
 			Toast.makeText(getContext(), "功能", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.ll_borrow_book://图书借阅
-			
+			startActivity(new Intent(getContext(),BorrowBookActivity.class));
 			break;
 		case R.id.ll_return_book://图书归还
-			
+			startActivity(new Intent(getContext(),ReturnBookActivity.class));
 			break;
 		case R.id.ll_donate://捐赠
 			Toast.makeText(getContext(), "捐赠", Toast.LENGTH_SHORT).show();
