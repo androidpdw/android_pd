@@ -46,15 +46,14 @@ import com.xiawa.read.utils.URLString;
 
 public class OrderFragment extends Fragment {
 	
-	// 商户PID
-		public static final String PARTNER = "2088121295307264";
+		// 商户PID
+		public static final String PARTNER = "";
 		// 商户收款账号
-		public static final String SELLER = "fjxiawa@qq.com";
+		public static final String SELLER = "";
 		// 商户私钥，pkcs8格式
-		public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKo4ZdmdqrhTqw/K5lD78vyXdbpOx4Lb1GqcfZu5KMYjCPtufPNp6bIE33fdh7C5yvodu/JWvMxLt74++UVliWAvKbUFFyNufaOaV6d/9AHw0XMpJwFut0yhQmL7gksRkC9j0LfuWIDP7rHPx7UirUBlgcEX/2ZB25Avb4gavnp5AgMBAAECgYBi/9Icstprwh2nXbZ+O0qjJePOq6rVrMzqBIH5Y8MXGaFLuoLpfxvv8W2W5TzZx/UJaum4lEHR/+epui538gnm922oe8qm0gajYlZ493YW3hJVONx9+IXg20sXEBuLwCbGyvXZAYVBv5s0cJbmteCitXGcfsaIYfHFHB7yXs7ZEQJBAOIrdhGVvUvVAZycqv96sVWp0HDs8i9CCYhbeib6zyZpwPlDSBEK4HMg+kwG5gQ3Vta7N3/+J2fzAEvOtWDtAgsCQQDAq9LV0zabI9rOCCzYtMCUbjBVFQUjwslIKJRYEkV9yogx/yGjBF6XHzL9PiQCHz2h3+mHAXBxAvohA+LHkKwLAkAk5txz0A+7wLxrljBcUOOAS53D3xVA2rB9fBd5JrEH3ndq9CxdA35NqpLMNs/u3iygCpnqm0hIsKBavhZgAyuzAkA+zUMR86DO/ObrVXrYwEItn6UddpaQS4O0g5WnB32jPQsb0N+z9U6nz8GdDk5Kash6JTRHj06JZ8EEVfHrvtp1AkBbNK3ICk4uAYCOynnvywBe8M/zXwlEDtXln5olpQ6v6pI4Ch04m6bD4VgjmGF6Zky/B5J2V+jTQU0g/A61t/K2";
+		public static final String RSA_PRIVATE = "";
 		// 支付宝公钥
-		public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
-
+		public static final String RSA_PUBLIC = "";
 		private static final int SDK_PAY_FLAG = 1;
 
 		private static final int UPDATE_TOTAL_PRICE = 0;

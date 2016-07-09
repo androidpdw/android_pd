@@ -28,7 +28,6 @@ public class ClassifyActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_classify);
-		
 		initView();
 		initDatas();
 		//设置Tab上的标题

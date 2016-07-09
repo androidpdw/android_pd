@@ -3,6 +3,7 @@ package com.xiawa.read.view;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.CornerPathEffect;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.xiawa.read.R;
 /**
  * http://blog.csdn.net/lmj623565791/article/details/42160391
  * @author zhy
@@ -99,14 +102,14 @@ public class ViewPagerIndicator extends LinearLayout
 		super(context, attrs);
 
 		// 获得自定义属性，tab的数量
-//		TypedArray a = context.obtainStyledAttributes(attrs,
-//				R.styleable.ViewPagerIndicator);
-//		mTabVisibleCount = a.getInt(R.styleable.ViewPagerIndicator_item_count,
-//				COUNT_DEFAULT_TAB);
-		mTabVisibleCount = 4;
+		TypedArray a = context.obtainStyledAttributes(attrs,
+				R.styleable.ViewPagerIndicator);
+		mTabVisibleCount = a.getInt(R.styleable.ViewPagerIndicator_item_count,
+				COUNT_DEFAULT_TAB);
+//		mTabVisibleCount = 4;
 		if (mTabVisibleCount < 0)
 			mTabVisibleCount = COUNT_DEFAULT_TAB;
-//		a.recycle();
+		a.recycle();
 
 		// 初始化画笔
 		mPaint = new Paint();

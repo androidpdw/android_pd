@@ -88,20 +88,19 @@
         <activity android:name="com.xiawa.read.activity.SubmitOrderActivity" >
         </activity>
         <!-- 收藏室 -->
-        <activity android:name="com.xiawa.read.activity.CollectionActivity" >
-        </activity>
+        <activity android:name="com.xiawa.read.activity.CollectionActivity" />
         <!-- 关于 -->
-        <activity android:name="com.xiawa.read.activity.AboutUsActivity" >
-        </activity>
+        <activity android:name="com.xiawa.read.activity.AboutUsActivity" />
         <!-- 服务站登录 -->
-        <activity android:name="com.xiawa.read.activity.AdminLoginActivity" >
-        </activity>
+        <activity android:name="com.xiawa.read.activity.AdminLoginActivity" />
         <!-- 服务站借书 -->
-        <activity android:name="com.xiawa.read.activity.BorrowBookActivity" >
-        </activity>
+        <activity android:name="com.xiawa.read.activity.BorrowBookActivity" />
         <!-- 服务站还书 -->
-        <activity android:name="com.xiawa.read.activity.ReturnBookActivity" >
-        </activity>
+        <activity android:name="com.xiawa.read.activity.ReturnBookActivity" />
+        <!-- 书架 -->
+        <activity android:name="com.xiawa.read.activity.BookShelfActivity" />
+        <!-- 发表读后感 -->
+        <activity android:name="com.xiawa.read.activity.AddReviewActivity" />
 
         <!-- alipay sdk begin -->
         <activity

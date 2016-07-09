@@ -1,6 +1,8 @@
 package com.xiawa.read.bean;
 
-public class BookItem
+import java.io.Serializable;
+
+public class BookItem implements Serializable
 {
 	public String bookname;
 	public String author;

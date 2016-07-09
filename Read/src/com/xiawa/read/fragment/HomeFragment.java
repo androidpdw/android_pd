@@ -37,14 +37,15 @@ import com.xiawa.read.activity.AdminLoginActivity;
 import com.xiawa.read.activity.BookArrangeActivity;
 import com.xiawa.read.activity.BookDetailActivity;
 import com.xiawa.read.activity.BookRankActivity;
+import com.xiawa.read.activity.BookShelfActivity;
 import com.xiawa.read.activity.ClassifyActivity;
-import com.xiawa.read.activity.CollectionActivity;
 import com.xiawa.read.activity.FeedbackActivity;
+import com.xiawa.read.activity.LoginActivity;
 import com.xiawa.read.activity.MainActivity;
 import com.xiawa.read.activity.SearchActivity;
-import com.xiawa.read.activity.SubmitOrderActivity;
 import com.xiawa.read.activity.WebActivity;
 import com.xiawa.read.bean.BookRankItem;
+import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.view.ImageCycleView;
 import com.xiawa.read.view.MyGridView;
 
@@ -243,7 +244,16 @@ public class HomeFragment extends Fragment implements OnClickListener,
 			startActivity(new Intent(getContext(), FeedbackActivity.class));
 			break;
 		case R.id.ll_collect:// 收藏室
-			startActivity(new Intent(getContext(), CollectionActivity.class));
+//			startActivity(new Intent(getContext(), CollectionActivity.class));
+			if (!GlobalConfig.isLogin)
+			{
+				Toast.makeText(getContext(), "请先登录",
+						Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(getContext(),
+						LoginActivity.class));
+			} else{
+			startActivity(new Intent(getContext(), BookShelfActivity.class));
+			}
 			break;
 		case R.id.ll_points:// 积分
 			// startActivity(new Intent(getContext(),

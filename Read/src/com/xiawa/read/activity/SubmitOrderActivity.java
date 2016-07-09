@@ -42,22 +42,21 @@ import com.xiawa.read.bean.SiteBean;
 import com.xiawa.read.domain.GlobalConfig;
 import com.xiawa.read.wxpay.Constants;
 
-public class SubmitOrderActivity extends BaseActivity
-{
+public class SubmitOrderActivity extends BaseActivity {
 	public static final String COVER_PIC_URL = "http://www.piaoduwang.com/mobile/images/up_cover_0619/";
 
 	// IWXAPI 是第三方app和微信通信的openapi接口
 	private IWXAPI api;
 
 	// 商户PID
-	public static final String PARTNER = "2088121295307264";
+	public static final String PARTNER = "";
 	// 商户收款账号
-	public static final String SELLER = "fjxiawa@qq.com";
+	public static final String SELLER = "";
 	// 商户私钥，pkcs8格式
-	public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKo4ZdmdqrhTqw/K5lD78vyXdbpOx4Lb1GqcfZu5KMYjCPtufPNp6bIE33fdh7C5yvodu/JWvMxLt74++UVliWAvKbUFFyNufaOaV6d/9AHw0XMpJwFut0yhQmL7gksRkC9j0LfuWIDP7rHPx7UirUBlgcEX/2ZB25Avb4gavnp5AgMBAAECgYBi/9Icstprwh2nXbZ+O0qjJePOq6rVrMzqBIH5Y8MXGaFLuoLpfxvv8W2W5TzZx/UJaum4lEHR/+epui538gnm922oe8qm0gajYlZ493YW3hJVONx9+IXg20sXEBuLwCbGyvXZAYVBv5s0cJbmteCitXGcfsaIYfHFHB7yXs7ZEQJBAOIrdhGVvUvVAZycqv96sVWp0HDs8i9CCYhbeib6zyZpwPlDSBEK4HMg+kwG5gQ3Vta7N3/+J2fzAEvOtWDtAgsCQQDAq9LV0zabI9rOCCzYtMCUbjBVFQUjwslIKJRYEkV9yogx/yGjBF6XHzL9PiQCHz2h3+mHAXBxAvohA+LHkKwLAkAk5txz0A+7wLxrljBcUOOAS53D3xVA2rB9fBd5JrEH3ndq9CxdA35NqpLMNs/u3iygCpnqm0hIsKBavhZgAyuzAkA+zUMR86DO/ObrVXrYwEItn6UddpaQS4O0g5WnB32jPQsb0N+z9U6nz8GdDk5Kash6JTRHj06JZ8EEVfHrvtp1AkBbNK3ICk4uAYCOynnvywBe8M/zXwlEDtXln5olpQ6v6pI4Ch04m6bD4VgjmGF6Zky/B5J2V+jTQU0g/A61t/K2";
+	public static final String RSA_PRIVATE = "";
 	// 支付宝公钥
-	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBidQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssysdfkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
-
+	public static final String RSA_PUBLIC = "";
+	
 	private static final int SDK_PAY_FLAG = 1;
 
 	private static final int UPDATE_TOTAL_PRICE = 0;
@@ -80,7 +79,7 @@ public class SubmitOrderActivity extends BaseActivity
 
 	@ViewInject(R.id.tv_site_name)
 	private TextView tv_site_name;
-	
+
 	// 订单只有单个条目时，书的价格
 	@ViewInject(R.id.tv_price)
 	private TextView tvPrice;
@@ -103,20 +102,16 @@ public class SubmitOrderActivity extends BaseActivity
 	// 订单有多个条目时，条目总数。
 	@ViewInject(R.id.tv_total_items)
 	private TextView tvTotalItems;
-	
+
 	ArrayList<BookRankItem> items;
 	SiteBean site;
 
 	@SuppressLint("HandlerLeak")
-	private Handler mHandler = new Handler()
-	{
+	private Handler mHandler = new Handler() {
 		@SuppressWarnings("unused")
-		public void handleMessage(Message msg)
-		{
-			switch (msg.what)
-			{
-			case SDK_PAY_FLAG:
-			{
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case SDK_PAY_FLAG: {
 				PayResult payResult = new PayResult((String) msg.obj);
 				/**
 				 * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
@@ -126,22 +121,18 @@ public class SubmitOrderActivity extends BaseActivity
 				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
 				String resultStatus = payResult.getResultStatus();
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
-				if (TextUtils.equals(resultStatus, "9000"))
-				{
+				if (TextUtils.equals(resultStatus, "9000")) {
 					Toast.makeText(SubmitOrderActivity.this, "支付成功",
 							Toast.LENGTH_SHORT).show();
 					GlobalConfig.backToHome();
-				} else
-				{
+				} else {
 					// 判断resultStatus 为非"9000"则代表可能支付失败
 					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-					if (TextUtils.equals(resultStatus, "8000"))
-					{
+					if (TextUtils.equals(resultStatus, "8000")) {
 						Toast.makeText(SubmitOrderActivity.this, "支付结果确认中",
 								Toast.LENGTH_SHORT).show();
 						GlobalConfig.backToHome();
-					} else
-					{
+					} else {
 						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
 						Toast.makeText(SubmitOrderActivity.this, "支付失败",
 								Toast.LENGTH_SHORT).show();
@@ -157,8 +148,7 @@ public class SubmitOrderActivity extends BaseActivity
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_order);
 		ViewUtils.inject(this);
@@ -175,13 +165,11 @@ public class SubmitOrderActivity extends BaseActivity
 	 * @param intent
 	 * 
 	 */
-	private void initData(Intent intent)
-	{
+	private void initData(Intent intent) {
 		Bundle extras = intent.getExtras();
 		if (extras == null)
 			return;
-		items = (ArrayList<BookRankItem>) extras
-				.getSerializable("BOOKS");
+		items = (ArrayList<BookRankItem>) extras.getSerializable("BOOKS");
 		site = (SiteBean) extras.getSerializable("SITE");
 		Log.e("hsq", site.toString());
 		if (items.size() == 1)// 订单只有一个条目
@@ -192,14 +180,12 @@ public class SubmitOrderActivity extends BaseActivity
 			tvPrice.setText(bookRankItem.price);
 			tvPriceAll.setText(bookRankItem.price);
 			tvBookTitle.setText(bookRankItem.bookname);
-			tv_site_name.setText(site.nickname + " : " +site.address);
+			tv_site_name.setText(site.nickname + " : " + site.address);
 			BitmapUtils bitmapUtils = new BitmapUtils(SubmitOrderActivity.this);
-			try
-			{
+			try {
 				String url = URLEncoder.encode(bookRankItem.coverpic, "utf-8");
 				bitmapUtils.display(ivBookCover, COVER_PIC_URL + url);
-			} catch (UnsupportedEncodingException e)
-			{
+			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 		} else
@@ -212,47 +198,41 @@ public class SubmitOrderActivity extends BaseActivity
 				mTotalPrice += Float.parseFloat(items.get(i).price);
 			mHandler.sendEmptyMessage(UPDATE_TOTAL_PRICE);
 			BitmapUtils bitmapUtils = new BitmapUtils(SubmitOrderActivity.this);
-			try
-			{
+			try {
 				String url = URLEncoder.encode(items.get(0).coverpic, "utf-8");
 				bitmapUtils.display(imageView1, COVER_PIC_URL + url);
 				System.out.println("debug1 " + COVER_PIC_URL + url);
 
-				if (items.size() >= 2)
-				{
+				if (items.size() >= 2) {
 					url = URLEncoder.encode(items.get(1).coverpic, "utf-8");
 					bitmapUtils.display(imageView2, COVER_PIC_URL + url);
 					System.out.println("debug2 " + COVER_PIC_URL + url);
 				}
 
-				if (items.size() >= 3)
-				{
+				if (items.size() >= 3) {
 					url = URLEncoder.encode(items.get(2).coverpic, "utf-8");
 					bitmapUtils.display(imageView3, COVER_PIC_URL + url);
 					System.out.println("debug3 " + COVER_PIC_URL + url);
 				}
-				if (items.size() >= 4)
-				{
+				if (items.size() >= 4) {
 					url = URLEncoder.encode(items.get(3).coverpic, "utf-8");
 					bitmapUtils.display(imageView4, COVER_PIC_URL + url);
 					System.out.println("debug4 " + COVER_PIC_URL + url);
 				}
-			} catch (UnsupportedEncodingException e)
-			{
+			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public void onSubmitClick(View view)
-	{
+	public void onSubmitClick(View view) {
 		int checkedRadioButtonId = rgPayMethod.getCheckedRadioButtonId();
-		if (checkedRadioButtonId == R.id.rb_aipay){
-//			alipay("1", "1", "0.01");
+		if (checkedRadioButtonId == R.id.rb_aipay) {
+			// alipay("1", "1", "0.01");
 			submitOrder();
 		} else if (checkedRadioButtonId == R.id.rb_wxpay)
 			Toast.makeText(this, "微信支付敬请期待", Toast.LENGTH_SHORT).show();
-			//wxpay();
+		// wxpay();
 	}
 
 	private void submitOrder() {
@@ -262,94 +242,77 @@ public class SubmitOrderActivity extends BaseActivity
 		params.addBodyParameter("holder", site.holder);
 		params.addBodyParameter("paytype", "0");
 		params.addBodyParameter("loginname", GlobalConfig.username);
-		utils.send(HttpMethod.POST, "http://www.piaoduwang.com/mobile/app/submitOrder.php",params,new RequestCallBack<String>() {
-			
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				Toast.makeText(getApplicationContext(), "提交订单失败", 0).show();
-			}
+		utils.send(HttpMethod.POST,
+				"http://www.piaoduwang.com/mobile/app/submitOrder.php", params,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				String title = tvBookTitle.getText().toString();
-				String price = tvPriceAll.getText().toString();
-				alipay(title, title, price);
-			}
-		});
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						Toast.makeText(getApplicationContext(), "提交订单失败", 0)
+								.show();
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String title = tvBookTitle.getText().toString();
+						String price = tvPriceAll.getText().toString();
+						alipay(title, title, price);
+					}
+				});
 	}
 
-	private void wxpay()
-	{
+	private void wxpay() {
 		api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
 		api.registerApp(Constants.APP_ID);
 		String url = "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android";
 		Toast.makeText(SubmitOrderActivity.this, "获取订单中...", Toast.LENGTH_SHORT)
 				.show();
 		PayReq req = new PayReq();
-		req.appId=Constants.APP_ID;
-//		req.appId = "wxf8b4f85f3a794e77"; // 测试用appId
-//		req.appId = "wxd930ea5d5a258f4f";
+		req.appId = Constants.APP_ID;
+		// req.appId = "wxf8b4f85f3a794e77"; // 测试用appId
+		// req.appId = "wxd930ea5d5a258f4f";
 		req.partnerId = "1900000109";
-		req.prepayId= "1101000000140415649af9fc314aa427";
+		req.prepayId = "1101000000140415649af9fc314aa427";
 		req.packageValue = "Sign=WXPay";
-		req.nonceStr= "1101000000140429eb40476f8896f4c9";
-		req.timeStamp= "1398746574";
-		req.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+		req.nonceStr = "1101000000140429eb40476f8896f4c9";
+		req.timeStamp = "1398746574";
+		req.sign = "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
 		api.sendReq(req);
-		Toast.makeText(SubmitOrderActivity.this, "正常调起支付",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(SubmitOrderActivity.this, "正常调起支付", Toast.LENGTH_SHORT)
+				.show();
 		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-//		api.sendReq(req);
-//		startActivity(new Intent(SubmitOrderActivity.this, WXPayActivity.class));
-//        finish();
-		
+		// api.sendReq(req);
+		// startActivity(new Intent(SubmitOrderActivity.this,
+		// WXPayActivity.class));
+		// finish();
+
 		/*
-		try
-		{
-			byte[] buf = Util.httpGet(url);
-			if (buf != null && buf.length > 0)
-			{
-				String content = new String(buf);
-				Log.e("get server pay params:", content);
-				JSONObject json = new JSONObject(content);
-				if (null != json && !json.has("retcode"))
-				{
-					PayReq req = new PayReq();
-					req.appId = "wxf8b4f85f3a794e77"; // 测试用appId
-					//req.appId = json.getString("appid");
-					req.partnerId = json.getString("partnerid");
-					req.prepayId = json.getString("prepayid");
-					req.nonceStr = json.getString("noncestr");
-					req.timeStamp = json.getString("timestamp");
-					req.packageValue = json.getString("package");
-					req.sign = json.getString("sign");
-					req.extData = "app data"; // optional
-					Toast.makeText(SubmitOrderActivity.this, "正常调起支付",
-							Toast.LENGTH_SHORT).show();
-					// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-					api.sendReq(req);
-					startActivity(new Intent(SubmitOrderActivity.this, WXPayActivity.class));
-			        finish();
-				} else
-				{
-					Log.d("PAY_GET", "返回错误" + json.getString("retmsg"));
-					Toast.makeText(SubmitOrderActivity.this,
-							"返回错误" + json.getString("retmsg"),
-							Toast.LENGTH_SHORT).show();
-				}
-			} else
-			{
-				Log.d("PAY_GET", "服务器请求错误");
-				Toast.makeText(SubmitOrderActivity.this, "服务器请求错误",
-						Toast.LENGTH_SHORT).show();
-			}
-		} catch (Exception e)
-		{
-			Log.e("PAY_GET", "异常：" + e.getMessage());
-			Toast.makeText(SubmitOrderActivity.this, "异常：" + e.getMessage(),
-					Toast.LENGTH_SHORT).show();
-		}
-		*/
+		 * try { byte[] buf = Util.httpGet(url); if (buf != null && buf.length >
+		 * 0) { String content = new String(buf);
+		 * Log.e("get server pay params:", content); JSONObject json = new
+		 * JSONObject(content); if (null != json && !json.has("retcode")) {
+		 * PayReq req = new PayReq(); req.appId = "wxf8b4f85f3a794e77"; //
+		 * 测试用appId //req.appId = json.getString("appid"); req.partnerId =
+		 * json.getString("partnerid"); req.prepayId =
+		 * json.getString("prepayid"); req.nonceStr =
+		 * json.getString("noncestr"); req.timeStamp =
+		 * json.getString("timestamp"); req.packageValue =
+		 * json.getString("package"); req.sign = json.getString("sign");
+		 * req.extData = "app data"; // optional
+		 * Toast.makeText(SubmitOrderActivity.this, "正常调起支付",
+		 * Toast.LENGTH_SHORT).show(); //
+		 * 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信 api.sendReq(req);
+		 * startActivity(new Intent(SubmitOrderActivity.this,
+		 * WXPayActivity.class)); finish(); } else { Log.d("PAY_GET", "返回错误" +
+		 * json.getString("retmsg")); Toast.makeText(SubmitOrderActivity.this,
+		 * "返回错误" + json.getString("retmsg"), Toast.LENGTH_SHORT).show(); } }
+		 * else { Log.d("PAY_GET", "服务器请求错误");
+		 * Toast.makeText(SubmitOrderActivity.this, "服务器请求错误",
+		 * Toast.LENGTH_SHORT).show(); } } catch (Exception e) {
+		 * Log.e("PAY_GET", "异常：" + e.getMessage());
+		 * Toast.makeText(SubmitOrderActivity.this, "异常：" + e.getMessage(),
+		 * Toast.LENGTH_SHORT).show(); }
+		 */
 	}
 
 	/**
@@ -362,20 +325,16 @@ public class SubmitOrderActivity extends BaseActivity
 	 * @param price
 	 *            价格
 	 */
-	public void alipay(String subject, String body, String price)
-	{
+	public void alipay(String subject, String body, String price) {
 		if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
-				|| TextUtils.isEmpty(SELLER))
-		{
+				|| TextUtils.isEmpty(SELLER)) {
 			new AlertDialog.Builder(this)
 					.setTitle("警告")
 					.setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
 					.setPositiveButton("确定",
-							new DialogInterface.OnClickListener()
-							{
+							new DialogInterface.OnClickListener() {
 								public void onClick(
-										DialogInterface dialoginterface, int i)
-								{
+										DialogInterface dialoginterface, int i) {
 									//
 									finish();
 								}
@@ -389,14 +348,12 @@ public class SubmitOrderActivity extends BaseActivity
 		 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
 		 */
 		String sign = sign(orderInfo);
-		try
-		{
+		try {
 			/**
 			 * 仅需对sign 做URL编码
 			 */
 			sign = URLEncoder.encode(sign, "UTF-8");
-		} catch (UnsupportedEncodingException e)
-		{
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
@@ -406,12 +363,10 @@ public class SubmitOrderActivity extends BaseActivity
 		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
 				+ getSignType();
 		System.out.println("payInfo" + payInfo);
-		Runnable payRunnable = new Runnable()
-		{
+		Runnable payRunnable = new Runnable() {
 
 			@Override
-			public void run()
-			{
+			public void run() {
 				// 构造PayTask 对象
 				PayTask alipay = new PayTask(SubmitOrderActivity.this);
 				// 调用支付接口，获取支付结果
@@ -432,8 +387,7 @@ public class SubmitOrderActivity extends BaseActivity
 	 * get the sdk version. 获取SDK版本号
 	 * 
 	 */
-	public void getSDKVersion()
-	{
+	public void getSDKVersion() {
 		PayTask payTask = new PayTask(this);
 		String version = payTask.getVersion();
 		Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
@@ -464,8 +418,7 @@ public class SubmitOrderActivity extends BaseActivity
 	 * create the order info. 创建订单信息
 	 * 
 	 */
-	private String getOrderInfo(String subject, String body, String price)
-	{
+	private String getOrderInfo(String subject, String body, String price) {
 
 		// 签约合作者身份ID
 		String orderInfo = "partner=" + "\"" + PARTNER + "\"";
@@ -486,9 +439,10 @@ public class SubmitOrderActivity extends BaseActivity
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-		orderInfo += "&notify_url=" + "\"" + "http://www.piaoduwang/mobile/alipay/return_url.php"
-				+ "\"";
-//		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
+		orderInfo += "&notify_url=" + "\""
+				+ "http://www.piaoduwang/mobile/alipay/return_url.php" + "\"";
+		// orderInfo += "&notify_url=" + "\"" +
+		// "http://notify.msp.hk/notify.htm" + "\"";
 
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";
@@ -522,17 +476,16 @@ public class SubmitOrderActivity extends BaseActivity
 	 * get the out_trade_no for an order. 生成商户订单号，该值在商户端应保持唯一（可自定义格式规范）
 	 * 
 	 */
-	private String getOutTradeNo()
-	{
-//		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
-//				Locale.getDefault());
-//		Date date = new Date();
-//		String key = format.format(date);
-//
-//		Random r = new Random();
-//		key = key + r.nextInt();
-//		key = key.substring(0, 15);
-		String key = System.currentTimeMillis() +site.bookcode;
+	private String getOutTradeNo() {
+		// SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+		// Locale.getDefault());
+		// Date date = new Date();
+		// String key = format.format(date);
+		//
+		// Random r = new Random();
+		// key = key + r.nextInt();
+		// key = key.substring(0, 15);
+		String key = System.currentTimeMillis() + site.bookcode;
 		return key;
 	}
 
@@ -542,8 +495,7 @@ public class SubmitOrderActivity extends BaseActivity
 	 * @param content
 	 *            待签名订单信息
 	 */
-	private String sign(String content)
-	{
+	private String sign(String content) {
 		return SignUtils.sign(content, RSA_PRIVATE);
 	}
 
@@ -551,8 +503,7 @@ public class SubmitOrderActivity extends BaseActivity
 	 * get the sign type we use. 获取签名方式
 	 * 
 	 */
-	private String getSignType()
-	{
+	private String getSignType() {
 		return "sign_type=\"RSA\"";
 	}
 
