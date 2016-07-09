@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--低栏属性  -->
+    <!-- 低栏属性 -->
     <attr name="wx_icon" format="reference" />
     <attr name="wx_color" format="color" />
     <attr name="text" format="string" />
@@ -22,43 +22,53 @@
         <attr name="textUnCheckedColor" format="color" />
         <attr name="backRectColor" format="color" />
     </declare-styleable>
-    
-    
+
     <!-- EditText https://github.com/Pombo/material-edit-text -->
-    <attr name="errorColor" format="color"/>
-    <attr name="maxCharacters" format="integer"/>
+    <attr name="errorColor" format="color" />
+    <attr name="maxCharacters" format="integer" />
 
     <declare-styleable name="materialEditText">
+
         <!-- Highlight color of floating label text and underline. -->
-        <attr name="backgroundColor" format="color"/>
+        <attr name="backgroundColor" format="color" />
         <!-- Error color of under line text and underline. -->
-        <attr name="errorColor"/>
+        <attr name="errorColor" />
         <!-- Enable floating label text. -->
-        <attr name="floatingLabel" format="boolean"/>
+        <attr name="floatingLabel" format="boolean" />
         <!-- Max characters count limit. 0 means no max. -->
-        <attr name="maxCharacters"/>
+        <attr name="maxCharacters" />
         <!-- Icon (ImageView) associated to this EditText. -->
-        <attr name="withIcon" format="reference"/>
+        <attr name="withIcon" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="fullwidthEditText">
+
+        <!-- Error color of under line text and underline. -->
+        <attr name="errorColor" />
+        <!-- Max characters count limit. 0 means no max. -->
+        <attr name="maxCharacters" />
     </declare-styleable>
 
-    <declare-styleable name="fullwidthEditText">
-        <!-- Error color of under line text and underline. -->
-        <attr name="errorColor"/>
-        <!-- Max characters count limit. 0 means no max. -->
-        <attr name="maxCharacters"/>
-    </declare-styleable>
-    
-    <!--BookView 属性  -->
-     <declare-styleable name="BookView">
+    <!-- BookView 属性 -->
+    <declare-styleable name="BookView">
         <attr name="cover" format="reference"></attr>
         <attr name="description" format="string"></attr>
         <attr name="price" format="string"></attr>
     </declare-styleable>
+<<<<<<< HEAD
      
     <attr name="item_count" format="integer"></attr>  
   
     <declare-styleable name="ViewPagerIndicator">  
         <attr name="item_count" />  
+=======
+
+    <!-- ViewPagerIndicator属性 -->
+    <!-- http://blog.csdn.net/lmj623565791/article/details/42160391 -->
+    <attr name="item_count" format="integer"></attr>
+
+    <declare-styleable name="ViewPagerIndicator">
+        <attr name="item_count" />
+>>>>>>> 85b197cd2115805bd07c751faca5df13e92dd902
     </declare-styleable>
 
 </resources>

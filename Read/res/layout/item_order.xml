@@ -99,18 +99,7 @@
             android:background="@drawable/btn_login_selector"
             android:layout_alignParentRight="true"
             android:textColor="@color/white"
-            android:visibility="gone"
             android:text="付款" />
-        
-        <Button
-            android:id="@+id/btn_cancel_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_rectangle"
-            android:layout_toLeftOf="@+id/btn_pay"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:text="取消订单" />
         
         <Button
             android:id="@+id/btn_check"
@@ -119,38 +108,7 @@
             android:background="@drawable/btn_login_selector"
             android:layout_alignParentRight="true"
             android:textColor="@color/white"
-            android:visibility="gone"
             android:text="审核中" />
-        
-        <Button
-            android:id="@+id/btn_refund"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_login_selector"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:text="申请退款" />
-        
-        <Button
-            android:id="@+id/btn_refunding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_login_selector"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:text="退款中" />
-        
-        <Button
-            android:id="@+id/btn_return_book"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_login_selector"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:text="申请还书" />
     </RelativeLayout>
 
 </LinearLayout>

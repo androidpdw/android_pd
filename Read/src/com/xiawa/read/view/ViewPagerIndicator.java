@@ -2,6 +2,8 @@ package com.xiawa.read.view;
 
 import java.util.List;
 
+import com.xiawa.read.R;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
